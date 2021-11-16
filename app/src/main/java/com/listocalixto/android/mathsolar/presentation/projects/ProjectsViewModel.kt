@@ -35,7 +35,7 @@ class ProjectsViewModel @Inject constructor(
     private val _snackbarText = MutableLiveData<Event<Int>>()
     val snackbarText: LiveData<Event<Int>> = _snackbarText
 
-    private val _items: LiveData<List<PVProject>> = _forceUpdate.switchMap { forceUpdate ->
+    /*private val _items: LiveData<List<PVProject>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
             viewModelScope.launch {
@@ -44,7 +44,26 @@ class ProjectsViewModel @Inject constructor(
             }
         }
         repo.observePVProjects().switchMap { filterProjects(it) }
-    }
+    }*/
+
+    private val list = listOf(
+        PVProject(
+            "Project #1", "Mérida, Yucatán", "23 de Marzo de 2021", "No description", "a",
+            ALL_PROJECTS, isDeleted = false, isFavorite = true
+        ), PVProject(
+            "Project #2", "París, Francia", "01 de September de 2021", "No description", "a",
+            HYBRID, isDeleted = false, isFavorite = false
+        ), PVProject(
+            "Project #3", "París, Francia", "01 de September de 2021", "No description", "a",
+            HYBRID, isDeleted = false, isFavorite = false
+        ), PVProject(
+            "Project #4", "París, Francia", "01 de September de 2021", "No description", "a",
+            HYBRID, isDeleted = false, isFavorite = true
+        ),
+    )
+
+    private val _items = MutableLiveData(list)
+
     val items: LiveData<List<PVProject>> = _items
 
     private val _currentFilteringLabel = MutableLiveData<Int>()
@@ -178,13 +197,13 @@ class ProjectsViewModel @Inject constructor(
         projects.forEach { project ->
             when (filteringType) {
                 ALL_PROJECTS -> projectsToShow.add(project)
-                CONNECTED_TO_THE_GRID -> if (project.projectType == CONNECTED_TO_THE_GRID) {
+                CONNECTED_TO_THE_GRID -> if (project.type == CONNECTED_TO_THE_GRID) {
                     projectsToShow.add(project)
                 }
-                HYBRID -> if (project.projectType == HYBRID) {
+                HYBRID -> if (project.type == HYBRID) {
                     projectsToShow.add(project)
                 }
-                ISOLATED -> if (project.projectType == ISOLATED) {
+                ISOLATED -> if (project.type == ISOLATED) {
                     projectsToShow.add(project)
                 }
                 FAVORITE -> if (project.isFavorite) {
@@ -218,6 +237,7 @@ class ProjectsViewModel @Inject constructor(
     fun openProject(projectId: String) {
         _openProjectEvent.value = Event(projectId)
     }
+
     /**
      * @param forceUpdate   Pass in true to refresh the data in the [PVProjectDataSource]
      */

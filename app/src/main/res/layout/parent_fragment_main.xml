@@ -25,15 +25,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:navigationIcon="@drawable/ic_menu"
-            app:menu="@menu/bottom_app_bar_projects"/>
+            app:fabAlignmentMode="center"
+            app:fabCradleMargin="@dimen/_8sdp"
+            app:fabCradleRoundedCornerRadius="@dimen/_24sdp"
+            app:hideOnScroll="true"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/bottom_app_bar_projects"
+            app:navigationIcon="@drawable/ic_menu" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/content_description_fab_projects"
             app:layout_anchor="@id/bottomAppBar"
-            app:srcCompat="@drawable/ic_add"
-            android:contentDescription="@string/content_description_fab_projects" />
+            app:srcCompat="@drawable/ic_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
