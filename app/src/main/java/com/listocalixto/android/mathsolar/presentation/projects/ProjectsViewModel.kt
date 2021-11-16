@@ -1,9 +1,12 @@
-package com.listocalixto.android.mathsolar.presentation.main
+package com.listocalixto.android.mathsolar.presentation.projects
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.app.Constants.ADD_EDIT_RESULT_OK
+import com.listocalixto.android.mathsolar.app.Constants.DELETE_RESULT_OK
+import com.listocalixto.android.mathsolar.app.Constants.EDIT_RESULT_OK
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
@@ -20,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class ProjectsViewModel @Inject constructor(
     private val repo: PVProjectRepo
 ) : ViewModel() {
 
@@ -62,8 +65,15 @@ class MainViewModel @Inject constructor(
     private val _newProjectEvent = MutableLiveData<Event<Unit>>()
     val newProjectEvent: LiveData<Event<Unit>> = _newProjectEvent
 
+    // This LiveData depends on another so we can use a transformation.
+    val empty: LiveData<Boolean> = Transformations.map(_items) {
+        it.isEmpty()
+    }
+
     private val isDataLoadingError = MutableLiveData<Boolean>()
+
     private var currentFiltering = ALL_PROJECTS
+    private var resultMessageShown: Boolean = false
 
     init {
         // Set initial state
@@ -86,14 +96,34 @@ class MainViewModel @Inject constructor(
         // Depending on the filter type, set the filtering label, icon drawables, etc.
         when (requestType) {
             ALL_PROJECTS -> {
+                setFilter(
+                    R.string.label_all, R.string.no_projects_all,
+                    R.drawable.ic_projects_empty, true
+                )
             }
             CONNECTED_TO_THE_GRID -> {
+                setFilter(
+                    R.string.label_connected, R.string.no_projects_connected,
+                    R.drawable.ic_projects_empty, false
+                )
             }
             ISOLATED -> {
+                setFilter(
+                    R.string.label_isolated, R.string.no_projects_isolated,
+                    R.drawable.ic_projects_empty, false
+                )
             }
             HYBRID -> {
+                setFilter(
+                    R.string.label_hybrid, R.string.no_projects_hybrid,
+                    R.drawable.ic_projects_empty, false
+                )
             }
             FAVORITE -> {
+                setFilter(
+                    R.string.label_favorites, R.string.no_projects_favorites,
+                    R.drawable.ic_projects_empty, false
+                )
             }
         }
         // Refresh list
@@ -110,7 +140,17 @@ class MainViewModel @Inject constructor(
         _projectsAddViewVisible.value = projectsAddVisible
     }
 
-    private fun showSnackbarMessage(message: Int) {
+    fun showEditResultMessage(result: Int) {
+        if (resultMessageShown) return
+        when (result) {
+            EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_saved_project_message)
+            ADD_EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_added_project_message)
+            DELETE_RESULT_OK -> showSnackbarMessage(R.string.successfully_deleted_project_message)
+        }
+        resultMessageShown = true
+    }
+
+    private fun showSnackbarMessage(@StringRes message: Int) {
         _snackbarText.value = Event(message)
     }
 
@@ -155,6 +195,26 @@ class MainViewModel @Inject constructor(
         return projectsToShow
     }
 
+    fun favoriteProject(project: PVProject, favorite: Boolean) = viewModelScope.launch {
+        if (favorite) {
+            repo.likePVProject(project)
+            showSnackbarMessage(R.string.project_marked_favorite)
+        } else {
+            repo.dislikePVProject(project)
+            showSnackbarMessage(R.string.project_removed_favorite)
+        }
+    }
+
+    /**
+     * Called by the Data Binding library and the FAB's click listener.
+     */
+    fun addNewProject() {
+        _newProjectEvent.value = Event(Unit)
+    }
+
+    /**
+     * Called by Data Binding.
+     */
     fun openProject(projectId: String) {
         _openProjectEvent.value = Event(projectId)
     }
@@ -165,5 +225,8 @@ class MainViewModel @Inject constructor(
         _forceUpdate.value = forceUpdate
     }
 
+    fun refresh() {
+        _forceUpdate.value = true
+    }
 
 }

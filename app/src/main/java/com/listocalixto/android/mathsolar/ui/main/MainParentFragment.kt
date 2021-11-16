@@ -4,15 +4,17 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.databinding.FragmentMainBinding
+import com.listocalixto.android.mathsolar.databinding.ParentFragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+@AndroidEntryPoint
+class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
 
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: ParentFragmentMainBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMainBinding.bind(view)
+        binding = ParentFragmentMainBinding.bind(view)
         binding.lifecycleOwner = this.viewLifecycleOwner
     }
 

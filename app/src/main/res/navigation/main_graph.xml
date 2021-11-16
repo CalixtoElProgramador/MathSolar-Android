@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_graph.xml"
-    app:startDestination="@id/mainFragment">
+    android:id="@+id/main_graph"
+    app:startDestination="@id/projectsFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.listocalixto.android.mathsolar.ui.main.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        android:id="@+id/projectsFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.ProjectsFragment"
+        android:label="ProjectsFragment"
+        tools:layout="@layout/fragment_projects" />
 </navigation>

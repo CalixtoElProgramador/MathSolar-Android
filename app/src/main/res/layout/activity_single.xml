@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.SingleActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_main"
@@ -12,6 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/main_graph" />
+        app:navGraph="@navigation/activity_graph" />
 
 </merge>

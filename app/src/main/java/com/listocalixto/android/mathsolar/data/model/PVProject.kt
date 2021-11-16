@@ -28,6 +28,7 @@ data class PVProject @JvmOverloads constructor(
     @ColumnInfo(name = "module_voltage") var moduleVoltage: Double = -1.0,
     @ColumnInfo(name = "sun_hours") var sunHours: Int = -1,
     @ColumnInfo(name = "project_name") var projectName: String = "",
+    @ColumnInfo(name = "project_description") var projectDescription: String? = "",
     @ColumnInfo(name = "project_type") var projectType: PVProjectType,
     @PrimaryKey @ColumnInfo(name = "entry_id") val uid: String = UUID.randomUUID().toString()
 )
