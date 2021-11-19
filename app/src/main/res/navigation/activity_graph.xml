@@ -3,12 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph.xml"
-    app:startDestination="@id/mainParentFragment">
+    app:startDestination="@id/loginParentFragment">
 
 
     <fragment
         android:id="@+id/mainParentFragment"
         android:name="com.listocalixto.android.mathsolar.ui.main.MainParentFragment"
         android:label="MainParentFragment"
-        tools:layout="@layout/parent_fragment_main"/>
+        tools:layout="@layout/parent_fragment_main">
+        <action
+            android:id="@+id/action_mainParentFragment_to_registerParentFragment"
+            app:destination="@id/registerParentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginParentFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.LoginParentFragment"
+        android:label="parent_fragment_login"
+        tools:layout="@layout/parent_fragment_login" >
+        <action
+            android:id="@+id/loginParentFragment_to_mainParentFragment"
+            app:destination="@id/mainParentFragment" />
+        <action
+            android:id="@+id/action_loginParentFragment_to_registerParentFragment"
+            app:destination="@id/registerParentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerParentFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.RegisterParentFragment"
+        android:label="parent_fragment_register"
+        tools:layout="@layout/parent_fragment_register" >
+        <action
+            android:id="@+id/action_registerParentFragment_to_mainParentFragment"
+            app:destination="@id/mainParentFragment" />
+    </fragment>
 </navigation>

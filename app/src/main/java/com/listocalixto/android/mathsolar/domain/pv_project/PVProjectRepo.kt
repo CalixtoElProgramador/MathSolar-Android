@@ -1,5 +1,6 @@
 package com.listocalixto.android.mathsolar.domain.pv_project
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.PVProject
@@ -18,7 +19,7 @@ interface PVProjectRepo {
 
     suspend fun refreshPVProject(projectId: String)
 
-    suspend fun savePVProject(project: PVProject)
+    suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject)
 
     suspend fun likePVProject(project: PVProject)
 

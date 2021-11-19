@@ -1,5 +1,6 @@
 package com.listocalixto.android.mathsolar.domain.pv_project
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.RemoteDataSourcePVProject
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.LocalDataSourcePVProject
@@ -43,7 +44,7 @@ class PVProjectRepoImpl @Inject constructor(
         if (remoteProjects is Success) {
             localDataSource.deleteAllPVProjects()
             remoteProjects.data.forEach { project ->
-                localDataSource.savePVProject(project)
+                localDataSource.savePVProject(null, project)
             }
         } else if (remoteProjects is Resource.Error) {
             throw remoteProjects.exception
@@ -66,7 +67,7 @@ class PVProjectRepoImpl @Inject constructor(
     private suspend fun updateProjectFromRemoteDataSource(projectId: String) {
         val remoteProject = remoteDataSource.getPVProject(projectId)
         if (remoteProject is Success) {
-            localDataSource.savePVProject(remoteProject.data)
+            localDataSource.savePVProject(null, remoteProject.data)
         }
     }
 
@@ -78,10 +79,10 @@ class PVProjectRepoImpl @Inject constructor(
         updateProjectFromRemoteDataSource(projectId)
     }
 
-    override suspend fun savePVProject(project: PVProject) {
+    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) {
         coroutineScope {
-            launch { localDataSource.savePVProject(project) }
-            launch { remoteDataSource.savePVProject(project) }
+            launch { localDataSource.savePVProject(null, project) }
+            launch { remoteDataSource.savePVProject(imageBitmap, project) }
         }
     }
 

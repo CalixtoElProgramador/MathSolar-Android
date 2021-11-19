@@ -9,7 +9,7 @@ import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapter
 
 /**
- * [BindingAdapter]s for the [Task]s list.
+ * [BindingAdapter]s for the [PVProject]s list.
  */
 @BindingAdapter("app:items")
 fun RecyclerView.setItems(items: List<PVProject>?) {
@@ -21,7 +21,7 @@ fun RecyclerView.setItems(items: List<PVProject>?) {
 @BindingAdapter("app:applyFavoriteColor")
 fun ImageButton.isFavorite(item: PVProject?) {
     item?.let {
-        if (it.isFavorite) {
+        if (item.isFavorite) {
             setColorFilter(ContextCompat.getColor(context, R.color.red))
         }
     }

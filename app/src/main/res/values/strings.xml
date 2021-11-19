@@ -40,4 +40,20 @@
     <string name="content_description_item_img">The picture of the project</string>
     <string name="content_description_item_button_share">Share this project</string>
     <string name="content_description_item_button_favorite">Set favorite this project</string>
+    <string name="fragment_login_subtitle">Solar energy and engineering together</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="i_forgot_my_password">I forgot my password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_as_a_guest">Login as a guest</string>
+    <string name="err_login_fields_empty">The fields are empty</string>
+    <string name="err_login_invalid_email">Insert a valid email</string>
+    <string name="err_login_password_short">The password must have a minimun of 8 characters</string>
+    <string name="err_firebase_auth_incorrect_password">Incorrect password. Verify that everything is in order.</string>
+    <string name="err_firebase_auth_unregistered_email">Unregistered email account. Verify that everything is spelled correctly.</string>
+    <string name="err_firebase_auth_too_many_requests">We have blocked all requests from this device due to unusual activity. Try again later.</string>
+    <string name="err_firebase_auth_internet_connection_login">An error has occurred with the internet connection. Check that everything is OK and try again.</string>
+    <string name="err_firebase_auth_something_went_wrong">Something went wrong. The reasons are unknown at this time. Sorry for the inconvenience.</string>
+    <string name="no_error_key">No error key</string>
 </resources>

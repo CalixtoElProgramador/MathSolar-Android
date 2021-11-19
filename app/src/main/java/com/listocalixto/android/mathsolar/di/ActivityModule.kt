@@ -5,6 +5,10 @@ import com.listocalixto.android.mathsolar.data.source.pv_project.PVProjectDataSo
 import com.listocalixto.android.mathsolar.data.source.pv_project.local.PVProjectLocalDataSource
 import com.listocalixto.android.mathsolar.data.source.pv_project.remote.PVProjectRemoteDataSource
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.LocalDataSourcePVProject
+import com.listocalixto.android.mathsolar.data.source.auth.AuthDataSource
+import com.listocalixto.android.mathsolar.data.source.auth.remote.AuthRemoteDataSource
+import com.listocalixto.android.mathsolar.domain.auth.AuthRepo
+import com.listocalixto.android.mathsolar.domain.auth.AuthRepoImpl
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepoImpl
 import dagger.Binds
@@ -26,5 +30,11 @@ abstract class ActivityModule {
 
     @Binds
     abstract fun bindPVProjectRepo(repoImpl: PVProjectRepoImpl): PVProjectRepo
+
+    @Binds
+    abstract fun bindAuthRemoteDataSource(dataSourceImpl: AuthRemoteDataSource): AuthDataSource
+
+    @Binds
+    abstract fun bindAuthRepo(repoImpl: AuthRepoImpl): AuthRepo
 
 }

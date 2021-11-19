@@ -35,7 +35,7 @@ class ProjectsViewModel @Inject constructor(
     private val _snackbarText = MutableLiveData<Event<Int>>()
     val snackbarText: LiveData<Event<Int>> = _snackbarText
 
-    /*private val _items: LiveData<List<PVProject>> = _forceUpdate.switchMap { forceUpdate ->
+    private val _items: LiveData<List<PVProject>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
             viewModelScope.launch {
@@ -44,7 +44,7 @@ class ProjectsViewModel @Inject constructor(
             }
         }
         repo.observePVProjects().switchMap { filterProjects(it) }
-    }*/
+    }
 
     private val list = listOf(
         PVProject(
@@ -62,7 +62,7 @@ class ProjectsViewModel @Inject constructor(
         ),
     )
 
-    private val _items = MutableLiveData(list)
+    // private val _items = MutableLiveData(list)
 
     val items: LiveData<List<PVProject>> = _items
 

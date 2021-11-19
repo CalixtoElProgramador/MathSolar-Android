@@ -1,5 +1,6 @@
 package com.listocalixto.android.mathsolar.data.source.pv_project.local
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
@@ -59,7 +60,7 @@ class PVProjectLocalDataSource @Inject internal constructor(
         //NO-OP
     }
 
-    override suspend fun savePVProject(project: PVProject) = withContext(ioDispatcher) {
+    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) = withContext(ioDispatcher) {
         pvProjectDao.insertPVProject(project)
     }
 
