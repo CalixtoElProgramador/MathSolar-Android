@@ -24,10 +24,11 @@
             android:id="@+id/profilePicture"
             android:layout_width="@dimen/_160sdp"
             android:layout_height="@dimen/_160sdp"
+            android:enabled="@{!registerViewModel.loadingState}"
             android:onClick="@{() -> registerViewModel.onProfilePicture()}"
             android:scaleType="centerCrop"
-            app:profilePicture="@{registerViewModel.profilePicture}"
-            tools:src="@drawable/ic_error_placeholder" />
+            android:src="@drawable/ic_error_placeholder"
+            app:profilePicture="@{registerViewModel.bitmapProfilePicture}" />
 
         <TextView
             android:layout_width="match_parent"

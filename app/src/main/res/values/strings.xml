@@ -68,7 +68,7 @@
     <string name="confirm_password">Confirm password</string>
     <string name="error_passwords_are_not_the_same">Passwords are not the same</string>
     <string name="register_title02">Take o select a picture!</string>
-    <string name="register_subtitle_03">Click on the icon above to select your profile picture.</string>
+    <string name="register_subtitle_03">Click on the icon above to select your profile picture. (optional)</string>
     <string name="bottom_sheet_select_picture_title">Choose an option</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>

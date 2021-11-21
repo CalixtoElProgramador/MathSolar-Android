@@ -1,9 +1,12 @@
 package com.listocalixto.android.mathsolar.ui.auth.register
 
 import android.app.Activity
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -22,6 +25,7 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
     private val viewModel by activityViewModels<RegisterViewModel>()
 
     private lateinit var binding: FragmentRegister03Binding
+    private lateinit var drawable: Drawable
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,15 +34,19 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
             it.registerViewModel = viewModel
         }
 
-        viewModel.apply {
-            setCurrentFragment(R.id.register03Fragment)
-        }
-
         activity?.let {
             setupNavigation(it)
             setupSnackbar(it)
         }
 
+        viewModel.apply {
+            if (isBitmapProfilePictureNull()) {
+                drawable = binding.profilePicture.drawable
+                val bitmap = drawable.toBitmap()
+                setBitmapProfilePicture(bitmap)
+            }
+            setCurrentFragment(R.id.register03Fragment)
+        }
 
     }
 
@@ -67,7 +75,14 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
             selectProfilePictureEvent.observe(viewLifecycleOwner, EventObserver {
                 showBottomSheet()
             })
+            successfullyUserCreatedEvent.observe(viewLifecycleOwner, EventObserver {
+                navigateToSuccessfulFragment()
+            })
         }
+    }
+
+    private fun navigateToSuccessfulFragment() {
+        findNavController().navigate(R.id.register03Fragment_to_successfulFragment)
     }
 
     private fun showBottomSheet() {

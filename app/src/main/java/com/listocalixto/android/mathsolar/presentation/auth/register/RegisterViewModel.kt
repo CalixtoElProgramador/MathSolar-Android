@@ -1,8 +1,12 @@
 package com.listocalixto.android.mathsolar.presentation.auth.register
 
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Patterns
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +31,7 @@ import com.listocalixto.android.mathsolar.domain.auth.AuthRepo
 import com.listocalixto.android.mathsolar.utils.*
 import com.listocalixto.android.mathsolar.utils.SnackbarType.GO_TO_SETTINGS
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,8 +48,8 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     val password = MutableLiveData<String>()
     val confirmPassword = MutableLiveData<String>()
 
-    private val _profilePicture = MutableLiveData<ProfilePicture?>(null)
-    val profilePicture: LiveData<ProfilePicture?> = _profilePicture
+    private val _bitmapProfilePicture = MutableLiveData<Bitmap?>(null)
+    val bitmapProfilePicture: LiveData<Bitmap?> = _bitmapProfilePicture
 
     private val _backEvent = MutableLiveData<Event<Unit>>()
     val backEvent: LiveData<Event<Unit>> = _backEvent
@@ -61,6 +66,9 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     private val _openGalleryEvent = MutableLiveData<Event<Unit>>()
     val openGalleryEvent: LiveData<Event<Unit>> = _openGalleryEvent
 
+    private val _successfullyUserCreatedEvent = MutableLiveData<Event<Unit>>()
+    val successfullyUserCreatedEvent: LiveData<Event<Unit>> = _successfullyUserCreatedEvent
+
     private val _loadingState = MutableLiveData(false)
     val loadingState: LiveData<Boolean> = _loadingState
 
@@ -68,10 +76,6 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
 
     private val currentFragment = MutableLiveData(R.id.register01Fragment)
-
-    init {
-        _profilePicture.value = ProfilePicture(drawable = R.drawable.ic_error_placeholder)
-    }
 
     fun onBack() {
         _backEvent.value = Event(Unit)
@@ -117,9 +121,59 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
 
             }
             R.id.register03Fragment -> {
+                val currentName = name.value
+                val currentLastName = lastname.value
+                val currentEmail = email.value
+                val currentPassword = password.value
+                val currentProfilePicture = bitmapProfilePicture.value
+
+                currentName?.let { name ->
+                    currentLastName?.let { lastname ->
+                        currentEmail?.let { email ->
+                            currentPassword?.let { password ->
+                                currentProfilePicture?.let { image ->
+                                    sendDataUserToRemoteDataSource(
+                                        name,
+                                        lastname,
+                                        email,
+                                        password,
+                                        image
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
+    }
+
+    private fun sendDataUserToRemoteDataSource(
+        name: String,
+        lastname: String,
+        email: String,
+        password: String,
+        image: Bitmap
+    ) {
+        viewModelScope.launch {
+            isLoading(true)
+            repo.singUp(name, lastname, email, password, image).also { result ->
+                when (result) {
+                    is Success -> {
+                        _successfullyUserCreatedEvent.value = Event(Unit)
+                    }
+                    is Resource.Error -> {
+                        _errorMessage.value = ErrorMessage(exception = result.exception)
+                    }
+                    is Resource.Loading -> {
+                        isLoading(true)
+                    }
+                }
+                isLoading(false)
+            }
+        }
     }
 
     private fun isCurrentEmailRegister(email: String) {
@@ -169,9 +223,8 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
         _openGalleryEvent.value = Event(Unit)
     }
 
-    fun setProfilePictureType(profilePicture: ProfilePicture) {
-        _profilePicture.value = null
-        _profilePicture.value = profilePicture
+    fun setBitmapProfilePicture(bitmap: Bitmap?) {
+        _bitmapProfilePicture.value = bitmap
     }
 
     fun setErrorStringResMessage(@StringRes message: Int) {
@@ -180,6 +233,10 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
 
     fun setExceptionMessage(e: Exception) {
         _errorMessage.value = ErrorMessage(exception = e)
+    }
+
+    fun isBitmapProfilePictureNull(): Boolean {
+        return _bitmapProfilePicture.value == null
     }
 
     fun showErrorMessage(errorMessage: ErrorMessage) {

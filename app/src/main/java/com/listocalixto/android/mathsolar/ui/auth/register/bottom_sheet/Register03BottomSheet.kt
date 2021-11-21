@@ -6,10 +6,10 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.ImageDecoder
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +17,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
-import com.listocalixto.android.mathsolar.BuildConfig
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_NO_GALLERY_APP_FOUNDED
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_PERMISION_DENIED
 import com.listocalixto.android.mathsolar.databinding.BottomSheetRegister03Binding
 import com.listocalixto.android.mathsolar.presentation.auth.register.RegisterViewModel
 import com.listocalixto.android.mathsolar.utils.EventObserver
-import com.listocalixto.android.mathsolar.utils.ProfilePicture
-import com.listocalixto.android.mathsolar.utils.setupSnackbar
-import java.net.URI
+import java.io.IOException
 
 class Register03BottomSheet : BottomSheetDialogFragment() {
 
@@ -131,7 +128,28 @@ class Register03BottomSheet : BottomSheetDialogFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && optionProfilePicture == REQUEST_IMAGE_GALLERY) {
                 val data = result.data?.data
-                viewModel.setProfilePictureType(ProfilePicture(uri = data))
+                data?.let { uri ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        activity?.contentResolver?.let { contentResolver ->
+                            val source = ImageDecoder.createSource(contentResolver, uri)
+                            try {
+                                viewModel.setBitmapProfilePicture(ImageDecoder.decodeBitmap(source))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        }
+                    } else {
+                        activity?.contentResolver?.let { contentResolver ->
+                            try {
+                                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
+                                viewModel.setBitmapProfilePicture(bitmap)
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                } ?: viewModel.setErrorStringResMessage(ERROR_NO_GALLERY_APP_FOUNDED)
+
                 this.dismiss()
             }
         }
@@ -139,8 +157,10 @@ class Register03BottomSheet : BottomSheetDialogFragment() {
     private val startActivityCamera =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && optionProfilePicture == REQUEST_IMAGE_CAPTURE) {
-                val imageBitmap = result?.data?.extras?.get("data") as Bitmap
-                viewModel.setProfilePictureType(ProfilePicture(bitmap = imageBitmap))
+                val imageBitmap = result?.data?.extras?.get("data") as Bitmap?
+                imageBitmap?.let {
+                    viewModel.setBitmapProfilePicture(it)
+                } ?: viewModel.setErrorStringResMessage(ERROR_NO_GALLERY_APP_FOUNDED)
                 this.dismiss()
             }
         }
