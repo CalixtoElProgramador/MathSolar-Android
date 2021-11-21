@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.auth
+package com.listocalixto.android.mathsolar.ui.auth.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,22 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.databinding.ParentFragmentRegisterBinding
+import com.listocalixto.android.mathsolar.databinding.FragmentRegister00Binding
 import com.listocalixto.android.mathsolar.presentation.auth.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterParentFragment : Fragment(R.layout.parent_fragment_register) {
+class Register00Fragment : Fragment(R.layout.fragment_register_00) {
 
     private val viewModel by activityViewModels<RegisterViewModel>()
 
-    private lateinit var binding: ParentFragmentRegisterBinding
+    private lateinit var binding: FragmentRegister00Binding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = ParentFragmentRegisterBinding.bind(view).also {
+        binding = FragmentRegister00Binding.bind(view).also {
             it.lifecycleOwner = this.viewLifecycleOwner
             it.registerViewModel = viewModel
         }

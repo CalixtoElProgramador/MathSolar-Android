@@ -46,24 +46,6 @@ class ProjectsViewModel @Inject constructor(
         repo.observePVProjects().switchMap { filterProjects(it) }
     }
 
-    private val list = listOf(
-        PVProject(
-            "Project #1", "Mérida, Yucatán", "23 de Marzo de 2021", "No description", "a",
-            ALL_PROJECTS, isDeleted = false, isFavorite = true
-        ), PVProject(
-            "Project #2", "París, Francia", "01 de September de 2021", "No description", "a",
-            HYBRID, isDeleted = false, isFavorite = false
-        ), PVProject(
-            "Project #3", "París, Francia", "01 de September de 2021", "No description", "a",
-            HYBRID, isDeleted = false, isFavorite = false
-        ), PVProject(
-            "Project #4", "París, Francia", "01 de September de 2021", "No description", "a",
-            HYBRID, isDeleted = false, isFavorite = true
-        ),
-    )
-
-    // private val _items = MutableLiveData(list)
-
     val items: LiveData<List<PVProject>> = _items
 
     private val _currentFilteringLabel = MutableLiveData<Int>()

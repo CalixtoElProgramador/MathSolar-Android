@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_graph"
+    app:startDestination="@id/register01Fragment">
+
+    <fragment
+        android:id="@+id/register01Fragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.register.Register01Fragment"
+        android:label="Register01Fragment"
+        tools:layout="@layout/fragment_register_01">
+        <action
+            android:id="@+id/register01Fragment_to_register02Fragment"
+            app:destination="@id/register02Fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/register02Fragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.register.Register02Fragment"
+        android:label="Register02Fragment"
+        tools:layout="@layout/fragment_register_02">
+        <action
+            android:id="@+id/register02Fragment_to_register03Fragment"
+            app:destination="@id/register03Fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/register03Fragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.register.Register03Fragment"
+        android:label="Register03Fragment"
+        tools:layout="@layout/fragment_register_03">
+        <action
+            android:id="@+id/register03Fragment_to_successfulFragment"
+            app:destination="@id/successfulFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/register_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/register03Fragment_to_register03BottomSheet"
+            app:destination="@id/register03BottomSheet" />
+    </fragment>
+    <fragment
+        android:id="@+id/successfulFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.successful.SuccessfulFragment"
+        android:label="SuccessfulFragment"
+        tools:layout="@layout/fragment_successful" />
+    <fragment
+        android:id="@+id/register00Fragment"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.register.Register00Fragment"
+        android:label="Register00Fragment"
+        tools:layout="@layout/fragment_register_00">
+        <action
+            android:id="@+id/action_register00Fragment_to_register01Fragment"
+            app:destination="@id/register01Fragment" />
+        <action
+            android:id="@+id/action_register00Fragment_to_successfulFragment"
+            app:destination="@id/successfulFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <dialog
+        android:id="@+id/register03BottomSheet"
+        android:name="com.listocalixto.android.mathsolar.ui.auth.register.bottom_sheet.Register03BottomSheet"
+        android:label="Register03BottomSheet"
+        tools:layout="@layout/bottom_sheet_register03" />
+</navigation>

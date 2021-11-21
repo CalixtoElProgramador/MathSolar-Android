@@ -1,22 +1,26 @@
 package com.listocalixto.android.mathsolar.presentation.auth.login
 
 import android.util.Patterns
+import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.app.Constants.ERROR_CONNECTION
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_FIELDS_EMPTY
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_INTERNET_CONNECTION
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_INCORRECT_PASSWORD
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_INVALID_EMAIL
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_PASSWORD_SHORT
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_SOMETHING_WENT_WRONG
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_TO_MANY_REQUESTS
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_UNREGISTERED_EMAIL
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.domain.auth.AuthRepo
+import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import com.listocalixto.android.mathsolar.utils.Event
+import com.listocalixto.android.mathsolar.utils.SnackbarMessage
+import com.listocalixto.android.mathsolar.utils.SnackbarType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,8 +44,8 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepo) : ViewModel
     private val _passwordForgotEvent = MutableLiveData<Event<Unit>>()
     val passwordForgotEvent: LiveData<Event<Unit>> = _passwordForgotEvent
 
-    private val _errorMessage = MutableLiveData<Int?>(null)
-    val errorMessage: LiveData<Int?> = _errorMessage
+    private val _errorMessage = MutableLiveData<ErrorMessage?>(null)
+    val errorMessage: LiveData<ErrorMessage?> = _errorMessage
 
     private val _loadingState = MutableLiveData(false)
     val loadingState: LiveData<Boolean> = _loadingState
@@ -50,8 +54,8 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepo) : ViewModel
         it != R.string.no_error_key
     }*/
 
-    private val _snackbarText = MutableLiveData<Event<Int>>()
-    val snackbarText: LiveData<Event<Int>> = _snackbarText
+    private val _snackbarText = MutableLiveData<Event<SnackbarMessage>>()
+    val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
 
     private var resultMessageShown: Boolean = false
 
@@ -61,11 +65,12 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepo) : ViewModel
         val patternEmail = Patterns.EMAIL_ADDRESS.toRegex()
 
         when {
-            currentEmail.isNullOrEmpty() || currentPassword.isNullOrEmpty() -> _errorMessage.value =
-                R.string.err_login_fields_empty
-            !currentEmail.matches(patternEmail) -> _errorMessage.value =
-                R.string.err_login_invalid_email
-            currentPassword.length < 8 -> _errorMessage.value = R.string.err_login_password_short
+            currentEmail.isNullOrEmpty() || currentPassword.isNullOrEmpty() ->
+                _errorMessage.value = ErrorMessage(stringRes = ERROR_FIELDS_EMPTY)
+            !currentEmail.matches(patternEmail) ->
+                _errorMessage.value = ErrorMessage(stringRes = ERROR_INVALID_EMAIL)
+            currentPassword.length < 8 ->
+                _errorMessage.value = ErrorMessage(stringRes = ERROR_PASSWORD_SHORT)
             else -> sendInputs(currentEmail, currentPassword)
         }
 
@@ -76,58 +81,60 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepo) : ViewModel
             isLoading(true)
             when (val result = repo.signIn(currentEmail, currentPassword)) {
                 is Resource.Success -> {
-                    isLoading(false)
                     _signInEvent.value = Event(Unit)
                 }
                 is Resource.Error -> {
-                    isLoading(false)
-                    when (result.exception) {
-                        is FirebaseAuthInvalidCredentialsException -> {
-                            _errorMessage.value = R.string.err_firebase_auth_incorrect_password
-                        }
-                        is FirebaseAuthInvalidUserException -> {
-                            _errorMessage.value = R.string.err_firebase_auth_unregistered_email
-                        }
-                        is FirebaseTooManyRequestsException -> {
-                            _errorMessage.value = R.string.err_firebase_auth_too_many_requests
-                        }
-                        is FirebaseNetworkException -> {
-                            _errorMessage.value =
-                                R.string.err_firebase_auth_internet_connection_login
-                        }
-                        else -> {
-                            _errorMessage.value = R.string.err_firebase_auth_something_went_wrong
-                        }
-                    }
+                    _errorMessage.value = ErrorMessage(exception = result.exception)
                 }
             }
+            isLoading(false)
         }
     }
 
     private fun isLoading(b: Boolean) {
-            _loadingState.value = b
+        _loadingState.value = b
     }
 
     private fun disableError() {
         _errorMessage.value = null
     }
 
-    fun showEditResultMessage(result: Int) {
-        when (result) {
-            ERROR_FIELDS_EMPTY -> showSnackbarMessage(R.string.err_login_fields_empty)
-            ERROR_INVALID_EMAIL -> showSnackbarMessage(R.string.err_login_invalid_email)
-            ERROR_PASSWORD_SHORT -> showSnackbarMessage(R.string.err_login_password_short)
-            ERROR_INCORRECT_PASSWORD -> showSnackbarMessage(R.string.err_firebase_auth_incorrect_password)
-            ERROR_UNREGISTERED_EMAIL -> showSnackbarMessage(R.string.err_firebase_auth_unregistered_email)
-            ERROR_TO_MANY_REQUESTS -> showSnackbarMessage(R.string.err_firebase_auth_too_many_requests)
-            ERROR_CONNECTION -> showSnackbarMessage(R.string.err_firebase_auth_internet_connection_login)
-            else -> showSnackbarMessage(R.string.err_firebase_auth_something_went_wrong)
+    fun showErrorMessage(errorMessage: ErrorMessage) {
+        errorMessage.stringRes?.let {
+            showSnackbarErrorMessage(it)
+        }
+
+        errorMessage.exception?.let {
+            when (it) {
+                is FirebaseAuthInvalidCredentialsException -> {
+                    showSnackbarErrorMessage(ERROR_INCORRECT_PASSWORD)
+                }
+                is FirebaseAuthInvalidUserException -> {
+                    showSnackbarErrorMessage(ERROR_UNREGISTERED_EMAIL)
+                }
+                is FirebaseTooManyRequestsException -> {
+                    showSnackbarErrorMessage(ERROR_TO_MANY_REQUESTS)
+                }
+                is FirebaseNetworkException -> {
+                    showSnackbarErrorMessage(ERROR_INTERNET_CONNECTION)
+                }
+                else -> {
+                    showSnackbarErrorMessage(ERROR_SOMETHING_WENT_WRONG)
+                }
+            }
         }
         disableError()
     }
 
-    private fun showSnackbarMessage(message: Int) {
-        _snackbarText.value = Event(message)
+    private fun showSnackbarErrorMessage(
+        @StringRes message: Int,
+        type: SnackbarType = SnackbarType.DEFAULT
+    ) {
+        _snackbarText.value = Event(SnackbarMessage(message, type, true))
+    }
+
+    fun onSignUp() {
+        _signUpEvent.value = Event(Unit)
     }
 
 }

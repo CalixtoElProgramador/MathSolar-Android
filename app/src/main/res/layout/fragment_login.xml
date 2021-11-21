@@ -152,21 +152,20 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_singUp"
+                    style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:onClick="@{() -> loginViewModel.onSignUp()}"
                     android:paddingStart="@dimen/_56sdp"
                     android:paddingEnd="@dimen/_56sdp"
                     android:text="@string/sign_up"
-                    android:textColor="?attr/colorPrimary"
-                    app:backgroundTint="?attr/colorSurface"
                     app:cornerRadius="@dimen/_16sdp"
                     app:disableButton="@{loginViewModel.loadingState}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/button_signIn"
-                    app:strokeColor="?attr/colorPrimary"
-                    app:strokeWidth="@dimen/_1sdp" />
+                    app:strokeColor="?attr/colorPrimary" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -182,15 +181,14 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
-
         <TextView
             android:id="@+id/signInGuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:paddingTop="@dimen/_16sdp"
             android:enabled="@{!loginViewModel.loadingState}"
             android:gravity="center"
+            android:paddingTop="@dimen/_16sdp"
             android:text="@string/login_as_a_guest"
             android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintBottom_toBottomOf="parent" />

@@ -11,4 +11,10 @@ class SingleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+    }
+
 }

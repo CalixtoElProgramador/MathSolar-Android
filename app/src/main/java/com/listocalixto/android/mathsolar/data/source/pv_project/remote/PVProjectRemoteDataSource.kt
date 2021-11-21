@@ -35,7 +35,7 @@ class PVProjectRemoteDataSource @Inject constructor(
     override fun observePVProject(projectId: String): LiveData<Resource<PVProject>> {
         return observableProjects.map { projects ->
             when (projects) {
-                is Resource.Loading -> Resource.Loading
+                is Resource.Loading -> Resource.Loading()
                 is Resource.Error -> Resource.Error(projects.exception)
                 is Resource.Success -> {
                     val project = projects.data.firstOrNull { it.uid == projectId }

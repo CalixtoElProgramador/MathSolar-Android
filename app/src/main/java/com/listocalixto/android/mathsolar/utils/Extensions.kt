@@ -1,11 +1,18 @@
 package com.listocalixto.android.mathsolar.utils
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.google.android.material.color.MaterialColors
+import com.listocalixto.android.mathsolar.utils.SnackbarType.DEFAULT
+import com.listocalixto.android.mathsolar.utils.SnackbarType.GO_TO_SETTINGS
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
+import com.listocalixto.android.mathsolar.BuildConfig
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.model.PVProjectRemote
@@ -102,17 +109,43 @@ fun List<PVProject>.asRemoteModel(downloadUrl: String, userUid: String): List<PV
 /**
  * Transforms static java function Snackbar.make() to an extension function on View.
  */
-fun View.showSnackbar(snackbarText: String, timeLength: Int, anchorView: View, isError: Boolean) {
-    Snackbar.make(this, snackbarText, timeLength).run {
+@SuppressLint("WrongConstant")
+fun View.showSnackbar(
+    snackbarText: String,
+    timeLength: Int,
+    anchorView: View,
+    isError: Boolean = false,
+    goSettings: Boolean = false
+) {
+    val snackbar = Snackbar.make(this, snackbarText, timeLength)
+
+    snackbar.run {
+        if (timeLength == -2 /* LENGTH_INDEFINITE */) {
+            setAction(R.string.ok) { this.dismiss() }
+        }
+
         if (isError) {
             setBackgroundTint(MaterialColors.getColor(this@showSnackbar, R.attr.colorError))
             setTextColor(MaterialColors.getColor(this@showSnackbar, R.attr.colorOnError))
-            setAction(R.string.ok) { this.dismiss() }
             setActionTextColor(MaterialColors.getColor(this@showSnackbar, R.attr.colorOnError))
         }
+
+        if (goSettings) {
+            setAction(R.string.settings) {
+                context.startActivity(Intent().apply {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                })
+            }
+            duration = 0 /* LENGTH_LONG */
+        }
+
         setAnchorView(anchorView)
         show()
     }
+
+
 }
 
 /**
@@ -120,15 +153,49 @@ fun View.showSnackbar(snackbarText: String, timeLength: Int, anchorView: View, i
  */
 fun View.setupSnackbar(
     lifecycleOwner: LifecycleOwner,
-    snackbarEvent: LiveData<Event<Int>>,
+    snackbarEvent: LiveData<Event<SnackbarMessage>>,
     timeLength: Int,
-    anchorView: View,
-    isError: Boolean
+    anchorView: View
 ) {
-
     snackbarEvent.observe(lifecycleOwner, { event ->
         event.getContentIfNotHandled()?.let {
-            showSnackbar(context.getString(it), timeLength, anchorView, isError)
+            when (it.type) {
+                DEFAULT -> {
+                    if (it.isError) {
+                        showSnackbar(context.getString(it.message), timeLength, anchorView, true)
+                    } else {
+                        showSnackbar(context.getString(it.message), timeLength, anchorView)
+                    }
+
+                }
+                GO_TO_SETTINGS -> {
+                    if (it.isError) {
+                        showSnackbar(
+                            context.getString(it.message), timeLength, anchorView,
+                            isError = true,
+                            goSettings = true
+                        )
+                    } else {
+                        showSnackbar(
+                            context.getString(it.message),
+                            timeLength,
+                            anchorView,
+                            isError = false,
+                            goSettings = true
+                        )
+                    }
+                }
+            }
+
+
         }
     })
+}
+
+fun TextInputLayout.isEditTextEmpty() =
+    editText?.text.toString().isEmpty()
+
+fun TextInputLayout.enableError(message: Int) {
+    isErrorEnabled = true
+    error = context.getString(message)
 }

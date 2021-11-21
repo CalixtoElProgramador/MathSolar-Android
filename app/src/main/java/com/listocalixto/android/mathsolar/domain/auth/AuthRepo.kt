@@ -7,4 +7,6 @@ interface AuthRepo {
 
     suspend fun signIn(email: String, password: String): Resource<FirebaseUser?>
 
+    suspend fun isEmailRegister(email: String): Resource<Boolean>
+
 }

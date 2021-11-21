@@ -17,4 +17,8 @@ class AuthRepoImpl @Inject constructor(
         withContext(ioDispatcher) {
             remoteDataSource.signIn(email, password)
         }
+
+    override suspend fun isEmailRegister(email: String): Resource<Boolean> = withContext(ioDispatcher) {
+        remoteDataSource.isEmailRegister(email)
+    }
 }

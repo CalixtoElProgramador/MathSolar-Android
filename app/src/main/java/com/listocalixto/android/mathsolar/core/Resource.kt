@@ -9,7 +9,7 @@ import com.listocalixto.android.mathsolar.core.Resource.Success
  */
 sealed class Resource<out R> {
 
-    object Loading : Resource<Nothing>()
+    class Loading<out T> : Resource<T>()
     data class Success<out T>(val data: T) : Resource<T>()
     data class Error(val exception: Exception) : Resource<Nothing>()
 
@@ -18,7 +18,7 @@ sealed class Resource<out R> {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
-            Loading -> "Loading"
+            is Loading -> "Loading"
         }
     }
 }

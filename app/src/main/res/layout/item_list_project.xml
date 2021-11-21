@@ -75,6 +75,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:contentDescription="@string/content_description_item_img"
                 android:scaleType="centerCrop"
+                app:loadImage="@{project.imageUrl}"
                 app:layout_constraintTop_toBottomOf="@id/item_location"
                 tools:src="@drawable/ic_error_placeholder" />
 
