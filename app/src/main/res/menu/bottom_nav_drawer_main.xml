@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:contentDescription="@string/content_description_item_ic_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/projectsFragment"
+        android:contentDescription="@string/content_description_item_ic_wb_sunny"
+        android:icon="@drawable/ic_wb_sunny"
+        android:title="@string/projects"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/calculators"
+        android:contentDescription="@string/content_description_item_ic_calculate"
+        android:icon="@drawable/ic_calculate"
+        android:title="@string/calculators"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tools"
+        android:contentDescription="@string/content_description_item_ic_construction"
+        android:icon="@drawable/ic_construction"
+        android:title="@string/tools"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/learning"
+        android:contentDescription="@string/content_description_item_ic_school"
+        android:icon="@drawable/ic_school"
+        android:title="@string/learning"
+        app:showAsAction="ifRoom" />
+
+</menu>

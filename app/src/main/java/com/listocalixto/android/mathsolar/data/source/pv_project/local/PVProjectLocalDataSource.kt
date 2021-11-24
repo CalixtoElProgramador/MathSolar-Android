@@ -3,6 +3,7 @@ package com.listocalixto.android.mathsolar.data.source.pv_project.local
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.PVProject
@@ -11,6 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.listocalixto.android.mathsolar.core.Resource.Success
 import com.listocalixto.android.mathsolar.core.Resource.Error
+import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import javax.inject.Inject
 
 class PVProjectLocalDataSource @Inject internal constructor(
@@ -34,7 +36,7 @@ class PVProjectLocalDataSource @Inject internal constructor(
         return@withContext try {
             Success(pvProjectDao.getPVProjects())
         } catch (e: Exception) {
-            Error(e)
+            Error(ErrorMessage(exception = e))
         }
     }
 
@@ -45,10 +47,10 @@ class PVProjectLocalDataSource @Inject internal constructor(
                 if (project != null) {
                     return@withContext Success(project)
                 } else {
-                    return@withContext Error(Exception("Project not found!"))
+                    return@withContext Error(ErrorMessage(stringRes = R.string.err_project_not_found))
                 }
             } catch (e: Exception) {
-                return@withContext Error(e)
+                Error(ErrorMessage(exception = e))
             }
         }
 
@@ -60,9 +62,10 @@ class PVProjectLocalDataSource @Inject internal constructor(
         //NO-OP
     }
 
-    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) = withContext(ioDispatcher) {
-        pvProjectDao.insertPVProject(project)
-    }
+    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) =
+        withContext(ioDispatcher) {
+            pvProjectDao.insertPVProject(project)
+        }
 
     override suspend fun likePVProject(project: PVProject) = withContext(ioDispatcher) {
         pvProjectDao.updateFavorite(project.uid, true)

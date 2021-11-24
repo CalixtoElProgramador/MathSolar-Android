@@ -7,14 +7,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SingleActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
 
     }
+
 
 }

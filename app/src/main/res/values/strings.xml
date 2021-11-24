@@ -21,7 +21,7 @@
     <string name="more">More</string>
     <string name="content_description_more">Show more options</string>
     <string name="refresh">Refresh</string>
-    <string name="content_description_refresh">Refresh the list of projects</string>
+    <string name="content_description_refresh">Refresh</string>
     <string name="sort_by">Sort by</string>
     <string name="content_description_sort_by">Sort the list of projects by:</string>
     <string name="new_first">New first</string>
@@ -75,4 +75,27 @@
     <string name="err_no_gallery_app">A gallery app was not found</string>
     <string name="err_permission_denied">The permit has been denied. To enable it, try again or go to the app settings.</string>
     <string name="settings">Settings</string>
+    <string name="err_user_data_has_been_lost">Your data entered has been lost. Verify that everything is in order and try again.</string>
+    <string name="err_list_projects_empty">So far you do not have any dimensioning. Start to create one with the button below.</string>
+    <string name="content_description_list_projects_empty">Your project list is empty. Start creating one by pressing the button below.</string>
+    <string name="home">Home</string>
+    <string name="content_description_item_ic_home">Go to the home screen</string>
+    <string name="content_description_item_ic_wb_sunny">Go to the projects screen</string>
+    <string name="content_description_item_ic_calculate">Go to the calculators screen</string>
+    <string name="calculators">Calculators</string>
+    <string name="content_description_item_ic_construction">Go to the tools screen</string>
+    <string name="tools">Tools</string>
+    <string name="content_description_item_ic_school">Go to the learning screen</string>
+    <string name="learning">Learning</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="content_description_item_ic_bookmark">Saved news</string>
+    <string name="category">Category</string>
+    <string name="content_description_item_ic_category">Choose a category</string>
+    <string name="history">History</string>
+    <string name="content_description_item_ic_history">History of read news</string>
+    <string name="err_timeout">Timeout</string>
+    <string name="err_api_key_limited">API Key Limited</string>
+    <string name="err_articles_not_found">Articles not found</string>
+    <string name="err_user_data_not_found">Sorry, your data could not be recovered.</string>
+    <string name="err_project_not_found">Project not found!</string>
 </resources>

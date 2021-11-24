@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/projectsFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/projectsFragment"
         android:name="com.listocalixto.android.mathsolar.ui.main.projects.ProjectsFragment"
         android:label="ProjectsFragment"
         tools:layout="@layout/fragment_projects" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
 </navigation>

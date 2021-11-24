@@ -9,6 +9,7 @@ import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.source.pv_project.PVProjectDataSource
 import com.listocalixto.android.mathsolar.core.Resource.Success
+import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -32,8 +33,8 @@ class PVProjectRepoImpl @Inject constructor(
         if (forceUpdate) {
             try {
                 updateProjectsFromRemoteDataSource()
-            } catch (ex: Exception) {
-                return Resource.Error(ex)
+            } catch (e: Exception) {
+                return Resource.Error(ErrorMessage(exception = e))
             }
         }
         return localDataSource.getPVProjects()
@@ -47,7 +48,7 @@ class PVProjectRepoImpl @Inject constructor(
                 localDataSource.savePVProject(null, project)
             }
         } else if (remoteProjects is Resource.Error) {
-            throw remoteProjects.exception
+            throw remoteProjects.errorMessage.exception!!
         }
     }
 

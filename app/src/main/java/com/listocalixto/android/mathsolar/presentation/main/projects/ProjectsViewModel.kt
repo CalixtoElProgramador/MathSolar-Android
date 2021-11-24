@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.presentation.projects
+package com.listocalixto.android.mathsolar.presentation.main.projects
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

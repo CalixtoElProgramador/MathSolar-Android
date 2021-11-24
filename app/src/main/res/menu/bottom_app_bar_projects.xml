@@ -17,7 +17,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu__sortBy"
+        android:id="@+id/menu_sortBy"
         android:contentDescription="@string/content_description_sort_by"
         android:title="@string/sort_by"
         app:showAsAction="never">

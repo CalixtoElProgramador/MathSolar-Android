@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bookmark"
+        android:contentDescription="@string/content_description_item_ic_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bookmark"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/category"
+        android:contentDescription="@string/content_description_item_ic_category"
+        android:icon="@drawable/ic_category"
+        android:title="@string/category"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/history"
+        android:contentDescription="@string/content_description_item_ic_history"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:contentDescription="@string/content_description_refresh"
+        android:title="@string/refresh"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_sortBy"
+        android:contentDescription="@string/content_description_sort_by"
+        android:title="@string/sort_by"
+        app:showAsAction="never">
+
+        <menu>
+
+            <item
+                android:id="@+id/menu_newFirst"
+                android:contentDescription="@string/content_description_new_first"
+                android:title="@string/new_first"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_oldFirst"
+                android:contentDescription="@string/content_description_old_first"
+                android:title="@string/old_first"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
+</menu>

@@ -7,11 +7,13 @@ import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.model.PVProjectRemote
 import com.listocalixto.android.mathsolar.data.source.pv_project.PVProjectDataSource
+import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import com.listocalixto.android.mathsolar.utils.asLocalModel
 import com.listocalixto.android.mathsolar.utils.asRemoteModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -36,10 +38,10 @@ class PVProjectRemoteDataSource @Inject constructor(
         return observableProjects.map { projects ->
             when (projects) {
                 is Resource.Loading -> Resource.Loading()
-                is Resource.Error -> Resource.Error(projects.exception)
+                is Resource.Error -> Resource.Error(ErrorMessage(exception = projects.errorMessage.exception))
                 is Resource.Success -> {
                     val project = projects.data.firstOrNull { it.uid == projectId }
-                        ?: return@map Resource.Error(Exception("Not found"))
+                        ?: return@map Resource.Error(ErrorMessage(stringRes = R.string.err_project_not_found))
                     Resource.Success(project)
                 }
             }
@@ -61,7 +63,7 @@ class PVProjectRemoteDataSource @Inject constructor(
             }
             Resource.Success(projectsRemoteList.asLocalModel())
         } catch (e: Exception) {
-            Resource.Error(e)
+            Resource.Error(ErrorMessage(exception = e))
         }
     }
 

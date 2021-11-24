@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentProjectsBinding
-import com.listocalixto.android.mathsolar.presentation.projects.ProjectsViewModel
+import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,10 +23,11 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentProjectsBinding.bind(view)
-        binding.lifecycleOwner = this.viewLifecycleOwner
-
-        binding.viewmodel = viewModel
+        binding = FragmentProjectsBinding.bind(view).also {
+            it.lifecycleOwner = this.viewLifecycleOwner
+            it.projectsViewModel = viewModel
+            setupListAdapter(it)
+        }
 
         val bottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
         binding.listProjects.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -39,25 +40,20 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
                 }
             }
         })
-
-        setupListAdapter()
     }
 
-    private fun setupListAdapter() {
-        val viewModel = binding.viewmodel
-        if (viewModel != null) {
-            listAdapter = ProjectsAdapter(viewModel)
+    private fun setupListAdapter(binding: FragmentProjectsBinding) {
+        val viewModel = binding.projectsViewModel
+        viewModel?.let {
+            listAdapter = ProjectsAdapter(it)
             binding.listProjects.adapter = listAdapter
-        } else {
-            Log.d(
-                TAG,
-                "setupListAdapter: ViewModel not initialized when attempting to set up adapter."
-            )
-        }
+        } ?: Log.d(
+            TAG,
+            "setupListAdapter: ViewModel not initialized when attempting to set up adapter."
+        )
     }
 
     companion object {
         const val TAG = "ProjectsFragment"
     }
-
 }

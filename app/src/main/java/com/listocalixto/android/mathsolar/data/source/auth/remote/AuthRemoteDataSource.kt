@@ -2,14 +2,15 @@ package com.listocalixto.android.mathsolar.data.source.auth.remote
 
 import android.graphics.Bitmap
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.User
 import com.listocalixto.android.mathsolar.data.source.auth.AuthDataSource
+import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -27,7 +28,7 @@ class AuthRemoteDataSource @Inject constructor(
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).await()
                 Resource.Success(authResult.user)
             } catch (e: Exception) {
-                Resource.Error(e)
+                Resource.Error(ErrorMessage(exception = e))
             }
         }
 
@@ -54,7 +55,7 @@ class AuthRemoteDataSource @Inject constructor(
                 Resource.Success(authResult.user)
             } ?: throw Exception()
         } catch (e: Exception) {
-            Resource.Error(e)
+            Resource.Error(ErrorMessage(exception = e))
         }
     }
 
@@ -67,7 +68,21 @@ class AuthRemoteDataSource @Inject constructor(
                         .await()
                 Resource.Success(isRegister.isEmpty)
             } catch (e: Exception) {
-                Resource.Error(e)
+                Resource.Error(ErrorMessage(exception = e))
             }
         }
+
+    override suspend fun getCurrentUserData(): Resource<User?> = withContext(ioDispatcher) {
+        return@withContext try {
+            val user = FirebaseAuth.getInstance().currentUser
+            val querySnapshot =
+                FirebaseFirestore.getInstance().collection("users").document("${user?.uid}").get()
+                    .await()
+            querySnapshot.toObject(User::class.java)?.let {
+                Resource.Success(it)
+            } ?: Resource.Error(ErrorMessage(stringRes = R.string.err_user_data_not_found))
+        } catch (e: Exception) {
+            Resource.Error(ErrorMessage(exception = e))
+        }
+    }
 }

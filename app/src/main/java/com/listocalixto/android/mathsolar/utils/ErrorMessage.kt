@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 
 
 data class ErrorMessage(
-    @StringRes val stringRes: Int? = null,
-    val exception: Exception? = null
+    val message: String? = null,
+    val exception: Exception? = null,
+    @StringRes val stringRes: Int? = null
 )

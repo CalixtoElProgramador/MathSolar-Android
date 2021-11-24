@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.databinding.ItemListProjectBinding
-import com.listocalixto.android.mathsolar.presentation.projects.ProjectsViewModel
+import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 
 class ProjectsAdapter(private val viewModel: ProjectsViewModel) :
     ListAdapter<PVProject, ProjectsAdapter.ViewHolder>(TaskDiffCallback()) {
@@ -26,7 +26,7 @@ class ProjectsAdapter(private val viewModel: ProjectsViewModel) :
 
         fun bind(viewModel: ProjectsViewModel, item: PVProject) {
 
-            binding.viewmodel = viewModel
+            binding.projectsViewModel = viewModel
             binding.project = item
             binding.executePendingBindings()
         }

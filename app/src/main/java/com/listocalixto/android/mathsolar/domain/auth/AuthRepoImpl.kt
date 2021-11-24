@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.google.firebase.auth.FirebaseUser
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
+import com.listocalixto.android.mathsolar.data.model.User
 import com.listocalixto.android.mathsolar.data.source.auth.AuthDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -33,4 +34,8 @@ class AuthRepoImpl @Inject constructor(
         withContext(ioDispatcher) {
             remoteDataSource.isEmailRegister(email)
         }
+
+    override suspend fun getCurrentUserData(): Resource<User?> = withContext(ioDispatcher) {
+        remoteDataSource.getCurrentUserData()
+    }
 }

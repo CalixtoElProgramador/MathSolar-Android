@@ -3,6 +3,7 @@ package com.listocalixto.android.mathsolar.data.source.auth
 import android.graphics.Bitmap
 import com.google.firebase.auth.FirebaseUser
 import com.listocalixto.android.mathsolar.core.Resource
+import com.listocalixto.android.mathsolar.data.model.User
 
 interface AuthDataSource {
 
@@ -17,5 +18,7 @@ interface AuthDataSource {
     ): Resource<FirebaseUser?>
 
     suspend fun isEmailRegister(email: String): Resource<Boolean>
+
+    suspend fun getCurrentUserData(): Resource<User?>
 
 }

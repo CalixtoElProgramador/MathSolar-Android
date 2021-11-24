@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewmodel"
-            type="com.listocalixto.android.mathsolar.presentation.projects.ProjectsViewModel" />
+            name="projectsViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel" />
 
         <variable
             name="project"

@@ -84,7 +84,7 @@ class LoginViewModel @Inject constructor(private val repo: AuthRepo) : ViewModel
                     _signInEvent.value = Event(Unit)
                 }
                 is Resource.Error -> {
-                    _errorMessage.value = ErrorMessage(exception = result.exception)
+                    _errorMessage.value = result.errorMessage
                 }
             }
             isLoading(false)

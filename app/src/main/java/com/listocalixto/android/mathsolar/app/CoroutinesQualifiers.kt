@@ -16,5 +16,13 @@ object CoroutinesQualifiers {
     @Qualifier
     annotation class RemoteDataSourcePVProject
 
+    @Retention(AnnotationRetention.RUNTIME)
+    @Qualifier
+    annotation class RemoteDataSourceArticle
+
+    @Retention(AnnotationRetention.RUNTIME)
+    @Qualifier
+    annotation class LocalDataSourceArticle
+
 }
 

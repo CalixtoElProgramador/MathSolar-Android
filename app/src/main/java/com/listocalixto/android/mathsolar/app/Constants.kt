@@ -24,6 +24,15 @@ object Constants {
     const val ERROR_PASSWORDS_ARE_DIFFERENT = R.string.error_passwords_are_not_the_same
 
     const val ERROR_NO_GALLERY_APP_FOUNDED = R.string.err_no_gallery_app
-    const val ERROR_PERMISION_DENIED = R.string.err_permission_denied
+    const val ERROR_PERMISSION_DENIED = R.string.err_permission_denied
+    const val ERROR_USER_DATA_LOST = R.string.err_user_data_has_been_lost
+
+    // Constants Article Web Service
+    const val FREE_NEWS_QUERY = "solar panels"
+    const val FREE_NEWS_LANGUAGE = "en"
+    const val FREE_NEWS_BASE_URL = "https://free-news.p.rapidapi.com/"
+    const val FREE_NEWS_HEADER_HOST = "free-news.p.rapidapi.com"
+    const val FREE_NEWS_HEADER_API_KEY = "b4f91427f4msh819aba0301f1d2bp1a9767jsn64f6d80f6895"
+
 
 }

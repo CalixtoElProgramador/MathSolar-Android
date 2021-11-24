@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -24,6 +25,8 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
 
     private val viewModel by activityViewModels<RegisterViewModel>()
 
+    private var activityNavHost: View? = null
+
     private lateinit var binding: FragmentRegister03Binding
     private lateinit var drawable: Drawable
 
@@ -35,6 +38,7 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
         }
 
         activity?.let {
+            activityNavHost = it.findViewById(R.id.nav_host_activity)
             setupNavigation(it)
             setupSnackbar(it)
         }
@@ -76,8 +80,16 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
                 showBottomSheet()
             })
             successfullyUserCreatedEvent.observe(viewLifecycleOwner, EventObserver {
-                navigateToSuccessfulFragment()
+                //navigateToSuccessfulFragment()
+                navigateToMainParentFragment()
             })
+        }
+    }
+
+    private fun navigateToMainParentFragment() {
+        activityNavHost?.let {
+            Navigation.findNavController(it)
+                .navigate(R.id.registerParentFragment_to_mainParentFragment)
         }
     }
 

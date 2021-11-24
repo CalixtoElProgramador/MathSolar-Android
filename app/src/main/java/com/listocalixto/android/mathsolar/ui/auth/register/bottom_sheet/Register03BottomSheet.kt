@@ -19,7 +19,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_NO_GALLERY_APP_FOUNDED
-import com.listocalixto.android.mathsolar.app.Constants.ERROR_PERMISION_DENIED
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_PERMISSION_DENIED
 import com.listocalixto.android.mathsolar.databinding.BottomSheetRegister03Binding
 import com.listocalixto.android.mathsolar.presentation.auth.register.RegisterViewModel
 import com.listocalixto.android.mathsolar.utils.EventObserver
@@ -117,7 +117,7 @@ class Register03BottomSheet : BottomSheetDialogFragment() {
                 isGranted && optionProfilePicture == REQUEST_IMAGE_GALLERY -> navigateToGalleryApp()
                 isGranted && optionProfilePicture == REQUEST_IMAGE_CAPTURE -> navigateToCamaraApp()
                 else -> {
-                    viewModel.setErrorStringResMessage(ERROR_PERMISION_DENIED)
+                    viewModel.setErrorStringResMessage(ERROR_PERMISSION_DENIED)
                     this.dismiss()
                 }
             }

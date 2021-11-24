@@ -1,18 +1,16 @@
 package com.listocalixto.android.mathsolar.presentation.auth.register
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Patterns
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.utils.SnackbarType.DEFAULT
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_EMAIL_IN_USE
@@ -22,16 +20,16 @@ import com.listocalixto.android.mathsolar.app.Constants.ERROR_INVALID_EMAIL
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_NO_GALLERY_APP_FOUNDED
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_PASSWORDS_ARE_DIFFERENT
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_PASSWORD_SHORT
-import com.listocalixto.android.mathsolar.app.Constants.ERROR_PERMISION_DENIED
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_PERMISSION_DENIED
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_SOMETHING_WENT_WRONG
 import com.listocalixto.android.mathsolar.app.Constants.ERROR_TO_MANY_REQUESTS
+import com.listocalixto.android.mathsolar.app.Constants.ERROR_USER_DATA_LOST
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.core.Resource.Success
 import com.listocalixto.android.mathsolar.domain.auth.AuthRepo
 import com.listocalixto.android.mathsolar.utils.*
 import com.listocalixto.android.mathsolar.utils.SnackbarType.GO_TO_SETTINGS
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -95,10 +93,10 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
 
                 when {
                     currentName.isNullOrEmpty() || currentLastName.isNullOrEmpty() || currentEmail.isNullOrEmpty() -> {
-                        _errorMessage.value = ErrorMessage(ERROR_FIELDS_EMPTY)
+                        _errorMessage.value = ErrorMessage(stringRes = ERROR_FIELDS_EMPTY)
                     }
                     !currentEmail.matches(patternEmail) -> {
-                        _errorMessage.value = ErrorMessage(ERROR_INVALID_EMAIL)
+                        _errorMessage.value = ErrorMessage(stringRes = ERROR_INVALID_EMAIL)
                     }
                     else -> isCurrentEmailRegister(currentEmail)
 
@@ -110,44 +108,49 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
 
                 when {
                     currentPassword.isNullOrEmpty() || currentConfirmPassword.isNullOrEmpty() -> {
-                        _errorMessage.value = ErrorMessage(ERROR_FIELDS_EMPTY)
+                        _errorMessage.value = ErrorMessage(stringRes = ERROR_FIELDS_EMPTY)
                     }
                     currentPassword.length < 8 -> _errorMessage.value =
-                        ErrorMessage(ERROR_PASSWORD_SHORT)
+                        ErrorMessage(stringRes = ERROR_PASSWORD_SHORT)
                     currentPassword != currentConfirmPassword -> _errorMessage.value =
-                        ErrorMessage(ERROR_PASSWORDS_ARE_DIFFERENT)
+                        ErrorMessage(stringRes = ERROR_PASSWORDS_ARE_DIFFERENT)
                     else -> navigateToNextFragment()
                 }
 
             }
             R.id.register03Fragment -> {
-                val currentName = name.value
-                val currentLastName = lastname.value
-                val currentEmail = email.value
-                val currentPassword = password.value
-                val currentProfilePicture = bitmapProfilePicture.value
-
-                currentName?.let { name ->
-                    currentLastName?.let { lastname ->
-                        currentEmail?.let { email ->
-                            currentPassword?.let { password ->
-                                currentProfilePicture?.let { image ->
-                                    sendDataUserToRemoteDataSource(
-                                        name,
-                                        lastname,
-                                        email,
-                                        password,
-                                        image
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-
+                verifyUserDataIsNotNull()
             }
         }
 
+    }
+
+    private fun verifyUserDataIsNotNull() {
+        val currentName = name.value
+        val currentLastName = lastname.value
+        val currentEmail = email.value
+        val currentPassword = password.value
+        val currentProfilePicture = bitmapProfilePicture.value
+
+        currentName?.let { name ->
+            currentLastName?.let { lastname ->
+                currentEmail?.let { email ->
+                    currentPassword?.let { password ->
+                        currentProfilePicture?.let { image ->
+                            sendDataUserToRemoteDataSource(
+                                name,
+                                lastname,
+                                email,
+                                password,
+                                image
+                            )
+                            return@verifyUserDataIsNotNull
+                        }
+                    }
+                }
+            }
+        }
+        _errorMessage.value = ErrorMessage(stringRes = ERROR_USER_DATA_LOST)
     }
 
     private fun sendDataUserToRemoteDataSource(
@@ -159,20 +162,15 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     ) {
         viewModelScope.launch {
             isLoading(true)
-            repo.singUp(name, lastname, email, password, image).also { result ->
-                when (result) {
-                    is Success -> {
-                        _successfullyUserCreatedEvent.value = Event(Unit)
-                    }
-                    is Resource.Error -> {
-                        _errorMessage.value = ErrorMessage(exception = result.exception)
-                    }
-                    is Resource.Loading -> {
-                        isLoading(true)
-                    }
+            when (val result = repo.singUp(name, lastname, email, password, image)) {
+                is Success -> {
+                    _successfullyUserCreatedEvent.value = Event(Unit)
                 }
-                isLoading(false)
+                is Resource.Error -> {
+                    _errorMessage.value = result.errorMessage
+                }
             }
+            isLoading(false)
         }
     }
 
@@ -186,11 +184,11 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
                             navigateToNextFragment()
                             disableError()
                         } else {
-                            _errorMessage.value = ErrorMessage(ERROR_EMAIL_IN_USE)
+                            _errorMessage.value = ErrorMessage(stringRes = ERROR_EMAIL_IN_USE)
                         }
                     }
                     is Resource.Error -> {
-                        _errorMessage.value = ErrorMessage(exception = result.exception)
+                        _errorMessage.value = result.errorMessage
                     }
                     is Resource.Loading -> isLoading(true)
                 }
@@ -242,10 +240,11 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     fun showErrorMessage(errorMessage: ErrorMessage) {
         errorMessage.stringRes?.let {
             when (it) {
-                ERROR_PERMISION_DENIED -> showSnackbarErrorMessage(
-                    ERROR_PERMISION_DENIED,
+                ERROR_PERMISSION_DENIED -> showSnackbarErrorMessage(
+                    ERROR_PERMISSION_DENIED,
                     GO_TO_SETTINGS,
                 )
+                ERROR_USER_DATA_LOST -> showSnackbarErrorMessage(ERROR_USER_DATA_LOST)
             }
         }
 
@@ -260,6 +259,9 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
                 is FirebaseNetworkException -> {
                     showSnackbarErrorMessage(ERROR_INTERNET_CONNECTION)
                 }
+                is FirebaseAuthUserCollisionException -> {
+                    showSnackbarErrorMessage(ERROR_EMAIL_IN_USE)
+                }
                 else -> {
                     showSnackbarErrorMessage(ERROR_SOMETHING_WENT_WRONG)
                 }
@@ -273,6 +275,10 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
         type: SnackbarType = DEFAULT
     ) {
         _snackbarText.value = Event(SnackbarMessage(message, type, true))
+    }
+
+    companion object {
+        const val TAG = "RegisterViewModel"
     }
 
 }
