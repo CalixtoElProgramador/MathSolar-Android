@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/_16sdp"
+    android:paddingTop="@dimen/_16sdp"
+    android:paddingEnd="@dimen/_16sdp">
+
+    <View
+        android:id="@+id/img_articleHolderItem"
+        android:layout_width="@dimen/_72sdp"
+        android:layout_height="@dimen/_72sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/articleSourceHolderItem"
+        android:layout_width="@dimen/_72sdp"
+        android:layout_height="@dimen/_10sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_articleHolderItem" />
+
+    <View
+        android:id="@+id/articleTitleHolderItem01"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintEnd_toStartOf="@id/img_articleHolderItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/articleSourceHolderItem" />
+
+    <View
+        android:id="@+id/articleTitleHolderItem02"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/articleTitleHolderItem01" />
+
+    <View
+        android:id="@+id/articlePublishDateHolderItem"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/ic_articleBookmarkHolderItem"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="@id/ic_articleMoreHolderItem"
+        app:layout_constraintEnd_toStartOf="@id/ic_articleMoreHolderItem"
+        app:layout_constraintTop_toTopOf="@id/ic_articleMoreHolderItem" />
+
+    <View
+        android:id="@+id/ic_articleMoreHolderItem"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+
+        android:alpha="0.16"
+        android:background="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/img_articleHolderItem"
+        app:layout_constraintTop_toBottomOf="@id/img_articleHolderItem" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

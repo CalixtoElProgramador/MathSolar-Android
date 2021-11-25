@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="homeViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel" />
+
+        <variable
+            name="article"
+            type="com.listocalixto.android.mathsolar.data.model.Article" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp">
+
+            <ImageView
+                android:id="@+id/img_articleItem"
+                android:layout_width="@dimen/_72sdp"
+                android:layout_height="@dimen/_72sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadArticleImage="@{article.media}"
+                tools:src="@drawable/ic_error_placeholder" />
+
+            <TextView
+                android:id="@+id/articleSourceItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{article.cleanUrl}"
+                android:textAppearance="?attr/textAppearanceOverline"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/img_articleItem"
+                tools:text="facebook.com" />
+
+            <TextView
+                android:id="@+id/articleTitleItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:maxLines="2"
+                android:text="@{article.title}"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                app:layout_constraintEnd_toStartOf="@id/img_articleItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/articleSourceItem"
+                tools:text="Las energías renovables parecen ser la solución a nuestros problemas." />
+
+            <TextView
+                android:id="@+id/articlePublishDateItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@{article.publishedDate}"
+                android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Hace 23 horas" />
+
+            <ImageView
+                android:id="@+id/ic_articleBookmarkItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:onClick="@{() -> homeViewModel.bookmarkArticle(article, article.bookmark)}"
+                android:src="@drawable/ic_bookmark_border"
+                app:applyBookmark="@{article}"
+                app:layout_constraintBottom_toBottomOf="@id/ic_articleMoreItem"
+                app:layout_constraintEnd_toStartOf="@id/ic_articleMoreItem"
+                app:layout_constraintTop_toTopOf="@id/ic_articleMoreItem" />
+
+            <ImageView
+                android:id="@+id/ic_articleMoreItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:src="@drawable/ic_more_vert"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/img_articleItem"
+                app:layout_constraintTop_toBottomOf="@id/img_articleItem" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

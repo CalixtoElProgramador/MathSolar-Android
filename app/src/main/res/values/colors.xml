@@ -8,4 +8,12 @@
     <color name="red">#FF4646</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="lightGray">#F9F9F9</color>
+    <color name="darkGray">#4B4B4B</color>
+
+    <color name="checkedChipBackgroundColor">#206200EA</color>
+    <color name="chipBackgroundColor">@color/lightGray</color>
+    <color name="chipTextColor">@color/darkGray</color>
+
 </resources>

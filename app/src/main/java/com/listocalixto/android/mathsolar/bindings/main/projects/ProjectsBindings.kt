@@ -13,7 +13,7 @@ import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapt
 /**
  * [BindingAdapter]s for the [PVProject]s list.
  */
-@BindingAdapter("app:items")
+@BindingAdapter("app:projectItems")
 fun RecyclerView.setItems(items: List<PVProject>?) {
     items?.let {
         (adapter as ProjectsAdapter).submitList(items)

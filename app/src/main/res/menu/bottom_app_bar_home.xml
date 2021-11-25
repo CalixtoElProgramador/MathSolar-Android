@@ -10,13 +10,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/category"
-        android:contentDescription="@string/content_description_item_ic_category"
-        android:icon="@drawable/ic_category"
-        android:title="@string/category"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/history"
         android:contentDescription="@string/content_description_item_ic_history"
         android:icon="@drawable/ic_history"

@@ -9,19 +9,37 @@ import retrofit2.Response
 
 interface ArticleDataSource {
 
-    //fun observeArticles(): LiveData<Resource<List<Article>>>
+    fun observeArticles(): LiveData<Resource<List<Article>>>
 
-    //fun observeArticle(articleId: String): LiveData<Resource<Article>>
+    fun observeArticle(articleId: String): LiveData<Resource<Article>>
 
-    suspend fun getArticles(query: String): Resource<ArticleContainer>
+    suspend fun getArticles(topic: String): Resource<List<Article>>
 
-    //suspend fun getArticle(articleId: String): Resource<Article>
+    suspend fun getArticle(articleId: String): Resource<Article>
 
-    //suspend fun refreshArticles()
+    suspend fun refreshArticles(topic: String)
 
-    //suspend fun refreshArticle(articleId: String)
+    suspend fun refreshArticle(topic:String, articleId: String)
 
     suspend fun saveArticle(article: Article)
+
+    suspend fun bookmarkArticle(article: Article)
+
+    suspend fun bookmarkArticle(articleId: String)
+
+    suspend fun deleteBookmarkArticle(article: Article)
+
+    suspend fun deleteBookmarkArticle(articleId: String)
+
+    suspend fun addArticleToHistory(article: Article)
+
+    suspend fun addArticleToHistory(articleId: String)
+
+    suspend fun deleteArticleFromHistory(article: Article)
+
+    suspend fun deleteArticleFromHistory(articleId: String)
+
+    suspend fun deleteAllArticlesFromHistory()
 
     suspend fun deleteAllArticles()
 

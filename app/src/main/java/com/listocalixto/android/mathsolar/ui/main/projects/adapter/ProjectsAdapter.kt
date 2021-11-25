@@ -10,7 +10,7 @@ import com.listocalixto.android.mathsolar.databinding.ItemListProjectBinding
 import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 
 class ProjectsAdapter(private val viewModel: ProjectsViewModel) :
-    ListAdapter<PVProject, ProjectsAdapter.ViewHolder>(TaskDiffCallback()) {
+    ListAdapter<PVProject, ProjectsAdapter.ViewHolder>(ProjectDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -48,7 +48,7 @@ class ProjectsAdapter(private val viewModel: ProjectsViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class TaskDiffCallback : DiffUtil.ItemCallback<PVProject>() {
+class ProjectDiffCallback : DiffUtil.ItemCallback<PVProject>() {
     override fun areItemsTheSame(oldItem: PVProject, newItem: PVProject): Boolean {
         return oldItem.uid == newItem.uid
     }

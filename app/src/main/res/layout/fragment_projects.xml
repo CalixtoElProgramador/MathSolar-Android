@@ -87,7 +87,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/_60sdp"
-                app:items="@{projectsViewModel.items}"
+                app:projectItems="@{projectsViewModel.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

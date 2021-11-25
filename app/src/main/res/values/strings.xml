@@ -2,7 +2,7 @@
     <string name="app_name">MathSolar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_project_not_found">Project not found</string>
-    <string name="err_loading_projects">Error while loading tasks</string>
+    <string name="err_loading_projects">Error while loading projects</string>
     <string name="label_all">All projects</string>
     <string name="no_projects_all">You don\'t have any projects yet</string>
     <string name="label_connected">Connected to the grid</string>
@@ -98,4 +98,19 @@
     <string name="err_articles_not_found">Articles not found</string>
     <string name="err_user_data_not_found">Sorry, your data could not be recovered.</string>
     <string name="err_project_not_found">Project not found!</string>
+    <string name="chip_solar_power">#SolarPower</string>
+    <string name="chip_solar_panels">#SolarPanels</string>
+    <string name="chip_thermal_systems">#ThermalSystems</string>
+    <string name="chip_climate_change">#ClimateChange</string>
+    <string name="chip_environment">#Environment</string>
+    <string name="chip_sustainability">#Sustainability</string>
+    <string name="err_article_not_found">Article not found!</string>
+    <string name="err_loading_articles">Error while loading articles.</string>
+    <string name="label_bookmark">Your saved list</string>
+    <string name="no_articles_bookmark">So far you don\'t have any article saved.</string>
+    <string name="label_history">History</string>
+    <string name="no_articles_viewed">Your search history list is empty.</string>
+    <string name="no_articles_all">Hmm, how strange, there are no articles…</string>
+    <string name="article_marked_bookmark">Article was saved in your personal list.</string>
+    <string name="article_deleted_bookmark">Article was deleted from your personal list.</string>
 </resources>

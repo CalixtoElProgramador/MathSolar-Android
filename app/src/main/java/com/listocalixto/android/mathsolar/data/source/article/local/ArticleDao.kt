@@ -68,7 +68,7 @@ interface ArticleDao {
     suspend fun updateBookmark(articleId: String, bookmark: Boolean)
 
     /**
-     * Update the viewwd status of an article
+     * Update the viewed status of an article
      *
      * @param articleId id of the pv project
      * @param viewed status to be updated
@@ -77,13 +77,12 @@ interface ArticleDao {
     suspend fun updateViewed(articleId: String, viewed: Boolean)
 
     /**
-     * Delete an article by id.
+     * Update the viewed status of all articles
      *
-     * @param articleId the pv project id.
-     * @return the number of articles deleted. This should always be 1.
+     * @param viewed status to be updated
      */
-    @Query("DELETE FROM ARTICLES WHERE _id = :articleId")
-    suspend fun deleteArticleById(articleId: String): Int
+    @Query("UPDATE ARTICLES SET is_viewed = :viewed")
+    suspend fun deleteAllArticlesFromHistory(viewed: Boolean = false)
 
     /**
      * Delete all articles.
