@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="androidx.core.content.ContextCompat" />
+
         <variable
             name="homeViewModel"
             type="com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel" />
@@ -17,7 +19,7 @@
         tools:context=".ui.main.home.HomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/topAppBar_projects"
+            android:id="@+id/topAppBar_articles"
             style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +34,8 @@
                 app:expandedTitleMarginBottom="28dp"
                 app:expandedTitleMarginStart="72dp"
                 app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="@{context.getString(homeViewModel.currentFilteringLabel)}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -48,8 +51,9 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/_16sdp"
                         android:paddingEnd="@dimen/_16sdp"
-                        android:text="@string/home"
-                        android:textAppearance="?attr/textAppearanceHeadline2" />
+                        android:text="@{homeViewModel.currentFilteringLabel}"
+                        android:textAppearance="?attr/textAppearanceHeadline2"
+                        tools:text="News" />
 
                     <HorizontalScrollView
                         android:id="@+id/scrollView_mealType"
@@ -68,7 +72,7 @@
                             android:orientation="horizontal">
 
                             <com.google.android.material.chip.ChipGroup
-                                android:id="@+id/chipGroup_mealType"
+                                android:id="@+id/chipGroup_articleTopics"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:checkedChip="@id/chip_solar_power"
@@ -128,15 +132,14 @@
                 </LinearLayout>
 
                 <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar_projects"
+                    android:id="@+id/toolbar_articles"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
                     android:elevation="0dp"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/top_app_bar_projects"
-                    app:title="@string/home"
-                    tools:title="All Projects" />
+                    tools:title="News" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -152,6 +155,7 @@
             app:articleItems="@{homeViewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:loadingItems="@{homeViewModel.dataLoading}"
             app:shimmer_recycler_item_count="6"
             app:shimmer_recycler_layout="@layout/item_list_article_placeholder"
             tools:listitem="@layout/item_list_article" />

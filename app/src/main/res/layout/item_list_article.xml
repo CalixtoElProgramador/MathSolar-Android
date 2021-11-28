@@ -21,6 +21,7 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="@{() -> homeViewModel.openArticle(article.id)}"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp">
 
@@ -28,17 +29,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/_16sdp"
-            android:paddingTop="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp">
+            android:paddingTop="@dimen/_14sdp"
+            tools:ignore="RtlSymmetry">
 
             <ImageView
                 android:id="@+id/img_articleItem"
                 android:layout_width="@dimen/_72sdp"
                 android:layout_height="@dimen/_72sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:loadArticleImage="@{article.media}"
@@ -67,16 +66,17 @@
                 app:layout_constraintEnd_toStartOf="@id/img_articleItem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/articleSourceItem"
+                app:viewed="@{article.viewed}"
                 tools:text="Las energías renovables parecen ser la solución a nuestros problemas." />
 
             <TextView
                 android:id="@+id/articlePublishDateItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 android:text="@{article.publishedDate}"
                 android:textAppearance="?attr/textAppearanceCaption"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/ic_articleBookmarkItem"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hace 23 horas" />
 
@@ -84,8 +84,11 @@
                 android:id="@+id/ic_articleBookmarkItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_8sdp"
                 android:onClick="@{() -> homeViewModel.bookmarkArticle(article, article.bookmark)}"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_8sdp"
                 android:src="@drawable/ic_bookmark_border"
                 app:applyBookmark="@{article}"
                 app:layout_constraintBottom_toBottomOf="@id/ic_articleMoreItem"
@@ -96,17 +99,19 @@
                 android:id="@+id/ic_articleMoreItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_more_vert"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/img_articleItem"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_articleItem" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

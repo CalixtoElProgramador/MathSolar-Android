@@ -5,12 +5,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 
 @Entity(tableName = "articles")
 data class Article @JvmOverloads constructor (
     @ColumnInfo(name = "clean_url")
     @SerializedName("clean_url")
-    val cleanUrl: String = "",
+    val cleanUrl: String? = "",
 
     @PrimaryKey
     @ColumnInfo(name = "_id")
@@ -23,7 +24,7 @@ data class Article @JvmOverloads constructor (
 
     @ColumnInfo(name = "media")
     @SerializedName("media")
-    val media: String = "",
+    val media: String? = "",
 
     @ColumnInfo(name = "published_date")
     @SerializedName("published_date")
@@ -31,7 +32,7 @@ data class Article @JvmOverloads constructor (
 
     @ColumnInfo(name = "summary")
     @SerializedName("summary")
-    val summary: String = "",
+    val summary: String? = "",
 
     @ColumnInfo(name = "title")
     @SerializedName("title")
@@ -41,7 +42,11 @@ data class Article @JvmOverloads constructor (
     val bookmark: Boolean = false,
 
     @ColumnInfo(name = "is_viewed")
-    val viewed: Boolean = false
+    val viewed: Boolean = false,
+
+    @ColumnInfo(name = "topic")
+    val topic: ArticleTopic = ArticleTopic.SOLAR_POWER
+
 )
 
 data class ArticleContainer(

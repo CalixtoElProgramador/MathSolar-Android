@@ -7,6 +7,7 @@ import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.source.article.ArticleDataSource
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -29,7 +30,7 @@ class ArticleLocalDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getArticles(topic: String): Resource<List<Article>> =
+    override suspend fun getArticles(topic: ArticleTopic): Resource<List<Article>> =
         withContext(ioDispatcher) {
             return@withContext try {
                 Resource.Success(dao.getArticles())
@@ -51,11 +52,11 @@ class ArticleLocalDataSource @Inject constructor(
             }
         }
 
-    override suspend fun refreshArticles(topic: String) {
+    override suspend fun refreshArticles(topic: ArticleTopic) {
         //NO-OP
     }
 
-    override suspend fun refreshArticle(topic: String, articleId: String) {
+    override suspend fun refreshArticle(topic: ArticleTopic, articleId: String) {
         //NO-OP
     }
 
@@ -95,7 +96,7 @@ class ArticleLocalDataSource @Inject constructor(
         dao.updateViewed(articleId, false)
     }
 
-    override suspend fun deleteAllArticlesFromHistory() = withContext(ioDispatcher) {
+    override suspend fun clearHistory() = withContext(ioDispatcher) {
         dao.deleteAllArticlesFromHistory()
     }
 

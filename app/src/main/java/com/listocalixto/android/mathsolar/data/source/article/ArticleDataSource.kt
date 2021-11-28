@@ -5,6 +5,7 @@ import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.model.ArticleContainer
 import com.listocalixto.android.mathsolar.data.model.PVProject
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import retrofit2.Response
 
 interface ArticleDataSource {
@@ -13,13 +14,13 @@ interface ArticleDataSource {
 
     fun observeArticle(articleId: String): LiveData<Resource<Article>>
 
-    suspend fun getArticles(topic: String): Resource<List<Article>>
+    suspend fun getArticles(topic: ArticleTopic): Resource<List<Article>>
 
     suspend fun getArticle(articleId: String): Resource<Article>
 
-    suspend fun refreshArticles(topic: String)
+    suspend fun refreshArticles(topic: ArticleTopic)
 
-    suspend fun refreshArticle(topic:String, articleId: String)
+    suspend fun refreshArticle(topic: ArticleTopic, articleId: String)
 
     suspend fun saveArticle(article: Article)
 
@@ -39,7 +40,7 @@ interface ArticleDataSource {
 
     suspend fun deleteArticleFromHistory(articleId: String)
 
-    suspend fun deleteAllArticlesFromHistory()
+    suspend fun clearHistory()
 
     suspend fun deleteAllArticles()
 

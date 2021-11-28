@@ -11,6 +11,8 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentProjectsBinding
 import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapter
+import com.listocalixto.android.mathsolar.utils.hideOrShowBottomAppBarOnRecyclerScrolled
+import com.listocalixto.android.mathsolar.utils.onMenuItemSelected
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,17 +31,12 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
             setupListAdapter(it)
         }
 
-        val bottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
-        binding.listProjects.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    bottomAppBar?.performHide()
-                }
-                if (dy < 0) {
-                    bottomAppBar?.performShow()
-                }
-            }
-        })
+        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar).also {
+            binding.listProjects.hideOrShowBottomAppBarOnRecyclerScrolled(it)
+            it?.onMenuItemSelected(viewModel)
+        }
+
+
     }
 
     private fun setupListAdapter(binding: FragmentProjectsBinding) {

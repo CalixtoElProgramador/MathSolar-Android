@@ -5,33 +5,40 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.app.Constants.FREE_NEWS_TOPIC
+import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
+import com.listocalixto.android.mathsolar.core.NetworkConnection
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.source.article.ArticleDataSource
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
 import com.listocalixto.android.mathsolar.utils.ArticleFilterType
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.listocalixto.android.mathsolar.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repo: ArticleRepo,
+    private val networkConnection: NetworkConnection,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _forceUpdate = MutableLiveData(false)
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _topic = MutableLiveData<String>()
-    val topic: LiveData<String> = _topic
+    private val _topic = MutableLiveData(ArticleTopic.SOLAR_POWER)
+    val topic: LiveData<ArticleTopic> = _topic
 
     private val _items: LiveData<List<Article>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
             viewModelScope.launch {
-                repo.refreshArticles(FREE_NEWS_TOPIC)
+                _topic.value?.let { repo.refreshArticles(it) }
                 _dataLoading.value = false
             }
         }
@@ -57,16 +64,18 @@ class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewMod
 
     private var currentFiltering = ArticleFilterType.ALL_ARTICLES
 
+    private var lifeCycleOwner: LifecycleOwner? = null
+
     private val isDataLoadingError = MutableLiveData<Boolean>()
 
-    private val _openTaskEvent = MutableLiveData<Event<String>>()
-    val openTaskEvent: LiveData<Event<String>> = _openTaskEvent
+    private val _openArticleEvent = MutableLiveData<Event<String>>()
+    val openArticleEvent: LiveData<Event<String>> = _openArticleEvent
 
     private var resultMessageShown: Boolean = false
 
     // This LiveData depends on another so we can use a transformation.
     val empty: LiveData<Boolean> = Transformations.map(_items) {
-        it.isEmpty()
+        it?.isEmpty()
     }
 
     init {
@@ -88,7 +97,7 @@ class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewMod
         when (requestType) {
             ArticleFilterType.ALL_ARTICLES -> {
                 setFilter(
-                    R.string.label_all, R.string.no_articles_all,
+                    R.string.label_all_articles, R.string.no_articles_all,
                     R.drawable.ic_error_placeholder, true
                 )
             }
@@ -131,21 +140,18 @@ class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewMod
         }
     }
 
-    private fun filterArticles(resource: Resource<List<Article>>): LiveData<List<Article>> {
-        val result = MutableLiveData<List<Article>>()
+    private fun filterArticles(resource: Resource<List<Article>>) =
+        liveData(viewModelScope.coroutineContext + mainDispatcher) {
+            if (resource is Resource.Success) {
+                isDataLoadingError.value = false
+                emit(filterItems(resource.data, currentFiltering))
 
-        if (resource is Resource.Success) {
-            isDataLoadingError.value = false
-            viewModelScope.launch {
-                result.value = filterItems(resource.data, currentFiltering)
+            } else {
+                showSnackbarMessage(R.string.err_loading_articles)
+                isDataLoadingError.value = true
+                emit(emptyList())
             }
-        } else {
-            result.value = emptyList()
-            showSnackbarMessage(R.string.err_loading_articles)
-            isDataLoadingError.value = true
         }
-        return result
-    }
 
     private fun filterItems(
         articles: List<Article>,
@@ -154,10 +160,17 @@ class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewMod
         val articlesToShow = ArrayList<Article>()
         articles.forEach { article ->
             when (filteringType) {
-                ArticleFilterType.ALL_ARTICLES -> articlesToShow.add(article)
-                ArticleFilterType.BOOKMARK -> if (article.bookmark) articlesToShow.add(article)
-                ArticleFilterType.HISTORY -> if (article.viewed) articlesToShow.add(article)
+                ArticleFilterType.ALL_ARTICLES -> {
+                    if (article.topic == _topic.value) articlesToShow.add(article)
+                }
+                ArticleFilterType.BOOKMARK -> {
+                    if (article.bookmark) articlesToShow.add(article)
+                }
+                ArticleFilterType.HISTORY -> {
+                    if (article.viewed) articlesToShow.add(article)
+                }
             }
+
         }
         return articlesToShow
     }
@@ -171,6 +184,36 @@ class HomeViewModel @Inject constructor(private val repo: ArticleRepo) : ViewMod
      */
     fun loadArticles(forceUpdate: Boolean) {
         _forceUpdate.value = forceUpdate
+    }
+
+    fun setLifecycleOwnerToObserveNetworkConnection(lifecycle: LifecycleOwner) {
+        lifeCycleOwner = lifecycle
+    }
+
+    fun changeTopic(topic: ArticleTopic) {
+        _topic.value = topic
+        lifeCycleOwner?.let { lifecycle ->
+            networkConnection.observe(lifecycle, Observer {
+                loadArticles(it)
+            })
+        }
+    }
+
+    fun openArticle(articleId: String) {
+        _openArticleEvent.value = Event(articleId)
+        viewModelScope.launch {
+            repo.addArticleToHistory(articleId)
+        }
+    }
+
+    fun updateBookmark(article: Article) {
+        viewModelScope.launch {
+            if (article.bookmark) {
+                repo.deleteBookmarkArticle(article)
+            } else {
+                repo.bookmarkArticle(article)
+            }
+        }
     }
 
     companion object {

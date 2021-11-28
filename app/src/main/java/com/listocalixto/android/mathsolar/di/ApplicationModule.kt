@@ -1,11 +1,14 @@
 package com.listocalixto.android.mathsolar.di
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.listocalixto.android.mathsolar.BaseApplication
 import com.listocalixto.android.mathsolar.app.Constants.APP_DATABASE_NAME
 import com.listocalixto.android.mathsolar.app.Constants.FREE_NEWS_BASE_URL
+import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
+import com.listocalixto.android.mathsolar.core.NetworkConnection
 import com.listocalixto.android.mathsolar.data.source.ApplicationDatabase
 import com.listocalixto.android.mathsolar.data.source.article.remote.ArticleWebService
 import dagger.Module
@@ -42,6 +45,10 @@ object ApplicationModule {
     @Provides
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
+    @MainDispatcher
+    @Provides
+    fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
+
     @Singleton
     @Provides
     fun providesApplication(@ApplicationContext app: Context): BaseApplication =
@@ -49,10 +56,15 @@ object ApplicationModule {
 
     @Singleton
     @Provides
+    fun provideNetworkConnection(@ApplicationContext context: Context): LiveData<Boolean> =
+        NetworkConnection(context)
+
+    @Singleton
+    @Provides
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             .build()
     }
 

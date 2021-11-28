@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.model.ArticleContainer
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 
 interface ArticleRepo {
 
@@ -11,11 +12,11 @@ interface ArticleRepo {
 
     fun observeArticle(articleId: String): LiveData<Resource<Article>>
 
-    suspend fun getArticles(topic: String, forceUpdate: Boolean = false): Resource<List<Article>>
+    suspend fun getArticles(topic: ArticleTopic, forceUpdate: Boolean = false): Resource<List<Article>>
 
     suspend fun getArticle(articleId: String, forceUpdate: Boolean = false): Resource<Article>
 
-    suspend fun refreshArticles(topic: String)
+    suspend fun refreshArticles(topic: ArticleTopic)
 
     suspend fun refreshArticle(articleId: String)
 
@@ -37,7 +38,7 @@ interface ArticleRepo {
 
     suspend fun deleteArticleFromHistory(articleId: String)
 
-    suspend fun deleteAllArticlesFromHistory()
+    suspend fun clearHistory()
 
     suspend fun deleteAllArticles()
 }

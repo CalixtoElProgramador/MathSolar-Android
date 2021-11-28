@@ -40,9 +40,9 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
 
         headerBottomNavBinding = BottomNavDrawerMainLayoutHeaderBinding.bind(
             binding.bottomNavDrawerMain.getHeaderView(0)
-        ).also {
-            it.lifecycleOwner = this.viewLifecycleOwner
-            it.mainViewModel = viewModel
+        ).apply {
+            lifecycleOwner = viewLifecycleOwner
+            mainViewModel = viewModel
         }
 
         setupBottomSheetBehavior()
@@ -91,6 +91,9 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
             when (destination.id) {
                 R.id.homeFragment -> {
                     viewModel.setCurrentFragment(R.id.homeFragment)
+                }
+                R.id.articleDetailsFragment -> {
+                    viewModel.setCurrentFragment(R.id.articleDetailsFragment)
                 }
                 R.id.projectsFragment -> {
                     viewModel.setCurrentFragment(R.id.projectsFragment)

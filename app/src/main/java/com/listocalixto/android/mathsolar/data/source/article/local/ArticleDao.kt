@@ -46,7 +46,7 @@ interface ArticleDao {
      *
      * @param article the article to be inserted.
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertArticle(article: Article)
 
     /**

@@ -1,5 +1,6 @@
 package com.listocalixto.android.mathsolar.data.source.article.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -11,9 +12,11 @@ import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.source.article.ArticleDataSource
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.listocalixto.android.mathsolar.utils.ErrorMessage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ArticleRemoteDataSource @Inject constructor(
@@ -41,11 +44,11 @@ class ArticleRemoteDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getArticles(topic: String): Resource<List<Article>> =
+    override suspend fun getArticles(topic: ArticleTopic): Resource<List<Article>> =
         withContext(ioDispatcher) {
             return@withContext try {
                 val response = webService.getArticles(
-                    topic,
+                    topic.query,
                     FREE_NEWS_LANG,
                     FREE_NEWS_HOST,
                     FREE_NEWS_API_KEY
@@ -70,7 +73,14 @@ class ArticleRemoteDataSource @Inject constructor(
                     }
                 }
             } catch (e: Exception) {
-                Resource.Error(ErrorMessage(exception = e))
+                when (e) {
+                    is UnknownHostException -> {
+                        Resource.Error(ErrorMessage(stringRes = R.string.err_article_api_unknow_host))
+                    }
+                    else -> {
+                        Resource.Error(ErrorMessage(exception = e))
+                    }
+                }
             }
         }
 
@@ -80,11 +90,11 @@ class ArticleRemoteDataSource @Inject constructor(
             return@withContext Resource.Success(Article())
         }
 
-    override suspend fun refreshArticles(topic: String) = withContext(ioDispatcher) {
+    override suspend fun refreshArticles(topic: ArticleTopic) = withContext(ioDispatcher) {
         getArticles(topic).let { observableArticles.value = it }
     }
 
-    override suspend fun refreshArticle(topic: String, articleId: String) =
+    override suspend fun refreshArticle(topic: ArticleTopic, articleId: String) =
         withContext(ioDispatcher) {
             refreshArticles(topic)
         }
@@ -125,11 +135,16 @@ class ArticleRemoteDataSource @Inject constructor(
         //NO-OP - FIREBASE - NO REQUIRED
     }
 
-    override suspend fun deleteAllArticlesFromHistory() {
+    override suspend fun clearHistory() {
         //NO-OP - FIREBASE
     }
 
     override suspend fun deleteAllArticles() {
         //NO-OP - FIREBASE
     }
+
+    companion object {
+        const val TAG = "ArticleRemoteDataSource"
+    }
+
 }

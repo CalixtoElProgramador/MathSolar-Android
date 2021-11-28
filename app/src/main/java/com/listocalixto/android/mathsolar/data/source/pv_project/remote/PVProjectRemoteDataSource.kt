@@ -68,33 +68,34 @@ class PVProjectRemoteDataSource @Inject constructor(
     }
 
 
-    override suspend fun getPVProject(projectId: String): Resource<PVProject> {
-        val user = FirebaseAuth.getInstance().currentUser
-        val projectsRemoteList = mutableListOf<PVProjectRemote>()
-        val querySnapshot =
-            FirebaseFirestore.getInstance().collection("pv_projects")
-                .whereEqualTo("uid", projectId)
-                .whereEqualTo("userUid", user?.uid)
-                .get().await()
-        for (project in querySnapshot.documents) {
-            project.toObject(PVProjectRemote::class.java)?.let {
-                projectsRemoteList.add(it)
+    override suspend fun getPVProject(projectId: String): Resource<PVProject> =
+        withContext(ioDispatcher) {
+            val user = FirebaseAuth.getInstance().currentUser
+            val projectsRemoteList = mutableListOf<PVProjectRemote>()
+            val querySnapshot =
+                FirebaseFirestore.getInstance().collection("pv_projects")
+                    .whereEqualTo("uid", projectId)
+                    .whereEqualTo("userUid", user?.uid)
+                    .get().await()
+            for (project in querySnapshot.documents) {
+                project.toObject(PVProjectRemote::class.java)?.let {
+                    projectsRemoteList.add(it)
+                }
             }
+            return@withContext Resource.Success(projectsRemoteList[0].asLocalModel())
         }
-        return Resource.Success(projectsRemoteList[0].asLocalModel())
-    }
 
-    override suspend fun refreshPVProjects() {
+    override suspend fun refreshPVProjects() = withContext(ioDispatcher) {
         getPVProjects().let { projects ->
             observableProjects.value = projects
         }
     }
 
-    override suspend fun refreshPVProject(projectId: String) {
+    override suspend fun refreshPVProject(projectId: String) = withContext(ioDispatcher) {
         refreshPVProjects()
     }
 
-    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) {
+    override suspend fun savePVProject(imageBitmap: Bitmap?, project: PVProject) = withContext<Unit>(ioDispatcher) {
         val user = FirebaseAuth.getInstance().currentUser
         val imageRef =
             FirebaseStorage.getInstance().reference.child("${user?.uid}/pv_project/${project.uid}")

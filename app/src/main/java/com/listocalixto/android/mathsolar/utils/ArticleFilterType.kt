@@ -6,6 +6,7 @@ enum class ArticleFilterType {
 
     BOOKMARK,
 
-    HISTORY
+    HISTORY,
+
 
 }

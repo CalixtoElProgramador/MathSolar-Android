@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="articleDetailsViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.home.article_details.ArticleDetailsViewModel" />
+
+        <variable
+            name="homeViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.home.article_details.ArticleDetailsFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/topAppBar_article_details"
+            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar_article_details"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:subtitle="@{articleDetailsViewModel.article.topic.query}"
+                app:title="@{homeViewModel.currentFilteringLabel}"
+                tools:subtitle="Solar panels"
+                tools:title="News" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/image_articleMedia"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/topAppBar_article_details"
+            app:loadArticleImage="@{articleDetailsViewModel.article.media}"
+            tools:src="@drawable/ic_error_placeholder" />
+
+        <TextView
+            android:id="@+id/articleSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@{articleDetailsViewModel.article.cleanUrl}"
+            android:textAppearance="?attr/textAppearanceOverline"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/image_articleMedia"
+            tools:text="CNET.COM" />
+
+        <TextView
+            android:id="@+id/articleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@{articleDetailsViewModel.article.title}"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintTop_toBottomOf="@id/articleSource"
+            tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
+
+        <TextView
+            android:id="@+id/articleSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:lineSpacingExtra="@dimen/_4sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@{articleDetailsViewModel.article.summary}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintTop_toBottomOf="@id/articleTitle"
+            tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
+
+        <TextView
+            android:id="@+id/articlePublishDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:text="@{articleDetailsViewModel.article.publishedDate}"
+            android:textAppearance="?attr/textAppearanceCaption"
+            app:layout_constraintTop_toBottomOf="@id/articleSummary"
+            tools:text="Hace 6 horas" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:text="@string/open_in_browser"
+            app:cornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/articlePublishDate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

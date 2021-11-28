@@ -87,7 +87,7 @@ class PVProjectRepoImpl @Inject constructor(
         }
     }
 
-    override suspend fun likePVProject(project: PVProject) {
+    override suspend fun likePVProject(project: PVProject) = withContext<Unit>(ioDispatcher) {
         coroutineScope {
             launch { localDataSource.likePVProject(project) }
             launch { remoteDataSource.likePVProject(project) }
@@ -102,11 +102,7 @@ class PVProjectRepoImpl @Inject constructor(
         }
     }
 
-    private suspend fun getProjectWithId(projectId: String): Resource<PVProject> {
-        return localDataSource.getPVProject(projectId)
-    }
-
-    override suspend fun dislikePVProject(project: PVProject) {
+    override suspend fun dislikePVProject(project: PVProject) = withContext<Unit>(ioDispatcher) {
         coroutineScope {
             launch { localDataSource.dislikePVProject(project) }
             launch { remoteDataSource.dislikePVProject(project) }
@@ -136,4 +132,9 @@ class PVProjectRepoImpl @Inject constructor(
             launch { remoteDataSource.deletePVProject(projectId) }
         }
     }
+
+    private suspend fun getProjectWithId(projectId: String): Resource<PVProject> {
+        return localDataSource.getPVProject(projectId)
+    }
+
 }

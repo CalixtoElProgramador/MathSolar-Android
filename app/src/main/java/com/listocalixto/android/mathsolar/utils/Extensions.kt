@@ -7,15 +7,22 @@ import android.provider.Settings
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.listocalixto.android.mathsolar.utils.SnackbarType.DEFAULT
 import com.listocalixto.android.mathsolar.utils.SnackbarType.GO_TO_SETTINGS
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.listocalixto.android.mathsolar.BuildConfig
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.model.PVProjectRemote
+import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
+import com.listocalixto.android.mathsolar.presentation.main.home.article_details.ArticleDetailsViewModel
 
 fun PVProject.asRemoteModel(downloadUrl: String, userUid: String): PVProjectRemote =
     PVProjectRemote(
@@ -87,6 +94,19 @@ fun PVProjectRemote.asLocalModel(): PVProject =
         this.sunHours,
         this.uid
     )
+
+fun Article.toDatabaseModel(topic: ArticleTopic): Article = Article(
+    cleanUrl = this.cleanUrl,
+    id = this.id,
+    link = this.link,
+    media = this.media,
+    publishedDate = this.publishedDate,
+    summary = this.summary,
+    title = this.title,
+    bookmark = this.bookmark,
+    viewed = this.viewed,
+    topic
+)
 
 fun List<PVProjectRemote>.asLocalModel(): List<PVProject> {
     val resultList = mutableListOf<PVProject>()
@@ -198,4 +218,51 @@ fun TextInputLayout.isEditTextEmpty() =
 fun TextInputLayout.enableError(message: Int) {
     isErrorEnabled = true
     error = context.getString(message)
+}
+
+fun BottomAppBar.onMenuItemSelected(viewModel: ViewModel?) {
+    viewModel?.let {
+        (it as? HomeViewModel)?.let { homeViewModel ->
+            this.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.bookmark -> {
+                        homeViewModel.setFiltering(ArticleFilterType.BOOKMARK)
+                        true
+                    }
+                    R.id.history -> {
+                        homeViewModel.setFiltering(ArticleFilterType.HISTORY)
+                        true
+                    }
+                    else -> {
+                        false
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAppBar?) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if (dy > 0) {
+                bottomAppBar?.performHide()
+            }
+            if (dy < 0) {
+                bottomAppBar?.performShow()
+            }
+        }
+    })
+}
+
+fun FloatingActionButton.setFunctionOnClick(viewModel: ViewModel?) {
+    viewModel?.let { vm ->
+        when (vm) {
+            is ArticleDetailsViewModel -> {
+                setOnClickListener { vm.setBookmark() }
+            }
+        }
+    }
 }
