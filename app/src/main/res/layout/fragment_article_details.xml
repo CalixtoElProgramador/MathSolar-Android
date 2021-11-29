@@ -15,9 +15,11 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_article_details_xml_constraintlayout2_scene"
         tools:context=".ui.main.articles.article_details.ArticleDetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -44,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_180sdp"
             android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/topAppBar_article_details"
             app:loadArticleImage="@{articleDetailsViewModel.article.media}"
             tools:src="@drawable/ic_error_placeholder" />
 
@@ -52,62 +53,53 @@
             android:id="@+id/articleSource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:text="@{articleDetailsViewModel.article.cleanUrl}"
             android:textAppearance="?attr/textAppearanceOverline"
             android:textColor="?attr/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/image_articleMedia"
             tools:text="CNET.COM" />
 
         <TextView
             android:id="@+id/articleTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:text="@{articleDetailsViewModel.article.title}"
             android:textAppearance="?attr/textAppearanceHeadline5"
-            app:layout_constraintTop_toBottomOf="@id/articleSource"
             tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
 
         <TextView
             android:id="@+id/articleSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:maxLines="10"
             android:lineSpacingExtra="@dimen/_4sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:text="@{articleDetailsViewModel.article.summary}"
             android:textAppearance="?attr/textAppearanceBody2"
-            app:layout_constraintTop_toBottomOf="@id/articleTitle"
             tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
 
         <TextView
             android:id="@+id/articlePublishDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:text="@{articleDetailsViewModel.article.publishedDate}"
             android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintTop_toBottomOf="@id/articleSummary"
             tools:text="Hace 6 horas" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_openInBrowser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:text="@string/open_in_browser"
-            app:cornerRadius="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/articlePublishDate" />
+            app:cornerRadius="0dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>
