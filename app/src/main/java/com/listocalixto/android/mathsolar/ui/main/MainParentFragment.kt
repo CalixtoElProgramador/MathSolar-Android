@@ -8,9 +8,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.math.MathUtils
@@ -33,29 +35,17 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = ParentFragmentMainBinding.bind(view).also {
-            it.lifecycleOwner = this.viewLifecycleOwner
-            it.mainViewModel = viewModel
-        }
-
-        headerBottomNavBinding = BottomNavDrawerMainLayoutHeaderBinding.bind(
-            binding.bottomNavDrawerMain.getHeaderView(0)
-        ).apply {
-            lifecycleOwner = viewLifecycleOwner
-            mainViewModel = viewModel
-        }
-
-        setupBottomSheetBehavior()
+        setupBinding(view)
+        setupLayoutHeaderBinding()
 
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.nav_host_main) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavDrawerMain.setupWithNavController(navController)
-
         setupDestinationChangeListener(navController)
 
+        setupBottomSheetBehavior()
         binding.bottomAppBar.setNavigationOnClickListener { showBottomNavDrawer() }
-
         viewModel.bottomNavExpandedState.observe(viewLifecycleOwner, {
             if (it) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -86,11 +76,28 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
         })
     }
 
+
+    private fun setupLayoutHeaderBinding() {
+        headerBottomNavBinding = BottomNavDrawerMainLayoutHeaderBinding.bind(
+            binding.bottomNavDrawerMain.getHeaderView(0)
+        ).apply {
+            lifecycleOwner = this@MainParentFragment.viewLifecycleOwner
+            mainViewModel = viewModel
+        }
+    }
+
+    private fun setupBinding(view: View) {
+        binding = ParentFragmentMainBinding.bind(view).apply {
+            lifecycleOwner = this@MainParentFragment.viewLifecycleOwner
+            mainViewModel = viewModel
+        }
+    }
+
     private fun setupDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment -> {
-                    viewModel.setCurrentFragment(R.id.homeFragment)
+                R.id.articlesFragment -> {
+                    viewModel.setCurrentFragment(R.id.articlesFragment)
                 }
                 R.id.articleDetailsFragment -> {
                     viewModel.setCurrentFragment(R.id.articleDetailsFragment)

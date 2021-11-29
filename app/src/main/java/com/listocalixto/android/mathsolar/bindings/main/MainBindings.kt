@@ -5,22 +5,19 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.User
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
-import com.listocalixto.android.mathsolar.utils.ArticleFilterType
 
 @BindingAdapter("app:isBottomNavExpanded", "app:currentFragment")
 fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
     when (currentFragment) {
-        R.id.homeFragment -> {
+        R.id.articlesFragment -> {
             when (this) {
                 is BottomAppBar -> {
+                    setNavigationIcon(R.drawable.ic_menu)
                     replaceMenu(R.menu.bottom_app_bar_home)
                     if (isOpenBottomNav) performHide() else performShow()
                 }
@@ -32,6 +29,7 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
         R.id.projectsFragment -> {
             when (this) {
                 is BottomAppBar -> {
+                    setNavigationIcon(R.drawable.ic_menu)
                     fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                     replaceMenu(R.menu.bottom_app_bar_projects)
                     if (isOpenBottomNav) performHide() else performShow()
@@ -45,6 +43,7 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
         R.id.articleDetailsFragment -> {
             when (this) {
                 is BottomAppBar -> {
+                    navigationIcon = null
                     fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
                     replaceMenu(R.menu.bottom_app_bar_article_details)
                     if (isOpenBottomNav) performHide() else performShow()

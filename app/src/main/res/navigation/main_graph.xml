@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/articlesFragment">
 
     <fragment
         android:id="@+id/projectsFragment"
@@ -11,10 +11,10 @@
         android:label="ProjectsFragment"
         tools:layout="@layout/fragment_projects" />
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.listocalixto.android.mathsolar.ui.main.home.HomeFragment"
+        android:id="@+id/articlesFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.articles.ArticlesFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_articles" >
         <action
             android:id="@+id/action_homeFragment_to_articleDetailsFragment"
             app:destination="@id/articleDetailsFragment"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleDetailsFragment"
-        android:name="com.listocalixto.android.mathsolar.ui.main.home.article_details.ArticleDetailsFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.articles.article_details.ArticleDetailsFragment"
         android:label="ArticleDetailsFragment"
         tools:layout="@layout/fragment_article_details">
         <argument

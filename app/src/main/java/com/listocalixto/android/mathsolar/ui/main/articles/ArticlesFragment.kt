@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.home
+package com.listocalixto.android.mathsolar.ui.main.articles
 
 import android.os.Bundle
 import android.util.Log
@@ -8,28 +8,28 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.databinding.FragmentHomeBinding
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
-import com.listocalixto.android.mathsolar.ui.main.home.adapter.HomeAdapter
+import com.listocalixto.android.mathsolar.databinding.FragmentArticlesBinding
+import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
+import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.listocalixto.android.mathsolar.ui.main.projects.ProjectsFragment
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class ArticlesFragment : Fragment(R.layout.fragment_articles) {
 
-    private val viewModel by activityViewModels<HomeViewModel>()
+    private val viewModel by activityViewModels<ArticlesViewModel>()
 
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentArticlesBinding
     private lateinit var listAdapter: HomeAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentHomeBinding.bind(view).also {
-            it.lifecycleOwner = this.viewLifecycleOwner
-            it.homeViewModel = viewModel
-            setupListAdapter(it)
+        binding = FragmentArticlesBinding.bind(view).apply {
+            articlesViewModel = viewModel
+            setupListAdapter(this)
         }
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         activity?.findViewById<BottomAppBar>(R.id.bottomAppBar).also {
             binding.listArticles.hideOrShowBottomAppBarOnRecyclerScrolled(it)
@@ -75,12 +75,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun openArticleDetailsFragment(articleId: String) {
-        val action = HomeFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
+        val action = ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
         findNavController().navigate(action)
     }
 
-    private fun setupListAdapter(binding: FragmentHomeBinding) {
-        val viewModel = binding.homeViewModel
+    private fun setupListAdapter(binding: FragmentArticlesBinding) {
+        val viewModel = binding.articlesViewModel
         viewModel?.let {
             listAdapter = HomeAdapter(it)
             binding.listArticles.adapter = listAdapter

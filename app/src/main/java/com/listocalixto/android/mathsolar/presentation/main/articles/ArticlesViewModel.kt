@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.presentation.main.home
+package com.listocalixto.android.mathsolar.presentation.main.articles
 
 import android.util.Log
 import androidx.annotation.DrawableRes
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class ArticlesViewModel @Inject constructor(
     private val repo: ArticleRepo,
     private val networkConnection: NetworkConnection,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
@@ -217,7 +217,7 @@ class HomeViewModel @Inject constructor(
     }
 
     companion object {
-        const val TAG = "HomeViewModel"
+        const val TAG = "ArticlesViewModel"
     }
 
 }

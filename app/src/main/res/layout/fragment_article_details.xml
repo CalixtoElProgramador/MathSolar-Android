@@ -7,18 +7,18 @@
 
         <variable
             name="articleDetailsViewModel"
-            type="com.listocalixto.android.mathsolar.presentation.main.home.article_details.ArticleDetailsViewModel" />
+            type="com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel" />
 
         <variable
-            name="homeViewModel"
-            type="com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel" />
+            name="articlesViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.home.article_details.ArticleDetailsFragment">
+        tools:context=".ui.main.articles.article_details.ArticleDetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBar_article_details"
@@ -33,7 +33,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:subtitle="@{articleDetailsViewModel.article.topic.query}"
-                app:title="@{homeViewModel.currentFilteringLabel}"
+                app:title="@{articlesViewModel.currentFilteringLabel}"
                 tools:subtitle="Solar panels"
                 tools:title="News" />
 

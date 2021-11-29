@@ -21,7 +21,7 @@ class MainViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     private val _scrimColor = MutableLiveData<Int>()
     val scrimColor: LiveData<Int> = _scrimColor
 
-    private val _currentFragment = MutableLiveData(R.id.homeFragment)
+    private val _currentFragment = MutableLiveData(R.id.articlesFragment)
     val currentFragment: LiveData<Int> = _currentFragment
 
     private val _userData = MutableLiveData<User?>()

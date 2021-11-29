@@ -8,15 +8,15 @@
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
-            name="homeViewModel"
-            type="com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel" />
+            name="articlesViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel" />
 
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.home.HomeFragment">
+        tools:context=".ui.main.articles.ArticlesFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBar_articles"
@@ -35,7 +35,7 @@
                 app:expandedTitleMarginStart="72dp"
                 app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="@{context.getString(homeViewModel.currentFilteringLabel)}">
+                app:title="@{context.getString(articlesViewModel.currentFilteringLabel)}">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/_16sdp"
                         android:paddingEnd="@dimen/_16sdp"
-                        android:text="@{homeViewModel.currentFilteringLabel}"
+                        android:text="@{articlesViewModel.currentFilteringLabel}"
                         android:textAppearance="?attr/textAppearanceHeadline2"
                         tools:text="News" />
 
@@ -152,10 +152,10 @@
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingBottom="@dimen/_60sdp"
-            app:articleItems="@{homeViewModel.items}"
+            app:articleItems="@{articlesViewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:loadingItems="@{homeViewModel.dataLoading}"
+            app:loadingItems="@{articlesViewModel.dataLoading}"
             app:shimmer_recycler_item_count="6"
             app:shimmer_recycler_layout="@layout/item_list_article_placeholder"
             tools:listitem="@layout/item_list_article" />

@@ -114,10 +114,12 @@
     <string name="article_marked_bookmark">Article was saved in your personal list.</string>
     <string name="article_deleted_bookmark">Article was deleted from your personal list.</string>
     <string name="err_article_api_unknow_host">There was an error requesting the information from the news server. Sorry for the inconvenience</string>
-    <string name="label_all_articles">News</string>
+    <string name="label_all_articles">Articles</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="share">Share</string>
     <string name="content_description_item_ic_share">Share</string>
     <string name="link">Link</string>
     <string name="content_description_item_ic_link">Get the link</string>
+    <string name="articles">Articles</string>
+    <string name="content_description_item_ic_article">Go to the articles screen</string>
 </resources>

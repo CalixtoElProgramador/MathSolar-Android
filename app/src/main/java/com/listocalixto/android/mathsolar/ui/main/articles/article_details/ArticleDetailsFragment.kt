@@ -1,15 +1,16 @@
-package com.listocalixto.android.mathsolar.ui.main.home.article_details
+package com.listocalixto.android.mathsolar.ui.main.articles.article_details
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentArticleDetailsBinding
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
-import com.listocalixto.android.mathsolar.presentation.main.home.article_details.ArticleDetailsViewModel
+import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
+import com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel
 import com.listocalixto.android.mathsolar.utils.setFunctionOnClick
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
 
     private val viewModel by activityViewModels<ArticleDetailsViewModel>()
-    private val articlesViewModel by activityViewModels<HomeViewModel>()
+    private val articlesViewModel by activityViewModels<ArticlesViewModel>()
     private val args: ArticleDetailsFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentArticleDetailsBinding
@@ -27,7 +28,7 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
         setupFab()
         binding = FragmentArticleDetailsBinding.bind(view).apply {
             articleDetailsViewModel = viewModel
-            homeViewModel = articlesViewModel
+            articlesViewModel = this@ArticleDetailsFragment.articlesViewModel
         }
         binding.lifecycleOwner = this.viewLifecycleOwner
         viewModel.start(args.articleId)

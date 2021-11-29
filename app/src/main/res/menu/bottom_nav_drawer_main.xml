@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeFragment"
-        android:contentDescription="@string/content_description_item_ic_home"
-        android:icon="@drawable/ic_home"
-        android:title="@string/home"
+        android:id="@+id/articlesFragment"
+        android:contentDescription="@string/content_description_item_ic_article"
+        android:icon="@drawable/ic_article"
+        android:title="@string/articles"
         app:showAsAction="ifRoom" />
 
     <item

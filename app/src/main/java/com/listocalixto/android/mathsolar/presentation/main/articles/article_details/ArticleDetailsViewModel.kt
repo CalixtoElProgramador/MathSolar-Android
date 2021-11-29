@@ -1,14 +1,12 @@
-package com.listocalixto.android.mathsolar.presentation.main.home.article_details
+package com.listocalixto.android.mathsolar.presentation.main.articles.article_details
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

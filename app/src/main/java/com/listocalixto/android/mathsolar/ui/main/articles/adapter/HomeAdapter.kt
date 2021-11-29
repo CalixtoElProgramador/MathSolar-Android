@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.home.adapter
+package com.listocalixto.android.mathsolar.ui.main.articles.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.databinding.ItemListArticleBinding
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
+import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 
-class HomeAdapter(private val viewModel: HomeViewModel) :
+class HomeAdapter(private val viewModel: ArticlesViewModel) :
     ListAdapter<Article, HomeAdapter.ViewHolder>(ArticleDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,9 +24,8 @@ class HomeAdapter(private val viewModel: HomeViewModel) :
     class ViewHolder private constructor(private val binding: ItemListArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: HomeViewModel, item: Article) {
-
-            binding.homeViewModel = viewModel
+        fun bind(viewModel: ArticlesViewModel, item: Article) {
+            binding.articlesViewModel = viewModel
             binding.article = item
             binding.executePendingBindings()
         }

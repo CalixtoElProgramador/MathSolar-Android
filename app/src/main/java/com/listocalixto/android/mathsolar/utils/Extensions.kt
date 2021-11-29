@@ -21,8 +21,8 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.model.PVProjectRemote
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
-import com.listocalixto.android.mathsolar.presentation.main.home.article_details.ArticleDetailsViewModel
+import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
+import com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel
 
 fun PVProject.asRemoteModel(downloadUrl: String, userUid: String): PVProjectRemote =
     PVProjectRemote(
@@ -222,7 +222,7 @@ fun TextInputLayout.enableError(message: Int) {
 
 fun BottomAppBar.onMenuItemSelected(viewModel: ViewModel?) {
     viewModel?.let {
-        (it as? HomeViewModel)?.let { homeViewModel ->
+        (it as? ArticlesViewModel)?.let { homeViewModel ->
             this.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.bookmark -> {

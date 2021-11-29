@@ -2,20 +2,12 @@ package com.listocalixto.android.mathsolar.bindings.main.home
 
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
-import com.listocalixto.android.mathsolar.presentation.main.home.HomeViewModel
-import com.listocalixto.android.mathsolar.ui.main.home.adapter.HomeAdapter
-import com.listocalixto.android.mathsolar.utils.ArticleFilterType
-import com.listocalixto.android.mathsolar.utils.ArticleTopic
+import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.todkars.shimmer.ShimmerRecyclerView
-import kotlinx.coroutines.Dispatchers
 
 @BindingAdapter("app:articleItems")
 fun ShimmerRecyclerView.setArticleItems(items: List<Article>?) {
