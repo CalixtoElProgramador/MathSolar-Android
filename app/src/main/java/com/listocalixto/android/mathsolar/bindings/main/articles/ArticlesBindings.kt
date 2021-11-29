@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.bindings.main.home
+package com.listocalixto.android.mathsolar.bindings.main.articles
 
 import android.widget.ImageView
 import android.widget.TextView
