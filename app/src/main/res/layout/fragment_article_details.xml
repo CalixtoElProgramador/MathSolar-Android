@@ -44,7 +44,7 @@
         <ImageView
             android:id="@+id/image_articleMedia"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_180sdp"
+            android:layout_height="@dimen/image_large_size"
             android:scaleType="centerCrop"
             app:loadArticleImage="@{articleDetailsViewModel.article.media}"
             tools:src="@drawable/ic_error_placeholder" />
@@ -53,8 +53,8 @@
             android:id="@+id/articleSource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.cleanUrl}"
             android:textAppearance="?attr/textAppearanceOverline"
             android:textColor="?attr/colorPrimary"
@@ -64,8 +64,8 @@
             android:id="@+id/articleTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.title}"
             android:textAppearance="?attr/textAppearanceHeadline5"
             tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
@@ -74,10 +74,10 @@
             android:id="@+id/articleSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="10"
-            android:lineSpacingExtra="@dimen/_4sdp"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:maxLines="@integer/max_lines_article_details"
+            android:lineSpacingExtra="@dimen/margin_extra_short"
+            android:paddingStart="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.summary}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
@@ -86,8 +86,8 @@
             android:id="@+id/articlePublishDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_16sdp"
-            android:paddingEnd="@dimen/_16sdp"
+            android:paddingStart="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.publishedDate}"
             android:textAppearance="?attr/textAppearanceCaption"
             tools:text="Hace 6 horas" />
@@ -96,9 +96,9 @@
             android:id="@+id/button_openInBrowser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:text="@string/open_in_browser"
-            app:cornerRadius="0dp" />
+            app:cornerRadius="@dimen/zero" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

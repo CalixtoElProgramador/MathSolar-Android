@@ -17,13 +17,13 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/_16sdp"
+        android:padding="@dimen/margin_medium"
         tools:context=".ui.auth.register.Register03Fragment">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePicture"
-            android:layout_width="@dimen/_160sdp"
-            android:layout_height="@dimen/_160sdp"
+            android:layout_width="@dimen/image_extra_high_size"
+            android:layout_height="@dimen/image_extra_high_size"
             android:enabled="@{!registerViewModel.loadingState}"
             android:onClick="@{() -> registerViewModel.onProfilePicture()}"
             android:scaleType="centerCrop"
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/margin_short"
             android:gravity="center"
             android:text="@string/register_title02"
             android:textAppearance="?textAppearanceHeadline2"
@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/margin_short"
             android:gravity="center"
             android:text="@string/register_subtitle_03"
             android:textAppearance="?attr/textAppearanceBody1" />

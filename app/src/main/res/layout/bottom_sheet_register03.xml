@@ -16,10 +16,10 @@
         android:id="@+id/bottomSheetViewGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_16sdp"
-        android:paddingTop="@dimen/_16sdp"
-        android:paddingEnd="@dimen/_16sdp"
-        android:paddingBottom="@dimen/_24sdp"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingEnd="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_extra_medium"
         tools:context=".ui.auth.register.Register03BottomSheet">
 
         <TextView
@@ -35,10 +35,10 @@
 
         <ImageView
             android:id="@+id/image_gallery"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_24sdp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_width="@dimen/ic_large_size"
+            android:layout_height="@dimen/ic_large_size"
+            android:layout_marginStart="@dimen/margin_extra_medium"
+            android:layout_marginTop="@dimen/margin_medium"
             android:contentDescription="@string/app_name"
             android:onClick="@{() -> registerViewModel.onGalleryOpen()}"
             android:src="@drawable/ic_photo_library"
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/margin_extra_short"
             android:text="@string/gallery"
             android:textAppearance="?textAppearanceBody2"
             app:layout_constraintEnd_toEndOf="@id/image_gallery"
@@ -57,9 +57,9 @@
 
         <ImageView
             android:id="@+id/image_camera"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_48sdp"
+            android:layout_width="@dimen/ic_large_size"
+            android:layout_height="@dimen/ic_large_size"
+            android:layout_marginStart="@dimen/margin_extra_high"
             android:contentDescription="@string/app_name"
             android:onClick="@{() -> registerViewModel.onCameraOpen()}"
             android:src="@drawable/ic_camera"
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/margin_extra_short"
             android:text="@string/camera"
             android:textAppearance="?textAppearanceBody2"
             app:layout_constraintEnd_toEndOf="@id/image_camera"

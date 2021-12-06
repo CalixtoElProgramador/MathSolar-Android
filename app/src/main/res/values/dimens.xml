@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_extra_tiny">@dimen/_1sdp</dimen>
+    <dimen name="margin_tiny">@dimen/_2sdp</dimen>
+    <dimen name="margin_extra_short">@dimen/_4sdp</dimen>
+    <dimen name="margin_short">@dimen/_8sdp</dimen>
+    <dimen name="margin_medium">@dimen/_16sdp</dimen>
+    <dimen name="margin_extra_medium">@dimen/_24sdp</dimen>
+    <dimen name="margin_high">@dimen/_32sdp</dimen>
+    <dimen name="margin_extra_high">@dimen/_40sdp</dimen>
+    <dimen name="margin_large">@dimen/_48sdp</dimen>
+    <dimen name="margin_extra_large">@dimen/_56sdp</dimen>
+    <dimen name="margin_huge">@dimen/_64sdp</dimen>
+    <dimen name="margin_extra_huge">@dimen/_72sdp</dimen>
+
+    <dimen name="main_placeholder_article_item_height">@dimen/_14sdp</dimen>
+    <dimen name="secondary_placeholder_article_item_height">@dimen/_10sdp</dimen>
+
+    <dimen name="margin_start_ic_article_item">@dimen/_10sdp</dimen>
+    <dimen name="margin_end_ic_article_item">@dimen/_5sdp</dimen>
+
+    <dimen name="ic_medium_size">@dimen/_16sdp</dimen>
+    <dimen name="ic_extra_medium_size">@dimen/_24sdp</dimen>
+    <dimen name="ic_large_size">@dimen/_32sdp</dimen>
+
+    <dimen name="image_extra_tiny_size">@dimen/_32sdp</dimen>
+    <dimen name="image_tiny_size">@dimen/_48sdp</dimen>
+    <dimen name="image_short_size">@dimen/_72sdp</dimen>
+    <dimen name="image_extra_high_size">@dimen/_160sdp</dimen>
+    <dimen name="image_large_size">@dimen/_180sdp</dimen>
+
+    <dimen name="corner_radius_medium">@dimen/_16sdp</dimen>
+    <dimen name="corner_radius_large">@dimen/_24sdp</dimen>
+
+    <dimen name="zero">0dp</dimen>
+
+    <integer name="max_lines_article_item">2</integer>
+    <integer name="max_lines_project_item">3</integer>
+    <integer name="max_lines_article_details">10</integer>
+
+    <fraction name="shimmer_alpha">0.16</fraction>
+
+</resources>

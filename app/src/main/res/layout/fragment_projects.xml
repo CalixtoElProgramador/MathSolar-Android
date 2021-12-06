@@ -33,8 +33,6 @@
                     android:layout_height="match_parent"
                     app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
                     app:contentScrim="?attr/colorSurface"
-                    app:expandedTitleMarginBottom="28dp"
-                    app:expandedTitleMarginStart="72dp"
                     app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -71,7 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:background="@android:color/transparent"
-                        android:elevation="0dp"
+                        android:elevation="@dimen/zero"
                         app:layout_collapseMode="pin"
                         app:menu="@menu/top_app_bar_projects"
                         app:title="@{context.getString(projectsViewModel.currentFilteringLabel)}"

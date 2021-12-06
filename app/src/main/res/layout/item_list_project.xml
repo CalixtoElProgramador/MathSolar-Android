@@ -18,7 +18,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp">
+        android:layout_margin="@dimen/margin_short">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,9 +26,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/item_ic_projectType"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_width="@dimen/image_extra_tiny_size"
+                android:layout_height="@dimen/image_extra_tiny_size"
+                android:layout_marginStart="@dimen/margin_medium"
                 android:contentDescription="@string/content_description_item_ic_projectType"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@id/item_location"
@@ -38,11 +38,11 @@
 
             <TextView
                 android:id="@+id/item_name"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:singleLine="true"
                 android:text="@{project.name}"
                 android:textAppearance="?attr/textAppearanceHeadline6"
@@ -54,11 +54,11 @@
 
             <TextView
                 android:id="@+id/item_location"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
                 android:singleLine="true"
                 android:text="@{project.location}"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
@@ -71,8 +71,8 @@
             <ImageView
                 android:id="@+id/item_img"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_height="@dimen/image_extra_high_size"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:contentDescription="@string/content_description_item_img"
                 android:scaleType="centerCrop"
                 app:loadImage="@{project.imageUrl}"
@@ -82,21 +82,21 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginStart="@dimen/margin_short"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:background="@drawable/background_date_creation"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_4sdp"
+                android:paddingStart="@dimen/margin_short"
+                android:paddingTop="@dimen/margin_extra_short"
+                android:paddingEnd="@dimen/margin_short"
+                android:paddingBottom="@dimen/margin_extra_short"
                 app:layout_constraintStart_toStartOf="@id/item_img"
                 app:layout_constraintTop_toTopOf="@id/item_img">
 
                 <ImageView
-                    android:layout_width="@dimen/_12sdp"
-                    android:layout_height="@dimen/_12sdp"
+                    android:layout_width="@dimen/ic_medium_size"
+                    android:layout_height="@dimen/ic_medium_size"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_calendar_today"
                     app:tint="@color/white" />
@@ -105,8 +105,7 @@
                     android:id="@+id/textDateCreation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/margin_short"
                     android:singleLine="true"
                     android:text="@{project.createdAt}"
                     android:textAppearance="?attr/textAppearanceCaption"
@@ -117,11 +116,11 @@
 
             <TextView
                 android:id="@+id/item_description"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16sdp"
-                android:lineSpacingExtra="@dimen/_2sdp"
-                android:maxLines="3"
+                android:layout_margin="@dimen/margin_medium"
+                android:lineSpacingExtra="@dimen/margin_tiny"
+                android:maxLines="@integer/max_lines_project_item"
                 android:text="@{project.description}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +133,7 @@
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp"
+                android:layout_margin="@dimen/margin_short"
                 android:text="@string/action_1_item_project"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,9 +141,9 @@
 
             <ImageButton
                 android:id="@+id/item_button_share"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_width="@dimen/ic_medium_size"
+                android:layout_height="@dimen/ic_medium_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/content_description_item_button_share"
                 android:src="@drawable/ic_share"
@@ -154,9 +153,9 @@
 
             <ImageButton
                 android:id="@+id/item_button_favorite"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_width="@dimen/ic_medium_size"
+                android:layout_height="@dimen/ic_medium_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/content_description_item_button_favorite"
                 android:src="@drawable/ic_favorite"

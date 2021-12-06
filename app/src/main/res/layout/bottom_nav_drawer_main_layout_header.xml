@@ -17,7 +17,7 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="0dp">
+        app:cardCornerRadius="@dimen/zero">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,9 +25,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_userPicture"
-                android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
-                android:layout_margin="@dimen/_16sdp"
+                android:layout_width="@dimen/image_tiny_size"
+                android:layout_height="@dimen/image_tiny_size"
+                android:layout_margin="@dimen/margin_medium"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +36,10 @@
                 tools:src="@drawable/ic_error_placeholder" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/margin_short"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@id/image_userPicture"
                 app:layout_constraintEnd_toEndOf="parent"

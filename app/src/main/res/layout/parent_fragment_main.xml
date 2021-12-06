@@ -57,8 +57,8 @@
             android:layout_gravity="bottom"
             android:visibility="@{mainViewModel.bottomNavExpandedState ? View.GONE : View.VISIBLE}"
             app:currentFragment="@{mainViewModel.currentFragment}"
-            app:fabCradleMargin="@dimen/_8sdp"
-            app:fabCradleRoundedCornerRadius="@dimen/_24sdp"
+            app:fabCradleMargin="@dimen/margin_short"
+            app:fabCradleRoundedCornerRadius="@dimen/corner_radius_large"
             app:isBottomNavExpanded="@{mainViewModel.bottomNavExpandedState}"
             app:navigationIcon="@drawable/ic_menu"
             tools:menu="@menu/bottom_app_bar_projects" />

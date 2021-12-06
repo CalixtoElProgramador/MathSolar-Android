@@ -31,8 +31,6 @@
                 android:layout_height="match_parent"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
                 app:contentScrim="?attr/colorSurface"
-                app:expandedTitleMarginBottom="28dp"
-                app:expandedTitleMarginStart="72dp"
                 app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:title="@{context.getString(articlesViewModel.currentFilteringLabel)}">
@@ -42,15 +40,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="?attr/actionBarSize"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/_16sdp"
-                    android:paddingBottom="@dimen/_8sdp">
+                    android:paddingTop="@dimen/margin_medium"
+                    android:paddingBottom="@dimen/margin_short">
 
                     <TextView
                         android:id="@+id/title_collapsingToolBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingStart="@dimen/margin_medium"
+                        android:paddingEnd="@dimen/margin_medium"
                         android:text="@{articlesViewModel.currentFilteringLabel}"
                         android:textAppearance="?attr/textAppearanceHeadline2"
                         tools:text="News" />
@@ -59,11 +57,11 @@
                         android:id="@+id/scrollView_mealType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/margin_short"
+                        android:layout_marginBottom="@dimen/margin_short"
                         android:clipToPadding="false"
-                        android:paddingStart="@dimen/_16sdp"
-                        android:paddingEnd="@dimen/_16sdp"
+                        android:paddingStart="@dimen/margin_medium"
+                        android:paddingEnd="@dimen/margin_medium"
                         android:scrollbars="none">
 
                         <LinearLayout
@@ -136,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
-                    android:elevation="0dp"
+                    android:elevation="@dimen/zero"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/top_app_bar_projects"
                     tools:title="News" />
@@ -151,7 +149,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_60sdp"
+            android:paddingBottom="@dimen/margin_extra_large"
             app:articleItems="@{articlesViewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
