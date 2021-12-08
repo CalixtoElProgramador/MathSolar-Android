@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "692007454800",
+    "project_id": "solarmath-57980",
+    "storage_bucket": "solarmath-57980.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692007454800:android:cc90380a736ed75bbda955",
+        "android_client_info": {
+          "package_name": "com.example.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdhtW0PAEd3MABTvJOfF46YtmbfRnMdsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692007454800:android:87490c18c7e7a2f8bda955",
+        "android_client_info": {
+          "package_name": "com.example.pvwatts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdhtW0PAEd3MABTvJOfF46YtmbfRnMdsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692007454800:android:53143f4f588da7aebda955",
+        "android_client_info": {
+          "package_name": "com.listocalixto.android.mathsolar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdhtW0PAEd3MABTvJOfF46YtmbfRnMdsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692007454800-vllvfu0ko7f2our45kv3810somrkhhie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
