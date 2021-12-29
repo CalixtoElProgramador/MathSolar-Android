@@ -39,24 +39,29 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
         viewModel.setLifecycleOwnerToObserveNetworkConnection(viewLifecycleOwner)
 
         binding.chipGroupArticleTopics.setOnCheckedChangeListener { group, checkedId ->
-            viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
             when (checkedId) {
                 R.id.chip_solar_power -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.SOLAR_POWER)
                 }
                 R.id.chip_solar_panels -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.SOLAR_PANELS)
                 }
                 R.id.chip_thermal_systems -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.THERMAL_SYSTEMS)
                 }
                 R.id.chip_climate_change -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.CLIMATE_CHANGE)
                 }
                 R.id.chip_environment -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.ENVIRONMENT)
                 }
-                else -> {
+                R.id.chip_sustainability -> {
+                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
                     viewModel.changeTopic(ArticleTopic.SUSTAINABILITY)
                 }
             }

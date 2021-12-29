@@ -78,6 +78,10 @@ class ArticlesViewModel @Inject constructor(
         it?.isEmpty()
     }
 
+    val isBookmarkOrHistory: LiveData<Boolean> = Transformations.map(_currentFilteringLabel) {
+        it == R.string.label_bookmark || it == R.string.label_history
+    }
+
     init {
         setFiltering(ArticleFilterType.ALL_ARTICLES)
         loadArticles(true)

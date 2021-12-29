@@ -23,12 +23,36 @@
     <color name="orange_800">#FF8E00</color>
     <color name="orange_900">#FF6E01</color>
 
-    <color name="blue_gray_light">#EEF0F6</color>
-    <color name="blue_light">#D8E9FF</color>
-    <color name="blue_extra_light">#F2F4F8</color>
-    <color name="blue_gray">#2B2E34</color>
-    <color name="blue_dark">#172338</color>
-    <color name="blue_extra_dark">#1D1E21</color>
+    <!-- Blue_700 over #FEFEFE Background with alpha = 8% -->
+    <color name="blue_neutral_light">#ECF0F5</color>
+
+    <!-- Primary variants over blue_neutral_light Background -->
+    <color name="blue_050_11_light">#EBEFF5</color>
+    <color name="blue_100_11_light">#E7ECF3</color>
+    <color name="blue_200_11_light">#E3E9F1</color>
+    <color name="blue_300_11_light">#DEE5EF</color>
+    <color name="blue_400_11_light">#DCE3EF</color>
+    <color name="blue_500_11_light">#D7E0EC</color>
+    <color name="blue_600_11_light">#D6DFEB</color>
+    <color name="blue_700_11_light">#D5DEEA</color>
+    <color name="blue_800_11_light">#D3DDE8</color>
+    <color name="blue_900_11_light">#D2DBE6</color>
+
+    <!-- Blue_700 over #121212 Background with alpha = 8% -->
+    <color name="blue_neutral_dark">#12161C</color>
+
+    <!-- Primary variants over blue_neutral_dark Background -->
+    <color name="blue_050_11_dark">#292D34</color>
+    <color name="blue_100_11_dark">#252A32</color>
+    <color name="blue_200_11_dark">#212630</color>
+    <color name="blue_300_11_dark">#1C232E</color>
+    <color name="blue_400_11_dark">#19202C</color>
+    <color name="blue_500_11_dark">#151E2B</color>
+    <color name="blue_600_11_dark">#141D2A</color>
+    <color name="blue_700_11_dark">#131C29</color>
+    <color name="blue_800_11_dark">#111B27</color>
+    <color name="blue_900_11_dark">#101925</color>
+
     <color name="gold_dark">#524726</color>
 
     <color name="red">#B00020</color>

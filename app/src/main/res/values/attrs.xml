@@ -2,7 +2,15 @@
 <resources>
 
     <attr name="colorOnSurfaceDisabled" format="color"/>
-    <attr name="customChipStrokeColor" format="color"/>
+
+    <attr name="articlesChipTextColorChecked" format="color"/>
+    <attr name="articlesChipTextColorDisChecked" format="color"/>
+    <attr name="articlesChipBackgroundColorChecked" format="color"/>
+    <attr name="articlesChipBackgroundColorDisChecked" format="color"/>
+    <attr name="articlesChipStrokeColorChecked" format="color"/>
+    <attr name="articlesChipStrokeColorDisChecked" format="color"/>
+
+    <attr name="customAppBarBackgroundColor" format="color" />
 
     <attr name="textColorPrimary" format="color"/>
     <attr name="textColorSecondary" format="color"/>

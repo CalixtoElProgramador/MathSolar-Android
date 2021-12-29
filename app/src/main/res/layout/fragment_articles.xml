@@ -23,14 +23,15 @@
             android:id="@+id/topAppBar_articles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:colorBackground"
+            android:backgroundTint="?attr/customAppBarBackgroundColor"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar_projects"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="?android:colorBackground"
+                app:titleCollapseMode="fade"
+                app:contentScrim="?attr/customAppBarBackgroundColor"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
                 app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -75,6 +76,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:checkedChip="@id/chip_solar_power"
+                                app:clearCheckInBookmarkOrHistory="@{articlesViewModel.isBookmarkOrHistory}"
                                 app:selectionRequired="true"
                                 app:singleLine="true"
                                 app:singleSelection="true">
@@ -134,8 +136,7 @@
                     android:id="@+id/toolbar_articles"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
-                    android:elevation="@dimen/zero"
+                    android:background="?attr/customAppBarBackgroundColor"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/top_app_bar_projects"
                     tools:title="News" />
@@ -150,6 +151,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
+            android:paddingTop="@dimen/margin_medium"
             android:paddingBottom="@dimen/margin_extra_large"
             app:articleItems="@{articlesViewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

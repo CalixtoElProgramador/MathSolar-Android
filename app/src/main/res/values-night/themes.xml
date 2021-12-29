@@ -2,34 +2,45 @@
     <!-- Base application theme. -->
     <style name="Theme.MathSolar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue_200</item>
-        <item name="colorPrimaryVariant">@color/blue_500</item>
-        <item name="colorOnPrimary">@color/blue_dark</item>
+        <item name="colorPrimary">@color/blue_300</item>
+        <item name="colorPrimaryVariant">@color/blue_700</item>
+        <item name="colorOnPrimary">@color/blue_900</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_200</item>
         <item name="colorSecondaryVariant">@color/orange_200</item>
         <item name="colorOnSecondary">@color/gold_dark</item>
         <!-- Background & Surface. -->
-        <item name="android:colorBackground">@color/blue_extra_dark</item>
-        <item name="colorOnBackground">@color/blue_extra_light</item>
-        <item name="colorSurface">@color/blue_gray</item>
-        <item name="colorOnSurface">@color/blue_extra_light</item>
+        <item name="android:colorBackground">@color/blue_neutral_dark</item>
+        <item name="colorOnBackground">@color/blue_500_11_light</item>
+        <item name="background">?android:colorBackground</item>
+        <item name="colorSurface">@color/blue_500_11_dark</item>
+        <item name="colorOnSurface">@color/blue_500_11_light</item>
         <!-- Error. -->
         <item name="colorError">@color/red_light</item>
         <item name="colorOnError">@color/red_dark</item>
-        <!-- Text Primary & Text Secondary -->
+        <!-- Text Primary, Text Secondary & Text Tertiary -->
         <item name="android:textColorPrimary">@color/white_87</item>
         <item name="android:textColorSecondary">@color/white_74</item>
         <item name="android:textColorTertiary">@color/white_61</item>
         <item name="textColorPrimary">?android:textColorPrimary</item>
         <item name="textColorSecondary">?android:textColorSecondary</item>
         <item name="textColorTertiary">?android:textColorTertiary</item>
+
+        <item name="customAppBarBackgroundColor">@color/blue_neutral_dark</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?android:colorBackground</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/customAppBarBackgroundColor</item>
         <!-- Customize your theme here. -->
 
         <item name="colorOnSurfaceDisabled">@color/white_35</item>
-        <item name="customChipStrokeColor">@color/white_35</item>
+
+        <item name="articlesChipBackgroundColorChecked">@color/blue_700</item>
+        <item name="articlesChipTextColorChecked">@color/blue_100</item>
+        <item name="articlesChipStrokeColorChecked">@color/blue_700</item>
+
+        <item name="articlesChipBackgroundColorDisChecked">@color/blue_500_11_dark</item>
+        <item name="articlesChipTextColorDisChecked">@color/blue_500_11_light</item>
+        <item name="articlesChipStrokeColorDisChecked">@color/blue_100</item>
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.MathSolar.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MathSolar.Headline2</item>

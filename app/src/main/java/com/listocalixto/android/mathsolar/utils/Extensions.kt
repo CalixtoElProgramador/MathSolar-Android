@@ -222,15 +222,15 @@ fun TextInputLayout.enableError(message: Int) {
 
 fun BottomAppBar.onMenuItemSelected(viewModel: ViewModel?) {
     viewModel?.let {
-        (it as? ArticlesViewModel)?.let { homeViewModel ->
+        (it as? ArticlesViewModel)?.let { articlesViewModel ->
             this.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.bookmark -> {
-                        homeViewModel.setFiltering(ArticleFilterType.BOOKMARK)
+                        articlesViewModel.setFiltering(ArticleFilterType.BOOKMARK)
                         true
                     }
                     R.id.history -> {
-                        homeViewModel.setFiltering(ArticleFilterType.HISTORY)
+                        articlesViewModel.setFiltering(ArticleFilterType.HISTORY)
                         true
                     }
                     else -> {

@@ -4,32 +4,45 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_700</item>
         <item name="colorPrimaryVariant">@color/blue_900</item>
-        <item name="colorOnPrimary">@color/blue_light</item>
+        <item name="colorOnPrimary">@color/blue_100</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/orange_200</item>
+        <item name="colorSecondary">@color/orange_300</item>
         <item name="colorSecondaryVariant">@color/orange_700</item>
         <item name="colorOnSecondary">@color/gold_dark</item>
         <!-- Background & Surface. -->
-        <item name="android:colorBackground">@color/white</item>
+        <item name="android:colorBackground">@color/blue_050</item>
         <item name="colorOnBackground">@color/black_87</item>
-        <item name="colorSurface">@color/blue_gray_light</item>
+        <item name="background">?android:colorBackground</item>
+        <item name="colorSurface">@color/blue_500_11_light</item>
         <item name="colorOnSurface">@color/black_87</item>
         <!-- Error. -->
         <item name="colorError">@color/red</item>
         <item name="colorOnError">@color/red_extra_light</item>
-        <!-- Text Primary & Text Secondary -->
+        <!-- Text Primary, Text Secondary & Text Tertiary -->
         <item name="android:textColorPrimary">@color/black_87</item>
         <item name="android:textColorSecondary">@color/black_74</item>
         <item name="android:textColorTertiary">@color/black_61</item>
         <item name="textColorPrimary">?android:textColorPrimary</item>
         <item name="textColorSecondary">?android:textColorSecondary</item>
         <item name="textColorTertiary">?android:textColorTertiary</item>
+
+        <item name="customAppBarBackgroundColor">@color/orange_300</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?android:colorBackground</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/customAppBarBackgroundColor</item>
         <!-- Customize your theme here. -->
 
         <item name="colorOnSurfaceDisabled">@color/black_35</item>
-        <item name="customChipStrokeColor">@color/black_35</item>
+
+        <item name="articlesChipBackgroundColorChecked">@color/orange_050</item>
+        <item name="articlesChipTextColorChecked">@color/orange_900</item>
+        <item name="articlesChipStrokeColorChecked">@color/orange_050</item>
+
+        <item name="articlesChipBackgroundColorDisChecked">@color/orange_300</item>
+        <item name="articlesChipTextColorDisChecked">@color/gold_dark</item>
+        <item name="articlesChipStrokeColorDisChecked">@color/gold_dark</item>
+
+
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.MathSolar.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MathSolar.Headline2</item>

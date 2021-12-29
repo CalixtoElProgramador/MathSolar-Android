@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
@@ -35,8 +36,7 @@ fun ImageView.isBookmark(item: Article?) {
         if (it.bookmark) {
             setImageResource(R.drawable.ic_bookmark)
             setColorFilter(MaterialColors.getColor(this, R.attr.colorSecondaryVariant))
-        }
-        else {
+        } else {
             setImageResource(R.drawable.ic_bookmark_border)
             setColorFilter(MaterialColors.getColor(this, R.attr.colorOnSurface))
         }
@@ -46,24 +46,54 @@ fun ImageView.isBookmark(item: Article?) {
 @BindingAdapter("app:loadingItems")
 fun ShimmerRecyclerView.onLoadingStatus(state: Boolean?) {
     state?.let {
-        if (it) { this.showShimmer() } else { this.hideShimmer() }
+        if (it) {
+            this.showShimmer()
+        } else {
+            this.hideShimmer()
+        }
     }
 }
 
 @BindingAdapter("app:viewed")
-fun TextView.isViewed(boolean: Boolean) {
-    if (boolean) { setTextColor(MaterialColors.getColor(this, R.attr.colorOnSurfaceDisabled)) }
-    else {
-        when(this.id) {
-            R.id.articleSourceItem -> {
-                setTextColor(MaterialColors.getColor(this, R.attr.colorPrimary))
+fun View.isViewed(boolean: Boolean) {
+    if (boolean) {
+        when (this) {
+            is TextView -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.colorOnSurfaceDisabled))
             }
-            R.id.articleTitleItem -> {
-                setTextColor(MaterialColors.getColor(this, R.attr.textColorPrimary))
-            }
-            R.id.articlePublishDateItem -> {
-                setTextColor(MaterialColors.getColor(this, R.attr.textColorSecondary))
+            is MaterialCardView -> {
+                setCardBackgroundColor(MaterialColors.getColor(this, R.attr.background))
+                radius = 24.0f
+                strokeWidth = 2
+                strokeColor = MaterialColors.getColor(this, R.attr.colorSurface)
             }
         }
+    } else {
+        when {
+            id == R.id.articleSourceItem && this is TextView -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.colorPrimaryVariant))
+            }
+            id == R.id.articleTitleItem && this is TextView -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.textColorPrimary))
+            }
+            id == R.id.articlePublishDateItem && this is TextView -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.textColorSecondary))
+            }
+            id == R.id.card_view_article && this is MaterialCardView -> {
+                setCardBackgroundColor(MaterialColors.getColor(this, R.attr.colorSurface))
+                strokeWidth = 0
+                radius = 24.0f
+            }
+        }
+    }
+}
+
+@BindingAdapter("app:clearCheckInBookmarkOrHistory")
+fun ChipGroup.clearCheckInBookmarkOrHistory(isBookmarkOrHistory: Boolean) {
+    if (isBookmarkOrHistory) {
+        isSelectionRequired = false
+        clearCheck()
+    } else {
+        isSelectionRequired = true
     }
 }
