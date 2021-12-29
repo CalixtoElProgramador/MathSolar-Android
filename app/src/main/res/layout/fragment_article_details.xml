@@ -24,7 +24,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBar_article_details"
-            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+            android:backgroundTint="?android:colorBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
@@ -97,8 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@string/open_in_browser"
-            app:cornerRadius="@dimen/zero" />
+            android:text="@string/open_in_browser" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

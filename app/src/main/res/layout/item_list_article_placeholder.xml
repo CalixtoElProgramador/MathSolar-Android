@@ -13,8 +13,7 @@
         android:layout_width="@dimen/image_short_size"
         android:layout_height="@dimen/image_short_size"
         android:layout_marginEnd="@dimen/margin_medium"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,8 +21,7 @@
         android:id="@+id/articleSourceHolderItem"
         android:layout_width="@dimen/image_tiny_size"
         android:layout_height="@dimen/secondary_placeholder_article_item_height"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/img_articleHolderItem" />
 
@@ -33,8 +31,7 @@
         android:layout_height="@dimen/main_placeholder_article_item_height"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintEnd_toStartOf="@id/img_articleHolderItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/articleSourceHolderItem" />
@@ -45,8 +42,7 @@
         android:layout_height="@dimen/main_placeholder_article_item_height"
         android:layout_marginTop="@dimen/margin_short"
         android:layout_marginEnd="@dimen/margin_extra_huge"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintEnd_toStartOf="@id/img_articleHolderItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/articleTitleHolderItem01" />
@@ -56,8 +52,7 @@
         android:layout_width="@dimen/image_short_size"
         android:layout_height="@dimen/secondary_placeholder_article_item_height"
         android:layout_marginBottom="@dimen/margin_extra_short"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintBottom_toBottomOf="@+id/ic_articleBookmarkHolderItem"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,8 +61,7 @@
         android:layout_width="@dimen/ic_medium_size"
         android:layout_height="@dimen/ic_medium_size"
         android:layout_marginEnd="@dimen/margin_short"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintBottom_toBottomOf="@id/ic_articleMoreHolderItem"
         app:layout_constraintEnd_toStartOf="@id/ic_articleMoreHolderItem"
         app:layout_constraintTop_toTopOf="@id/ic_articleMoreHolderItem" />
@@ -78,8 +72,7 @@
         android:layout_height="@dimen/ic_medium_size"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
-        android:alpha="@fraction/shimmer_alpha"
-        android:background="?attr/colorOnSurface"
+        android:background="?attr/colorOnSurfaceDisabled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/img_articleHolderItem"
         app:layout_constraintTop_toBottomOf="@id/img_articleHolderItem" />

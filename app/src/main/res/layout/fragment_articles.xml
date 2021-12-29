@@ -16,21 +16,22 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="?android:colorBackground"
         tools:context=".ui.main.articles.ArticlesFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBar_articles"
-            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:colorBackground"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar_projects"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:contentScrim="?android:colorBackground"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
-                app:contentScrim="?attr/colorSurface"
                 app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:title="@{context.getString(articlesViewModel.currentFilteringLabel)}">

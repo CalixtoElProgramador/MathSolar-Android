@@ -5,9 +5,6 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="red">#FF4646</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
     <color name="lightGray">#F9F9F9</color>
     <color name="darkGray">#4B4B4B</color>
@@ -15,5 +12,48 @@
     <color name="checkedChipBackgroundColor">#206200EA</color>
     <color name="chipBackgroundColor">@color/lightGray</color>
     <color name="chipTextColor">@color/darkGray</color>
+
+    <color name="blue_050">#E7EBF3</color>
+    <color name="blue_100">#C1CDE3</color>
+    <color name="blue_200">#99ACD0</color>
+    <color name="blue_300">#718CBD</color>
+    <color name="blue_400">#5073B0</color>
+    <color name="blue_500">#2A5BA4</color>
+    <color name="blue_600">#22539B</color>
+    <color name="blue_700">#17498F</color>
+    <color name="blue_800">#0D4083</color>
+    <color name="blue_900">#002F6C</color>
+
+    <color name="orange_050">#FFF8E1</color>
+    <color name="orange_100">#FFECB3</color>
+    <color name="orange_200">#FFE082</color>
+    <color name="orange_300">#FFD54F</color>
+    <color name="orange_400">#FFCA28</color>
+    <color name="orange_500">#FFC007</color>
+    <color name="orange_600">#FFB300</color>
+    <color name="orange_700">#FFA000</color>
+    <color name="orange_800">#FF8E00</color>
+    <color name="orange_900">#FF6E01</color>
+
+    <color name="blue_gray_light">#EEF0F6</color>
+    <color name="blue_light">#D8E9FF</color>
+    <color name="blue_extra_light">#F2F4F8</color>
+    <color name="blue_gray">#2B2E34</color>
+    <color name="blue_dark">#172338</color>
+    <color name="blue_extra_dark">#1D1E21</color>
+    <color name="gold_dark">#524726</color>
+
+    <color name="red">#B00020</color>
+    <color name="red_dark">#38171D</color>
+    <color name="red_light">#CF6679</color>
+    <color name="red_extra_light">#FFD7DD</color>
+
+    <color name="white">#FEFEFE</color>
+    <color name="gray_extra_light">#ECECEC</color>
+    <color name="gray_light">#9D9D9D</color>
+    <color name="gray">#737375</color>
+    <color name="gray_dark">#2F3033</color>
+    <color name="gray_extra_dark">#212121</color>
+    <color name="black">#000000</color>
 
 </resources>

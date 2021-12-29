@@ -18,7 +18,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_short">
+        android:layout_margin="@dimen/margin_short"
+        app:cardElevation="@dimen/zero">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -75,8 +76,8 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:contentDescription="@string/content_description_item_img"
                 android:scaleType="centerCrop"
-                app:loadImage="@{project.imageUrl}"
                 app:layout_constraintTop_toBottomOf="@id/item_location"
+                app:loadImage="@{project.imageUrl}"
                 tools:src="@drawable/ic_error_placeholder" />
 
             <LinearLayout

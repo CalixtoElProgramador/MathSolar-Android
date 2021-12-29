@@ -21,9 +21,12 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> articlesViewModel.openArticle(article.id)}"
-        app:cardCornerRadius="@dimen/zero"
-        app:cardElevation="@dimen/zero">
+        android:layout_marginEnd="@dimen/margin_short"
+        android:layout_marginStart="@dimen/margin_short"
+        android:layout_marginBottom="@dimen/margin_medium"
+        app:cardElevation="@dimen/zero"
+        app:cardCornerRadius="@dimen/_16sdp"
+        android:onClick="@{() -> articlesViewModel.openArticle(article.id)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -106,12 +109,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_articleItem" />
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

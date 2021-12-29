@@ -22,7 +22,7 @@
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/topAppBar_projects"
-                style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+                android:backgroundTint="?android:colorBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:liftOnScroll="true">
@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
-                    app:contentScrim="?attr/colorSurface"
+                    app:contentScrim="?android:colorBackground"
                     app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 

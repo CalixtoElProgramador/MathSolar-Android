@@ -163,8 +163,7 @@
                     app:disableButton="@{loginViewModel.loadingState}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/button_signIn"
-                    app:strokeColor="?attr/colorPrimary" />
+                    app:layout_constraintTop_toBottomOf="@id/button_signIn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

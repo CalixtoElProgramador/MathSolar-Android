@@ -1,9 +1,12 @@
 package com.listocalixto.android.mathsolar.bindings.main.articles
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
@@ -31,28 +34,19 @@ fun ImageView.isBookmark(item: Article?) {
     item?.let {
         if (it.bookmark) {
             setImageResource(R.drawable.ic_bookmark)
-        } else {
-            setImageResource(R.drawable.ic_bookmark_border)
         }
+        else { setImageResource(R.drawable.ic_bookmark_border) }
     }
 }
 
 @BindingAdapter("app:loadingItems")
 fun ShimmerRecyclerView.onLoadingStatus(state: Boolean?) {
     state?.let {
-        if (it) {
-            this.showShimmer()
-        } else {
-            this.hideShimmer()
-        }
+        if (it) { this.showShimmer() } else { this.hideShimmer() }
     }
 }
 
 @BindingAdapter("app:viewed")
 fun TextView.isViewed(boolean: Boolean) {
-    alpha = if (boolean) {
-        0.3f
-    } else {
-        1.0f
-    }
+    alpha = if (boolean) { 0.3f } else { 1.0f }
 }

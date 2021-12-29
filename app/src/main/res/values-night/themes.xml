@@ -2,15 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.MathSolar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/blue_200</item>
+        <item name="colorPrimaryVariant">@color/blue_500</item>
+        <item name="colorOnPrimary">@color/blue_dark</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/orange_200</item>
+        <item name="colorSecondaryVariant">@color/orange_200</item>
+        <item name="colorOnSecondary">@color/gold_dark</item>
+        <!-- Background & Surface. -->
+        <item name="android:colorBackground">@color/blue_extra_dark</item>
+        <item name="colorOnBackground">@color/blue_extra_light</item>
+        <item name="colorSurface">@color/blue_gray</item>
+        <item name="colorOnSurface">@color/blue_extra_light</item>
+        <!-- Error. -->
+        <item name="colorError">@color/red_light</item>
+        <item name="colorOnError">@color/red_dark</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?android:colorBackground</item>
         <!-- Customize your theme here. -->
+        <item name="colorOnSurfaceDisabled">@color/gray</item>
+        <item name="customChipStrokeColor">@color/gray</item>
     </style>
 </resources>
