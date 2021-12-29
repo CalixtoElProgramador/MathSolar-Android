@@ -34,8 +34,12 @@ fun ImageView.isBookmark(item: Article?) {
     item?.let {
         if (it.bookmark) {
             setImageResource(R.drawable.ic_bookmark)
+            setColorFilter(MaterialColors.getColor(this, R.attr.colorSecondaryVariant))
         }
-        else { setImageResource(R.drawable.ic_bookmark_border) }
+        else {
+            setImageResource(R.drawable.ic_bookmark_border)
+            setColorFilter(MaterialColors.getColor(this, R.attr.colorOnSurface))
+        }
     }
 }
 
@@ -48,5 +52,18 @@ fun ShimmerRecyclerView.onLoadingStatus(state: Boolean?) {
 
 @BindingAdapter("app:viewed")
 fun TextView.isViewed(boolean: Boolean) {
-    alpha = if (boolean) { 0.3f } else { 1.0f }
+    if (boolean) { setTextColor(MaterialColors.getColor(this, R.attr.colorOnSurfaceDisabled)) }
+    else {
+        when(this.id) {
+            R.id.articleSourceItem -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.colorPrimary))
+            }
+            R.id.articleTitleItem -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.textColorPrimary))
+            }
+            R.id.articlePublishDateItem -> {
+                setTextColor(MaterialColors.getColor(this, R.attr.textColorSecondary))
+            }
+        }
+    }
 }

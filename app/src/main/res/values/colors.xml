@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-
-    <color name="lightGray">#F9F9F9</color>
-    <color name="darkGray">#4B4B4B</color>
-
-    <color name="checkedChipBackgroundColor">#206200EA</color>
-    <color name="chipBackgroundColor">@color/lightGray</color>
-    <color name="chipTextColor">@color/darkGray</color>
 
     <color name="blue_050">#E7EBF3</color>
     <color name="blue_100">#C1CDE3</color>
@@ -49,11 +37,25 @@
     <color name="red_extra_light">#FFD7DD</color>
 
     <color name="white">#FEFEFE</color>
-    <color name="gray_extra_light">#ECECEC</color>
-    <color name="gray_light">#9D9D9D</color>
-    <color name="gray">#737375</color>
-    <color name="gray_dark">#2F3033</color>
-    <color name="gray_extra_dark">#212121</color>
-    <color name="black">#000000</color>
+
+    <!-- White variants over #1D1E21 Background -->
+    <color name="white_100">#FFFFFF</color>
+    <color name="white_87">#E2E2E2</color>
+    <color name="white_74">#C4C4C5</color>
+    <color name="white_61">#A7A7A8</color>
+    <color name="white_48">#898A8C</color>
+    <color name="white_35">#6C6D6F</color>
+    <color name="white_22">#4F4F52</color>
+    <color name="white_09">#313235</color>
+
+    <!-- Black variants over #FEFEFE Background -->
+    <color name="black_100">#000000</color>
+    <color name="black_87">#212121</color>
+    <color name="black_74">#424242</color>
+    <color name="black_61">#636363</color>
+    <color name="black_48">#848484</color>
+    <color name="black_35">#A5A5A5</color>
+    <color name="black_22">#C6C6C6</color>
+    <color name="black_09">#E7E7E7</color>
 
 </resources>

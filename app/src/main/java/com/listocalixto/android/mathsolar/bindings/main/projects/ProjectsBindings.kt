@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapter
@@ -24,7 +25,7 @@ fun RecyclerView.setItems(items: List<PVProject>?) {
 fun ImageButton.isFavorite(item: PVProject?) {
     item?.let {
         if (item.isFavorite) {
-            setColorFilter(ContextCompat.getColor(context, R.color.red))
+            setColorFilter(MaterialColors.getColor(this, R.attr.colorError))
         }
     }
 }

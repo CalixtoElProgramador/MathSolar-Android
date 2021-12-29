@@ -1,12 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@android:color/transparent</item>
     </style>
 
     <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
+
+    <!-- (-1.25 tracking / 98sp font size) = -0.01530612 em -->
+    <style name="TextAppearance.MathSolar.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/ubuntu_light</item>
+        <item name="android:textSize">98sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">-0.01530612</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/ubuntu_light</item>
+        <item name="android:textSize">61sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">-0.00819672</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">49sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">0.00714286</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">0.0</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        +    <item name="android:letterSpacing">0.0075</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        +    <item name="android:letterSpacing">0.009375</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        +    <item name="android:letterSpacing">0.00714286</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/barlow_regular</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?android:textColorTertiary</item>
+        +    <item name="android:letterSpacing">0.02941176</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/barlow_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?android:textColorTertiary</item>
+        +    <item name="android:letterSpacing">0.01666667</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/barlow_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        +    <item name="android:letterSpacing">0.08333333</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/barlow_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        +    <item name="android:letterSpacing">0.03076923</item>
+    </style>
+
+    <style name="TextAppearance.MathSolar.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/barlow_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        +    <item name="android:letterSpacing">0.15</item>
+    </style>
+
 
 </resources>

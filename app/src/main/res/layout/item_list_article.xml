@@ -53,6 +53,7 @@
                 android:text="@{article.cleanUrl}"
                 android:textAppearance="?attr/textAppearanceOverline"
                 android:textColor="?attr/colorPrimary"
+                app:viewed="@{article.viewed}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/img_articleItem"
                 tools:text="facebook.com" />
@@ -65,7 +66,8 @@
                 android:layout_marginEnd="@dimen/margin_short"
                 android:maxLines="@integer/max_lines_article_item"
                 android:text="@{article.title}"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:lineSpacingExtra="4dp"
                 app:layout_constraintEnd_toStartOf="@id/img_articleItem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/articleSourceItem"
@@ -79,6 +81,7 @@
                 android:layout_marginBottom="@dimen/margin_extra_short"
                 android:text="@{article.publishedDate}"
                 android:textAppearance="?attr/textAppearanceCaption"
+                app:viewed="@{article.viewed}"
                 app:layout_constraintBottom_toBottomOf="@id/ic_articleBookmarkItem"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hace 23 horas" />

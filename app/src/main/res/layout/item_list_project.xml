@@ -100,7 +100,7 @@
                     android:layout_height="@dimen/ic_medium_size"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_calendar_today"
-                    app:tint="@color/white" />
+                    app:tint="?attr/colorOnSecondary" />
 
                 <TextView
                     android:id="@+id/textDateCreation"
@@ -110,7 +110,7 @@
                     android:singleLine="true"
                     android:text="@{project.createdAt}"
                     android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="@color/white"
+                    android:textColor="?attr/colorOnSecondary"
                     tools:text="24 de Mayo 2021" />
 
             </LinearLayout>

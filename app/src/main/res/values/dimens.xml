@@ -35,9 +35,9 @@
 
     <dimen name="zero">0dp</dimen>
 
-    <integer name="max_lines_article_item">2</integer>
+    <integer name="max_lines_article_item">3</integer>
     <integer name="max_lines_project_item">3</integer>
-    <integer name="max_lines_article_details">10</integer>
+    <integer name="max_lines_article_details">8</integer>
 
     <fraction name="shimmer_alpha">0.16</fraction>
 

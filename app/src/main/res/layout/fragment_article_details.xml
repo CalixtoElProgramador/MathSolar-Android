@@ -67,7 +67,8 @@
             android:paddingStart="@dimen/margin_medium"
             android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.title}"
-            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textAppearance="?attr/textAppearanceHeadline4"
+            android:lineSpacingExtra="@dimen/margin_extra_short"
             tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
 
         <TextView
@@ -79,7 +80,7 @@
             android:paddingStart="@dimen/margin_medium"
             android:paddingEnd="@dimen/margin_medium"
             android:text="@{articleDetailsViewModel.article.summary}"
-            android:textAppearance="?attr/textAppearanceBody2"
+            android:textAppearance="?attr/textAppearanceBody1"
             tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
 
         <TextView
