@@ -12,7 +12,7 @@ interface ArticleDao {
      *
      * @return all articles.
      */
-    @Query("SELECT * FROM ARTICLES")
+    @Query("SELECT * FROM ARTICLES ORDER BY published_date DESC")
     fun observePVProjects(): LiveData<List<Article>>
 
     /**

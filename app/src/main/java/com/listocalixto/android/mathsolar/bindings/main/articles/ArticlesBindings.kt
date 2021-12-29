@@ -1,9 +1,14 @@
 package com.listocalixto.android.mathsolar.bindings.main.articles
 
+import android.icu.text.SimpleDateFormat
 import android.view.View
+import android.view.animation.Transformation
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import coil.load
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.ChipGroup
@@ -12,6 +17,7 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.todkars.shimmer.ShimmerRecyclerView
+import java.util.*
 
 @BindingAdapter("app:articleItems")
 fun ShimmerRecyclerView.setArticleItems(items: List<Article>?) {
@@ -96,4 +102,20 @@ fun ChipGroup.clearCheckInBookmarkOrHistory(isBookmarkOrHistory: Boolean) {
     } else {
         isSelectionRequired = true
     }
+}
+
+@BindingAdapter("app:publishDate", "app:isViewed")
+fun LinearLayout.showOrHideNewLabel(date: String, isViewed: Boolean) {
+    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    val today = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    val todayString = sdf.format(today.time)
+    val publishDate = sdf.parse(date)
+    val publishDateString = sdf.format(publishDate)
+
+    visibility = if (todayString == publishDateString && !isViewed) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+
 }

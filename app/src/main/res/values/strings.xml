@@ -122,4 +122,5 @@
     <string name="content_description_item_ic_link">Get the link</string>
     <string name="articles">Articles</string>
     <string name="content_description_item_ic_article">Go to the articles screen</string>
+    <string name="new_custom">New</string>
 </resources>
