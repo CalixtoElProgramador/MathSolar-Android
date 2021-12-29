@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.listocalixto.android.mathsolar.R
@@ -32,6 +33,13 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
         }
         binding.lifecycleOwner = this.viewLifecycleOwner
         viewModel.start(args.articleId)
+
+        val bottomAppbar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        binding.nestedScrollArticleDetails.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            val dy = scrollY - oldScrollY
+            if (dy > 0) { bottomAppbar?.performHide() }
+            if (dy < 0) { bottomAppbar?.performShow() }
+        }
 
         binding.toolbarArticleDetails.setNavigationOnClickListener { activity?.onBackPressed() }
 

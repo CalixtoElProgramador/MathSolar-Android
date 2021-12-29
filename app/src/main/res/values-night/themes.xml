@@ -34,13 +34,13 @@
 
         <item name="colorOnSurfaceDisabled">@color/white_35</item>
 
-        <item name="articlesChipBackgroundColorChecked">@color/blue_700</item>
+        <item name="articlesChipBackgroundColorChecked">?attr/colorPrimaryVariant</item>
         <item name="articlesChipTextColorChecked">@color/blue_100</item>
-        <item name="articlesChipStrokeColorChecked">@color/blue_700</item>
+        <item name="articlesChipStrokeColorChecked">?attr/colorPrimaryVariant</item>
 
-        <item name="articlesChipBackgroundColorDisChecked">@color/blue_500_11_dark</item>
-        <item name="articlesChipTextColorDisChecked">@color/blue_500_11_light</item>
-        <item name="articlesChipStrokeColorDisChecked">@color/blue_100</item>
+        <item name="articlesChipBackgroundColorDisChecked">?attr/colorSurface</item>
+        <item name="articlesChipTextColorDisChecked">?attr/colorOnSurface</item>
+        <item name="articlesChipStrokeColorDisChecked">?attr/colorOnSurface</item>
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.MathSolar.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MathSolar.Headline2</item>

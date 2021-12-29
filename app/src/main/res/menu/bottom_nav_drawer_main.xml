@@ -2,39 +2,43 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/articlesFragment"
-        android:contentDescription="@string/content_description_item_ic_article"
-        android:icon="@drawable/ic_article"
-        android:title="@string/articles"
-        app:showAsAction="ifRoom" />
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/projectsFragment"
-        android:contentDescription="@string/content_description_item_ic_wb_sunny"
-        android:icon="@drawable/ic_wb_sunny"
-        android:title="@string/projects"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/articlesFragment"
+            android:contentDescription="@string/content_description_item_ic_article"
+            android:icon="@drawable/ic_article"
+            android:title="@string/articles"
+            android:checked="true"/>
 
-    <item
-        android:id="@+id/calculators"
-        android:contentDescription="@string/content_description_item_ic_calculate"
-        android:icon="@drawable/ic_calculate"
-        android:title="@string/calculators"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/projectsFragment"
+            android:contentDescription="@string/content_description_item_ic_wb_sunny"
+            android:icon="@drawable/ic_wb_sunny"
+            android:title="@string/projects" />
 
-    <item
-        android:id="@+id/tools"
-        android:contentDescription="@string/content_description_item_ic_construction"
-        android:icon="@drawable/ic_construction"
-        android:title="@string/tools"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/calculators"
+            android:contentDescription="@string/content_description_item_ic_calculate"
+            android:icon="@drawable/ic_calculate"
+            android:title="@string/calculators" />
 
-    <item
-        android:id="@+id/learning"
-        android:contentDescription="@string/content_description_item_ic_school"
-        android:icon="@drawable/ic_school"
-        android:title="@string/learning"
-        app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/tools"
+            android:contentDescription="@string/content_description_item_ic_construction"
+            android:icon="@drawable/ic_construction"
+            android:title="@string/tools" />
+
+        <item
+            android:id="@+id/learning"
+            android:contentDescription="@string/content_description_item_ic_school"
+            android:icon="@drawable/ic_school"
+            android:title="@string/learning" />
+
+    </group>
+
+
 
 </menu>

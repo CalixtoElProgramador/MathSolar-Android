@@ -24,9 +24,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBar_article_details"
-            android:backgroundTint="?android:colorBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="?attr/customAppBarBackgroundColor"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -34,71 +34,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:subtitle="@{articleDetailsViewModel.article.topic.query}"
                 app:title="@{articlesViewModel.currentFilteringLabel}"
                 tools:subtitle="Solar panels"
                 tools:title="News" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
-            android:id="@+id/image_articleMedia"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll_article_details"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/image_large_size"
-            android:scaleType="centerCrop"
-            app:loadArticleImage="@{articleDetailsViewModel.article.media}"
-            tools:src="@drawable/ic_error_placeholder" />
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/margin_large">
 
-        <TextView
-            android:id="@+id/articleSource"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_medium"
-            android:paddingEnd="@dimen/margin_medium"
-            android:text="@{articleDetailsViewModel.article.cleanUrl}"
-            android:textAppearance="?attr/textAppearanceOverline"
-            android:textColor="?attr/colorPrimary"
-            tools:text="CNET.COM" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/articleTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_medium"
-            android:paddingEnd="@dimen/margin_medium"
-            android:text="@{articleDetailsViewModel.article.title}"
-            android:textAppearance="?attr/textAppearanceHeadline4"
-            android:lineSpacingExtra="@dimen/margin_extra_short"
-            tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
+                <ImageView
+                    android:id="@+id/image_articleMedia"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/image_large_size"
+                    android:scaleType="centerCrop"
+                    app:loadArticleImage="@{articleDetailsViewModel.article.media}"
+                    tools:src="@drawable/ic_error_placeholder" />
 
-        <TextView
-            android:id="@+id/articleSummary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="@integer/max_lines_article_details"
-            android:lineSpacingExtra="@dimen/margin_extra_short"
-            android:paddingStart="@dimen/margin_medium"
-            android:paddingEnd="@dimen/margin_medium"
-            android:text="@{articleDetailsViewModel.article.summary}"
-            android:textAppearance="?attr/textAppearanceBody1"
-            tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
+                <TextView
+                    android:id="@+id/articleSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_short"
+                    android:paddingStart="@dimen/margin_medium"
+                    android:paddingEnd="@dimen/margin_medium"
+                    android:text="@{articleDetailsViewModel.article.cleanUrl}"
+                    android:textAppearance="?attr/textAppearanceOverline"
+                    android:textColor="?attr/colorPrimary"
+                    tools:text="CNET.COM" />
 
-        <TextView
-            android:id="@+id/articlePublishDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/margin_medium"
-            android:paddingEnd="@dimen/margin_medium"
-            android:text="@{articleDetailsViewModel.article.publishedDate}"
-            android:textAppearance="?attr/textAppearanceCaption"
-            tools:text="Hace 6 horas" />
+                <TextView
+                    android:id="@+id/articleTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/margin_extra_short"
+                    android:paddingStart="@dimen/margin_medium"
+                    android:paddingEnd="@dimen/margin_medium"
+                    android:text="@{articleDetailsViewModel.article.title}"
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_openInBrowser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@string/open_in_browser" />
+                <TextView
+                    android:id="@+id/articleSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/margin_extra_short"
+                    android:paddingStart="@dimen/margin_medium"
+                    android:paddingEnd="@dimen/margin_medium"
+                    android:text="@{articleDetailsViewModel.article.summary}"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
+
+                <TextView
+                    android:id="@+id/articlePublishDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/margin_medium"
+                    android:paddingEnd="@dimen/margin_medium"
+                    android:text="@{articleDetailsViewModel.article.publishedDate}"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    tools:text="Hace 6 horas" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

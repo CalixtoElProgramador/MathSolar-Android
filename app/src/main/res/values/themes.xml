@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/blue_100</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_300</item>
-        <item name="colorSecondaryVariant">@color/orange_700</item>
+        <item name="colorSecondaryVariant">@color/orange_900</item>
         <item name="colorOnSecondary">@color/gold_dark</item>
         <!-- Background & Surface. -->
         <item name="android:colorBackground">@color/blue_050</item>
@@ -26,23 +26,22 @@
         <item name="textColorSecondary">?android:textColorSecondary</item>
         <item name="textColorTertiary">?android:textColorTertiary</item>
 
-        <item name="customAppBarBackgroundColor">@color/orange_300</item>
+        <item name="customAppBarBackgroundColor">?attr/colorSecondary</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/customAppBarBackgroundColor</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
 
         <item name="colorOnSurfaceDisabled">@color/black_35</item>
 
         <item name="articlesChipBackgroundColorChecked">@color/orange_050</item>
-        <item name="articlesChipTextColorChecked">@color/orange_900</item>
+        <item name="articlesChipTextColorChecked">?attr/colorSecondaryVariant</item>
         <item name="articlesChipStrokeColorChecked">@color/orange_050</item>
 
-        <item name="articlesChipBackgroundColorDisChecked">@color/orange_300</item>
-        <item name="articlesChipTextColorDisChecked">@color/gold_dark</item>
-        <item name="articlesChipStrokeColorDisChecked">@color/gold_dark</item>
-
-
+        <item name="articlesChipBackgroundColorDisChecked">?customAppBarBackgroundColor</item>
+        <item name="articlesChipTextColorDisChecked">?colorOnSecondary</item>
+        <item name="articlesChipStrokeColorDisChecked">?colorOnSecondary</item>
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.MathSolar.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MathSolar.Headline2</item>
