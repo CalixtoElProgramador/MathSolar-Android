@@ -1,5 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
+    <!--Final, top-level theme-->
+    <style name="Theme.MathSolar.DayNight" parent="Theme.MathSolar"/>
+
     <style name="Theme.MathSolar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_700</item>
@@ -30,7 +33,8 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/customAppBarBackgroundColor</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+
         <!-- Customize your theme here. -->
 
         <item name="colorOnSurfaceDisabled">@color/black_35</item>
@@ -56,6 +60,10 @@
         <item name="textAppearanceButton">@style/TextAppearance.MathSolar.Button</item>
         <item name="textAppearanceCaption">@style/TextAppearance.MathSolar.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MathSolar.Overline</item>
+
+        <!--System/Platform attributes-->
+        <item name="android:windowBackground">?android:colorBackground</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
 
     </style>
 </resources>

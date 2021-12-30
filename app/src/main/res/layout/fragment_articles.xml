@@ -16,7 +16,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="?android:colorBackground"
         tools:context=".ui.main.articles.ArticlesFragment">
 
         <com.google.android.material.appbar.AppBarLayout

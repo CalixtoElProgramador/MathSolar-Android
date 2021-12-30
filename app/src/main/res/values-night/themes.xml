@@ -1,6 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MathSolar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <!--Final, top-level theme-->
+        <style name="Theme.MathSolar.DayNight" parent="Theme.MathSolar.Dark"/>
+
+    <style name="Theme.MathSolar.Dark" parent="Theme.MathSolar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_300</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>
@@ -30,8 +34,9 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/customAppBarBackgroundColor</item>
-        <!-- Customize your theme here. -->
+        <item name="elevationOverlayEnabled">true</item>
 
+        <!-- Customize your theme here. -->
         <item name="colorOnSurfaceDisabled">@color/white_35</item>
 
         <item name="articlesChipBackgroundColorChecked">?attr/colorPrimaryVariant</item>
@@ -42,19 +47,8 @@
         <item name="articlesChipTextColorDisChecked">?attr/colorOnSurface</item>
         <item name="articlesChipStrokeColorDisChecked">?attr/colorOnSurface</item>
 
-        <item name="textAppearanceHeadline1">@style/TextAppearance.MathSolar.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.MathSolar.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.MathSolar.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.MathSolar.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.MathSolar.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.MathSolar.Headline6</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.MathSolar.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.MathSolar.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.MathSolar.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.MathSolar.Body2</item>
-        <item name="textAppearanceButton">@style/TextAppearance.MathSolar.Button</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.MathSolar.Caption</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.MathSolar.Overline</item>
+        <!--System/Platform attributes-->
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
 
     </style>
 </resources>
