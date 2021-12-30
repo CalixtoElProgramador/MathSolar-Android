@@ -11,11 +11,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.load
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.Article
+import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
+import com.listocalixto.android.mathsolar.utils.ArticleFilterType
+import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.todkars.shimmer.ShimmerRecyclerView
 import java.util.*
 
@@ -117,5 +121,32 @@ fun LinearLayout.showOrHideNewLabel(date: String, isViewed: Boolean) {
     } else {
         View.GONE
     }
+}
 
+@BindingAdapter("app:onSelected")
+fun Chip.onSelected(viewModel: ArticlesViewModel) {
+    setOnClickListener {
+        viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
+        viewModel.onChipChecked()
+        when (id) {
+            R.id.chip_solar_power -> {
+                viewModel.changeTopic(ArticleTopic.SOLAR_POWER)
+            }
+            R.id.chip_solar_panels -> {
+                viewModel.changeTopic(ArticleTopic.SOLAR_PANELS)
+            }
+            R.id.chip_thermal_systems -> {
+                viewModel.changeTopic(ArticleTopic.THERMAL_SYSTEMS)
+            }
+            R.id.chip_climate_change -> {
+                viewModel.changeTopic(ArticleTopic.CLIMATE_CHANGE)
+            }
+            R.id.chip_environment -> {
+                viewModel.changeTopic(ArticleTopic.ENVIRONMENT)
+            }
+            R.id.chip_sustainability -> {
+                viewModel.changeTopic(ArticleTopic.SUSTAINABILITY)
+            }
+        }
+    }
 }

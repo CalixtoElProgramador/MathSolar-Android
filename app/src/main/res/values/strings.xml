@@ -123,4 +123,6 @@
     <string name="articles">Articles</string>
     <string name="content_description_item_ic_article">Go to the articles screen</string>
     <string name="new_custom">New</string>
+    <string name="no_internet_connection">You don\'t currently have internet</string>
+    <string name="internet_connection_restored">The internet connection has been restored</string>
 </resources>

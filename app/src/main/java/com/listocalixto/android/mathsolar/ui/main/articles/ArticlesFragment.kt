@@ -7,11 +7,11 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.snackbar.Snackbar
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentArticlesBinding
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
-import com.listocalixto.android.mathsolar.ui.main.projects.ProjectsFragment
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,44 +29,29 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
             articlesViewModel = viewModel
             setupListAdapter(this)
         }
+
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         activity?.findViewById<BottomAppBar>(R.id.bottomAppBar).also {
-            binding.listArticles.hideOrShowBottomAppBarOnRecyclerScrolled(it)
+            binding.listArticles.hideOrShowBottomAppBarOnRecyclerScrolled(it, viewModel)
             it?.onMenuItemSelected(viewModel)
         }
 
-        viewModel.setLifecycleOwnerToObserveNetworkConnection(viewLifecycleOwner)
-
-        binding.chipGroupArticleTopics.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.chip_solar_power -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.SOLAR_POWER)
+        viewModel.userHasInternet.observe(viewLifecycleOwner, {
+            if (it) {
+                if (viewModel.getReferenceInternet()) {
+                    viewModel.showSnackbarMessage(R.string.internet_connection_restored)
+                    viewModel.updateReferenceInternet(false)
                 }
-                R.id.chip_solar_panels -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.SOLAR_PANELS)
-                }
-                R.id.chip_thermal_systems -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.THERMAL_SYSTEMS)
-                }
-                R.id.chip_climate_change -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.CLIMATE_CHANGE)
-                }
-                R.id.chip_environment -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.ENVIRONMENT)
-                }
-                R.id.chip_sustainability -> {
-                    viewModel.setFiltering(ArticleFilterType.ALL_ARTICLES)
-                    viewModel.changeTopic(ArticleTopic.SUSTAINABILITY)
+            } else {
+                if (!viewModel.getReferenceInternet()) {
+                    viewModel.showSnackbarMessage(R.string.no_internet_connection)
+                    viewModel.updateReferenceInternet(true)
                 }
             }
-        }
+        })
 
+        setupSnackbar()
         setupNavigation()
 
     }
@@ -79,8 +64,18 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
         }
     }
 
+    private fun setupSnackbar() {
+        view?.setupSnackbar(
+            this.viewLifecycleOwner,
+            viewModel.snackbarText,
+            Snackbar.LENGTH_INDEFINITE,
+            binding.guideline
+        )
+    }
+
     private fun openArticleDetailsFragment(articleId: String) {
-        val action = ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
+        val action =
+            ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
         findNavController().navigate(action)
     }
 
@@ -90,8 +85,13 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
             listAdapter = HomeAdapter(it)
             binding.listArticles.adapter = listAdapter
         } ?: Log.d(
-            ProjectsFragment.TAG,
+            TAG,
             "setupListAdapter: ViewModel not initialized when attempting to set up adapter."
         )
     }
+
+    companion object {
+        private const val TAG = "ArticlesFragment"
+    }
+
 }

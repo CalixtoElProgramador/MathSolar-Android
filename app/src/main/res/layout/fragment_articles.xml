@@ -24,18 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="?attr/customAppBarBackgroundColor"
+            app:expanded="@{articlesViewModel.expandedAppBarState}"
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar_projects"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:titleCollapseMode="fade"
+                app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline6"
                 app:contentScrim="?attr/customAppBarBackgroundColor"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
-                app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                app:expandedTitleTextColor="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="@{context.getString(articlesViewModel.currentFilteringLabel)}">
+                app:title="@{context.getString(articlesViewModel.currentFilteringLabel)}"
+                app:titleCollapseMode="fade">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                         android:paddingEnd="@dimen/margin_medium"
                         android:text="@{articlesViewModel.currentFilteringLabel}"
                         android:textAppearance="?attr/textAppearanceHeadline2"
-                        tools:text="News" />
+                        tools:text="Articles" />
 
                     <HorizontalScrollView
                         android:id="@+id/scrollView_mealType"
@@ -86,42 +87,48 @@
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_solar_power" />
+                                    android:text="@string/chip_solar_power"
+                                    app:onSelected="@{articlesViewModel}" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_solar_panels"
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_solar_panels" />
+                                    android:text="@string/chip_solar_panels"
+                                    app:onSelected="@{articlesViewModel}" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_thermal_systems"
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_thermal_systems" />
+                                    android:text="@string/chip_thermal_systems"
+                                    app:onSelected="@{articlesViewModel}" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_climate_change"
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_climate_change" />
+                                    android:text="@string/chip_climate_change"
+                                    app:onSelected="@{articlesViewModel}" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_environment"
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_environment" />
+                                    android:text="@string/chip_environment"
+                                    app:onSelected="@{articlesViewModel}" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_sustainability"
                                     style="@style/CustomChipStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/chip_sustainability" />
+                                    android:text="@string/chip_sustainability"
+                                    app:onSelected="@{articlesViewModel}" />
 
 
                             </com.google.android.material.chip.ChipGroup>
@@ -160,6 +167,16 @@
             app:shimmer_recycler_item_count="6"
             app:shimmer_recycler_layout="@layout/item_list_article_placeholder"
             tools:listitem="@layout/item_list_article" />
+
+        <View
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:backgroundTint="@android:color/transparent"
+            android:paddingBottom="@dimen/margin_extra_short"
+            app:layout_anchor="@id/list_articles"
+            app:layout_anchorGravity="bottom" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

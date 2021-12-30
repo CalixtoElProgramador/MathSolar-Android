@@ -2,6 +2,8 @@ package com.listocalixto.android.mathsolar.presentation.main.articles
 
 import android.util.Log
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
@@ -14,15 +16,19 @@ import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
 import com.listocalixto.android.mathsolar.utils.ArticleFilterType
 import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.listocalixto.android.mathsolar.utils.Event
+import com.listocalixto.android.mathsolar.utils.SnackbarMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.ref.Reference
 import javax.inject.Inject
+import kotlin.jvm.internal.Ref
 
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
     private val repo: ArticleRepo,
-    private val networkConnection: NetworkConnection,
+    networkConnection: NetworkConnection,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -37,7 +43,7 @@ class ArticlesViewModel @Inject constructor(
     private val _items: LiveData<List<Article>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
-            viewModelScope.launch {
+            viewModelScope.launch (viewModelScope.coroutineContext + mainDispatcher) {
                 _topic.value?.let { repo.refreshArticles(it) }
                 _dataLoading.value = false
             }
@@ -59,19 +65,25 @@ class ArticlesViewModel @Inject constructor(
     private val _articlesAddViewVisible = MutableLiveData<Boolean>()
     val articlesAddViewVisible: LiveData<Boolean> = _articlesAddViewVisible
 
-    private val _snackbarText = MutableLiveData<Event<Int>>()
-    val snackbarText: LiveData<Event<Int>> = _snackbarText
+    private val _snackbarText = MutableLiveData<Event<SnackbarMessage>>()
+    val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
 
     private var currentFiltering = ArticleFilterType.ALL_ARTICLES
-
-    private var lifeCycleOwner: LifecycleOwner? = null
 
     private val isDataLoadingError = MutableLiveData<Boolean>()
 
     private val _openArticleEvent = MutableLiveData<Event<String>>()
     val openArticleEvent: LiveData<Event<String>> = _openArticleEvent
 
+    private val _anArticleWasOpen = MutableLiveData(false)
+    val anArticleWasOpen: LiveData<Boolean> = _anArticleWasOpen
+
+    private val _expandedAppBarState = MutableLiveData(true)
+    val expandedAppBarState: LiveData<Boolean> = _expandedAppBarState
+
     private var resultMessageShown: Boolean = false
+
+    private var referenceBoolean = false
 
     // This LiveData depends on another so we can use a transformation.
     val empty: LiveData<Boolean> = Transformations.map(_items) {
@@ -80,6 +92,10 @@ class ArticlesViewModel @Inject constructor(
 
     val isBookmarkOrHistory: LiveData<Boolean> = Transformations.map(_currentFilteringLabel) {
         it == R.string.label_bookmark || it == R.string.label_history
+    }
+
+    val userHasInternet: LiveData<Boolean> = Transformations.map(networkConnection) {
+        it
     }
 
     init {
@@ -132,17 +148,14 @@ class ArticlesViewModel @Inject constructor(
         _articlesAddViewVisible.value = tasksAddVisible
     }
 
-    fun bookmarkArticle(article: Article, bookmark: Boolean) = viewModelScope.launch {
-        if (!bookmark) {
-            repo.bookmarkArticle(article)
-            Log.d(TAG, "bookmarkArticle: Article marked bookmark")
-            showSnackbarMessage(R.string.article_marked_bookmark)
-        } else {
-            repo.deleteBookmarkArticle(article)
-            Log.d(TAG, "bookmarkArticle: Article deleted bookmark")
-            showSnackbarMessage(R.string.article_deleted_bookmark)
+    fun bookmarkArticle(article: Article, bookmark: Boolean) =
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
+            if (!bookmark) {
+                repo.bookmarkArticle(article)
+            } else {
+                repo.deleteBookmarkArticle(article)
+            }
         }
-    }
 
     private fun filterArticles(resource: Resource<List<Article>>) =
         liveData(viewModelScope.coroutineContext + mainDispatcher) {
@@ -179,8 +192,8 @@ class ArticlesViewModel @Inject constructor(
         return articlesToShow
     }
 
-    private fun showSnackbarMessage(message: Int) {
-        _snackbarText.value = Event(message)
+    fun showSnackbarMessage(message: Int) {
+        _snackbarText.value = Event(SnackbarMessage(message))
     }
 
     /**
@@ -190,28 +203,34 @@ class ArticlesViewModel @Inject constructor(
         _forceUpdate.value = forceUpdate
     }
 
-    fun setLifecycleOwnerToObserveNetworkConnection(lifecycle: LifecycleOwner) {
-        lifeCycleOwner = lifecycle
-    }
-
     fun changeTopic(topic: ArticleTopic) {
         _topic.value = topic
-        lifeCycleOwner?.let { lifecycle ->
-            networkConnection.observe(lifecycle, Observer {
-                loadArticles(it)
-            })
+        if (userHasInternet.value == true && _anArticleWasOpen.value == false) {
+            Log.d(TAG, "changeTopic: ForceUpdate equals true")
+            loadArticles(true)
+            return
         }
+        loadArticles(false)
     }
 
     fun openArticle(articleId: String) {
         _openArticleEvent.value = Event(articleId)
-        viewModelScope.launch {
+        _anArticleWasOpen.value = true
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
             repo.addArticleToHistory(articleId)
         }
     }
 
+    fun onChipChecked() {
+        _anArticleWasOpen.value = false
+    }
+
+    fun setExpandedAppBarState(boolean: Boolean) {
+        _expandedAppBarState.value = boolean
+    }
+
     fun updateBookmark(article: Article) {
-        viewModelScope.launch {
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
             if (article.bookmark) {
                 repo.deleteBookmarkArticle(article)
             } else {
@@ -219,6 +238,12 @@ class ArticlesViewModel @Inject constructor(
             }
         }
     }
+
+    fun updateReferenceInternet(boolean: Boolean) {
+        referenceBoolean = boolean
+    }
+
+    fun getReferenceInternet(): Boolean = referenceBoolean
 
     companion object {
         const val TAG = "ArticlesViewModel"

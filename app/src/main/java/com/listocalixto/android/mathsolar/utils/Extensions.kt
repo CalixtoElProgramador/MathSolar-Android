@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
 import android.view.View
+import androidx.core.view.get
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -244,14 +246,33 @@ fun BottomAppBar.onMenuItemSelected(viewModel: ViewModel?) {
 }
 
 
-fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAppBar?) {
+fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAppBar?, viewModel: ArticlesViewModel? = null) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             if (dy > 0) {
                 bottomAppBar?.performHide()
+                observeWhenRecyclerViewIsInTheFirstItem()
             }
             if (dy < 0) {
                 bottomAppBar?.performShow()
+                observeWhenRecyclerViewIsInTheFirstItem()
+            }
+        }
+
+        private fun observeWhenRecyclerViewIsInTheFirstItem() {
+            val recyclerView = this@hideOrShowBottomAppBarOnRecyclerScrolled
+            val firstItem = recyclerView[0]
+            val position = recyclerView.getChildAdapterPosition(firstItem)
+            notifyViewModel(position)
+        }
+
+        private fun notifyViewModel(position: Int) {
+            viewModel?.let {
+                if (position == 0) {
+                    it.setExpandedAppBarState(true)
+                } else {
+                    it.setExpandedAppBarState(false)
+                }
             }
         }
     })
