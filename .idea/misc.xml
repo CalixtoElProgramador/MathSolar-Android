@@ -16,12 +16,14 @@
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/drawable/ic_projects_empty.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/drawable/ic_school.xml" value="0.2358974358974359" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/drawable/image_placeholder.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout-v28/fragment_article_details.xml" value="0.2234375" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/activity_main.xml" value="0.2234375" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/activity_single.xml" value="0.16" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/bottom_nav_drawer_main.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/bottom_nav_drawer_main_layout_header.xml" value="0.13973941368078177" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/bottom_sheet_register03.xml" value="0.21" />
-        <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_article_details.xml" value="0.1411184210526316" />
+        <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_add_edit_project_00.xml" value="0.2234375" />
+        <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_article_details.xml" value="0.25" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_articles.xml" value="0.16" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_home.xml" value="0.12777777777777777" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_login.xml" value="0.1411184210526316" />
@@ -31,6 +33,7 @@
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_register_01.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_register_02.xml" value="0.20462962962962963" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_register_03.xml" value="0.1411184210526316" />
+        <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_search_project.xml" value="0.2234375" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/fragment_successful.xml" value="0.2234375" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/item_list_article.xml" value="0.2" />
         <entry key="..\:/Users/calix/Documents/-/Android/MathSolar/app/src/main/res/layout/item_list_article_placeholder.xml" value="0.1411184210526316" />

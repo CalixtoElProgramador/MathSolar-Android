@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentArticlesBinding
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
@@ -23,8 +27,17 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
     private lateinit var binding: FragmentArticlesBinding
     private lateinit var listAdapter: HomeAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         binding = FragmentArticlesBinding.bind(view).apply {
             articlesViewModel = viewModel
             setupListAdapter(this)
@@ -59,7 +72,7 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
     private fun setupNavigation() {
         viewModel.apply {
             openArticleEvent.observe(viewLifecycleOwner, EventObserver {
-                openArticleDetailsFragment(it)
+                navigateToArticleDetailsFragment(it.cardView, it.itemId)
             })
         }
     }
@@ -73,10 +86,17 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
         )
     }
 
-    private fun openArticleDetailsFragment(articleId: String) {
-        val action =
-            ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
-        findNavController().navigate(action)
+    private fun navigateToArticleDetailsFragment(cardView: View, articleId: String) {
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        val articleCardDetailTransitionName = getString(R.string.article_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras(cardView to articleCardDetailTransitionName)
+        val action = ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
+        findNavController().navigate(action, extras)
     }
 
     private fun setupListAdapter(binding: FragmentArticlesBinding) {

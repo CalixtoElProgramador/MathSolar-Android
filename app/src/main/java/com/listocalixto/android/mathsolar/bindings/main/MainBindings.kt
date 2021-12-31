@@ -1,5 +1,7 @@
 package com.listocalixto.android.mathsolar.bindings.main
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -19,24 +21,25 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
                 is BottomAppBar -> {
                     setNavigationIcon(R.drawable.ic_menu)
                     replaceMenu(R.menu.bottom_app_bar_home)
-                    if (isOpenBottomNav) performHide() else performShow()
+                    if (isOpenBottomNav) hideWithAnimatorListenerAdapter() else performShow()
                 }
                 is FloatingActionButton -> {
-                    hide()
+                    hideWithAnimatorListenerAdapter()
                 }
             }
         }
         R.id.projectsFragment -> {
             when (this) {
                 is BottomAppBar -> {
+                    visibility = View.VISIBLE
                     setNavigationIcon(R.drawable.ic_menu)
                     fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                     replaceMenu(R.menu.bottom_app_bar_projects)
-                    if (isOpenBottomNav) performHide() else performShow()
+                    if (isOpenBottomNav) hideWithAnimatorListenerAdapter() else performShow()
                 }
                 is FloatingActionButton -> {
                     setImageResource(R.drawable.ic_add)
-                    if (isOpenBottomNav) hide() else show()
+                    if (isOpenBottomNav) hideWithAnimatorListenerAdapter() else show()
                 }
             }
         }
@@ -46,14 +49,57 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
                     navigationIcon = null
                     fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
                     replaceMenu(R.menu.bottom_app_bar_article_details)
-                    if (isOpenBottomNav) performHide() else performShow()
+                    if (isOpenBottomNav) hideWithAnimatorListenerAdapter() else performShow()
                 }
                 is FloatingActionButton -> {
-                    if (isOpenBottomNav) hide() else show()
+                    if (isOpenBottomNav) hideWithAnimatorListenerAdapter() else show()
                 }
             }
         }
+        R.id.addEditProjectFragment00 -> {
+            when (this) {
+                is BottomAppBar -> { hideWithAnimatorListenerAdapter() }
+                is FloatingActionButton -> { hideWithAnimatorListenerAdapter() }
+            }
+
+        }
+        R.id.searchProjectFragment -> {
+            when (this) {
+                is BottomAppBar -> { hideWithAnimatorListenerAdapter() }
+                is FloatingActionButton -> { hideWithAnimatorListenerAdapter() }
+            }
+        }
     }
+}
+
+private fun FloatingActionButton.hideWithAnimatorListenerAdapter() {
+    animate().setListener(object : AnimatorListenerAdapter() {
+        var isCanceled = false
+        override fun onAnimationEnd(animation: Animator?) {
+            if (isCanceled) return
+            visibility = View.INVISIBLE
+        }
+
+        override fun onAnimationCancel(animation: Animator?) {
+            isCanceled = true
+        }
+    })
+    hide()
+}
+
+private fun BottomAppBar.hideWithAnimatorListenerAdapter() {
+    performHide()
+    animate().setListener(object : AnimatorListenerAdapter() {
+        var isCanceled = false
+        override fun onAnimationEnd(animation: Animator?) {
+            if (isCanceled) return
+            visibility = View.GONE
+        }
+
+        override fun onAnimationCancel(animation: Animator?) {
+            isCanceled = true
+        }
+    })
 }
 
 @BindingAdapter("app:backgroundColor")

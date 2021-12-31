@@ -23,6 +23,18 @@
 
     </style>
 
+    <style name="ShapeAppearanceOverlay.MathSolar.Image.Article.Detail" parent="">
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/_24sdp</item>
+        <item name="cornerSizeTopRight">@dimen/_24sdp</item>
+        <item name="cornerSizeBottomLeft">@dimen/_24sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_24sdp</item>
+
+    </style>
+
     <style name="Widget.MathSolar.LabelNew.Article.Item" parent="">
         <item name="shapeAppearance">@style/ShapeAppearanceOverlay.MathSolar.LabelNew.Article.Item</item>
         <item name="android:backgroundTint">?attr/colorSecondaryVariant</item>

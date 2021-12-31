@@ -25,6 +25,7 @@ import com.listocalixto.android.mathsolar.data.model.PVProject
 import com.listocalixto.android.mathsolar.data.model.PVProjectRemote
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel
+import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 
 fun PVProject.asRemoteModel(downloadUrl: String, userUid: String): PVProjectRemote =
     PVProjectRemote(
@@ -283,6 +284,9 @@ fun FloatingActionButton.setFunctionOnClick(viewModel: ViewModel?) {
         when (vm) {
             is ArticleDetailsViewModel -> {
                 setOnClickListener { vm.setBookmark() }
+            }
+            is ProjectsViewModel -> {
+                setOnClickListener { vm.onAddNewProject() }
             }
         }
     }

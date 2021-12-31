@@ -1,6 +1,7 @@
 package com.listocalixto.android.mathsolar.presentation.main.articles
 
 import android.util.Log
+import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.IntegerRes
@@ -13,10 +14,7 @@ import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.data.source.article.ArticleDataSource
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
-import com.listocalixto.android.mathsolar.utils.ArticleFilterType
-import com.listocalixto.android.mathsolar.utils.ArticleTopic
-import com.listocalixto.android.mathsolar.utils.Event
-import com.listocalixto.android.mathsolar.utils.SnackbarMessage
+import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -72,8 +70,8 @@ class ArticlesViewModel @Inject constructor(
 
     private val isDataLoadingError = MutableLiveData<Boolean>()
 
-    private val _openArticleEvent = MutableLiveData<Event<String>>()
-    val openArticleEvent: LiveData<Event<String>> = _openArticleEvent
+    private val _openArticleEvent = MutableLiveData<Event<OnCardViewClicked>>()
+    val openArticleEvent: LiveData<Event<OnCardViewClicked>> = _openArticleEvent
 
     private val _anArticleWasOpen = MutableLiveData(false)
     val anArticleWasOpen: LiveData<Boolean> = _anArticleWasOpen
@@ -213,8 +211,8 @@ class ArticlesViewModel @Inject constructor(
         loadArticles(false)
     }
 
-    fun openArticle(articleId: String) {
-        _openArticleEvent.value = Event(articleId)
+    fun openArticle(cardView: View, articleId: String) {
+        _openArticleEvent.value = Event(OnCardViewClicked(cardView, articleId))
         _anArticleWasOpen.value = true
         viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
             repo.addArticleToHistory(articleId)

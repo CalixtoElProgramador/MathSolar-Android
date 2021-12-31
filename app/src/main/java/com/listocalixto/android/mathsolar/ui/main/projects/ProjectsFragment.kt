@@ -4,15 +4,22 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentProjectsBinding
 import com.listocalixto.android.mathsolar.presentation.main.projects.ProjectsViewModel
 import com.listocalixto.android.mathsolar.ui.main.projects.adapter.ProjectsAdapter
+import com.listocalixto.android.mathsolar.utils.EventObserver
 import com.listocalixto.android.mathsolar.utils.hideOrShowBottomAppBarOnRecyclerScrolled
 import com.listocalixto.android.mathsolar.utils.onMenuItemSelected
+import com.listocalixto.android.mathsolar.utils.setFunctionOnClick
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,8 +30,20 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
     private lateinit var binding: FragmentProjectsBinding
     private lateinit var listAdapter: ProjectsAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
+        setupFab()
+
         binding = FragmentProjectsBinding.bind(view).also {
             it.lifecycleOwner = this.viewLifecycleOwner
             it.projectsViewModel = viewModel
@@ -36,7 +55,51 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
             it?.onMenuItemSelected(viewModel)
         }
 
+        binding.toolbarProjects.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.menu_search -> { navigateToSearchProjectFragment(); true }
+                else -> {false}
+            }
+        }
 
+        setupNavigation()
+
+    }
+
+    private fun navigateToSearchProjectFragment() {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        val action = ProjectsFragmentDirections.actionProjectsFragmentToSearchProjectFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun setupNavigation() {
+        viewModel.apply {
+            newProjectEvent.observe(viewLifecycleOwner, EventObserver {
+                navigateToAddEditProjectFragment00()
+            })
+        }
+    }
+
+    private fun navigateToAddEditProjectFragment00() {
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        val action = ProjectsFragmentDirections.actionProjectsFragmentToAddEditProjectFragment00()
+        findNavController().navigate(action)
+    }
+
+    private fun setupFab() {
+        activity?.findViewById<FloatingActionButton>(R.id.fab_main)?.apply {
+            setFunctionOnClick(viewModel)
+        }
     }
 
     private fun setupListAdapter(binding: FragmentProjectsBinding) {

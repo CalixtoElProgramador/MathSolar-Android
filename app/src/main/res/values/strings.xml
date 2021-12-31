@@ -125,4 +125,9 @@
     <string name="new_custom">New</string>
     <string name="no_internet_connection">You don\'t currently have internet</string>
     <string name="internet_connection_restored">The internet connection has been restored</string>
+
+    <!--ArticleFragment-->
+    <string name="article_card_transition_name">article_card_%1$s</string>
+    <string name="article_card_detail_transition_name">article_card_detail</string>
+
 </resources>

@@ -9,7 +9,14 @@
         android:id="@+id/projectsFragment"
         android:name="com.listocalixto.android.mathsolar.ui.main.projects.ProjectsFragment"
         android:label="ProjectsFragment"
-        tools:layout="@layout/fragment_projects" />
+        tools:layout="@layout/fragment_projects" >
+        <action
+            android:id="@+id/action_projectsFragment_to_addEditProjectFragment00"
+            app:destination="@id/addEditProjectFragment00" />
+        <action
+            android:id="@+id/action_projectsFragment_to_searchProjectFragment"
+            app:destination="@id/searchProjectFragment" />
+    </fragment>
     <fragment
         android:id="@+id/articlesFragment"
         android:name="com.listocalixto.android.mathsolar.ui.main.articles.ArticlesFragment"
@@ -17,11 +24,7 @@
         tools:layout="@layout/fragment_articles" >
         <action
             android:id="@+id/action_homeFragment_to_articleDetailsFragment"
-            app:destination="@id/articleDetailsFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/articleDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleDetailsFragment"
@@ -32,4 +35,14 @@
             android:name="articleId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addEditProjectFragment00"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.add_edit_project.AddEditProjectFragment00"
+        android:label="AddEditProjectFragment00"
+        tools:layout="@layout/fragment_add_edit_project_00"/>
+    <fragment
+        android:id="@+id/searchProjectFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.SearchProjectFragment"
+        android:label="fragment_search_project"
+        tools:layout="@layout/fragment_search_project" />
 </navigation>

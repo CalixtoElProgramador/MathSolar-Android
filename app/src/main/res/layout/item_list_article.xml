@@ -18,16 +18,17 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_article"
+        android:id="@+id/cardView_articleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_short"
         android:layout_marginEnd="@dimen/margin_short"
         android:layout_marginBottom="@dimen/margin_medium"
+        android:transitionName="@{@string/article_card_transition_name(article.id)}"
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> articlesViewModel.openArticle(article.id)}"
+        android:onClick="@{(view) -> articlesViewModel.openArticle(view, article.id)}"
         app:cardCornerRadius="@dimen/_16sdp"
         app:cardElevation="@dimen/zero"
         app:viewed="@{article.viewed}">
@@ -90,7 +91,7 @@
                 app:layout_constraintTop_toTopOf="@id/img_articleItem"
                 app:viewed="@{article.viewed}"
                 tools:text="facebook.com"
-                tools:textColor="?attr/colorPrimaryVariant" />
+                tools:textColor="?attr/colorPrimary" />
 
             <TextView
                 android:id="@+id/articleTitleItem"

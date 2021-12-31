@@ -2,14 +2,11 @@ package com.listocalixto.android.mathsolar.bindings.main.articles
 
 import android.icu.text.SimpleDateFormat
 import android.view.View
-import android.view.animation.Transformation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import coil.load
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -33,10 +30,14 @@ fun ShimmerRecyclerView.setArticleItems(items: List<Article>?) {
 @BindingAdapter("app:loadArticleImage")
 fun ImageView.setArticleImage(url: String?) {
     url?.let {
-        load(it) {
+        Glide.with(context).load(it).into(this)
+
+
+        /*load(it) {
             crossfade(600)
             error(R.drawable.ic_error_placeholder)
-        }
+            isSaveEnabled = true
+        }*/
     }
 }
 
@@ -81,7 +82,7 @@ fun View.isViewed(boolean: Boolean) {
     } else {
         when {
             id == R.id.articleSourceItem && this is TextView -> {
-                setTextColor(MaterialColors.getColor(this, R.attr.colorPrimaryVariant))
+                setTextColor(MaterialColors.getColor(this, R.attr.colorPrimary))
             }
             id == R.id.articleTitleItem && this is TextView -> {
                 setTextColor(MaterialColors.getColor(this, R.attr.textColorPrimary))
@@ -89,7 +90,7 @@ fun View.isViewed(boolean: Boolean) {
             id == R.id.articlePublishDateItem && this is TextView -> {
                 setTextColor(MaterialColors.getColor(this, R.attr.textColorSecondary))
             }
-            id == R.id.card_view_article && this is MaterialCardView -> {
+            id == R.id.cardView_articleItem && this is MaterialCardView -> {
                 setCardBackgroundColor(MaterialColors.getColor(this, R.attr.colorSurface))
                 strokeWidth = 0
                 radius = 24.0f

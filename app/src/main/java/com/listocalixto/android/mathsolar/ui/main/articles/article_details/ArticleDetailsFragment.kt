@@ -1,13 +1,17 @@
 package com.listocalixto.android.mathsolar.ui.main.articles.article_details
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.transition.MaterialContainerTransform
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentArticleDetailsBinding
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
@@ -24,8 +28,20 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
 
     private lateinit var binding: FragmentArticleDetailsBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_main
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(MaterialColors.getColor(requireContext(), R.attr.colorSurface, Color.MAGENTA))
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         setupFab()
         binding = FragmentArticleDetailsBinding.bind(view).apply {
             articleDetailsViewModel = viewModel
@@ -40,8 +56,6 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
             if (dy > 0) { bottomAppbar?.performHide() }
             if (dy < 0) { bottomAppbar?.performShow() }
         }
-
-        binding.toolbarArticleDetails.setNavigationOnClickListener { activity?.onBackPressed() }
 
     }
 

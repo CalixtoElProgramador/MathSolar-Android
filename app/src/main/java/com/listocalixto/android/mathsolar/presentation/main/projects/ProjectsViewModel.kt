@@ -209,7 +209,7 @@ class ProjectsViewModel @Inject constructor(
     /**
      * Called by the Data Binding library and the FAB's click listener.
      */
-    fun addNewProject() {
+    fun onAddNewProject() {
         _newProjectEvent.value = Event(Unit)
     }
 
