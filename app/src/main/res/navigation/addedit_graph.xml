@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addedit_graph"
+    app:startDestination="@id/addEditProjectFragment00">
+    <fragment
+        android:id="@+id/addEditProjectFragment00"
+        android:name="com.listocalixto.android.mathsolar.ui.main.addedit_project.fragments.AddEditProjectFragment00"
+        android:label="AddEditProjectFragment00"
+        tools:layout="@layout/fragment_addedit_project_00"/>
+</navigation>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -92,8 +93,14 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
-        val action = ProjectsFragmentDirections.actionProjectsFragmentToAddEditProjectFragment00()
-        findNavController().navigate(action)
+        activity?.let { activity ->
+            activity.findViewById<FloatingActionButton>(R.id.fab_main)?.apply { hide() }
+            activity.findViewById<BottomAppBar>(R.id.bottomAppBar)?.apply { performHide() }
+            val activityNavHost = activity.findViewById<View>(R.id.nav_host_activity)
+            val action = R.id.action_mainParentFragment_to_addEditProjectParentFragment
+            Navigation.findNavController(activityNavHost).navigate(action)
+        }
+
     }
 
     private fun setupFab() {

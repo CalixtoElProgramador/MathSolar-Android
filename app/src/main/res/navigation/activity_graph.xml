@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_mainParentFragment_to_registerParentFragment"
             app:destination="@id/registerParentFragment" />
+        <action
+            android:id="@+id/action_mainParentFragment_to_addEditProjectParentFragment"
+            app:destination="@id/addEditProjectParentFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginParentFragment"
@@ -48,4 +51,9 @@
             app:popUpTo="@id/main_graph.xml"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/addEditProjectParentFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.addedit_project.AddEditProjectParentFragment"
+        android:label="AddEditProjectParentFragment"
+        tools:layout="@layout/parent_fragment_addedit_project"/>
 </navigation>

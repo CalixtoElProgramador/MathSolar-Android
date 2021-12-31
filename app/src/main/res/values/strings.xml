@@ -129,5 +129,9 @@
     <!--ArticleFragment-->
     <string name="article_card_transition_name">article_card_%1$s</string>
     <string name="article_card_detail_transition_name">article_card_detail</string>
+    <string name="choose_a_project_type">Choose a project type.</string>
+    <string name="fragment_add_edit_project_00_subtitle">Select an option below to continue sizing your project</string>
+    <string name="radio_button_option_01">Solar panels without batteries</string>
+    <string name="radio_button_option_02">Solar panels with batteries</string>
 
 </resources>
