@@ -3,6 +3,7 @@ package com.listocalixto.android.mathsolar.ui.main.articles.article_details
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -41,7 +42,7 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
         setupFab()
         binding = FragmentArticleDetailsBinding.bind(view).apply {
             articleDetailsViewModel = viewModel

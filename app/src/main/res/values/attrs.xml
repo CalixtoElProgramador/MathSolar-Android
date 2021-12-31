@@ -16,4 +16,10 @@
     <attr name="textColorSecondary" format="color"/>
     <attr name="textColorTertiary" format="color"/>
 
+    <!--Emphasis values are used in combination with each "on" color to create three available -->
+    <!--levels of emphasis for text and content.-->
+    <attr name="emphasisHighAlpha" format="float"/>
+    <attr name="emphasisMediumAlpha" format="float"/>
+    <attr name="emphasisDisabledAlpha" format="float"/>
+
 </resources>

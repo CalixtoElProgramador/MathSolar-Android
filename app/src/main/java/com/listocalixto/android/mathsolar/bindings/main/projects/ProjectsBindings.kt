@@ -1,8 +1,7 @@
-package com.listocalixto.android.mathsolar.bindings
+package com.listocalixto.android.mathsolar.bindings.main.projects
 
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load

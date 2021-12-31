@@ -61,6 +61,10 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MathSolar.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MathSolar.Overline</item>
 
+        <item name="emphasisHighAlpha">0.87</item>
+        <item name="emphasisMediumAlpha">0.60</item>
+        <item name="emphasisDisabledAlpha">0.38</item>
+
         <!--System/Platform attributes-->
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>

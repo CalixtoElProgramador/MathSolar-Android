@@ -4,11 +4,11 @@ enum class PVProjectType {
 
     ALL_PROJECTS,
 
-    CONNECTED_TO_THE_GRID,
+    WITHOUT_BATTERIES,
 
     ISOLATED,
 
-    HYBRID,
+    WITH_BATTERIES,
 
     FAVORITE
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -41,7 +42,7 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
 
         setupFab()
 
@@ -93,13 +94,8 @@ class ProjectsFragment : Fragment(R.layout.fragment_projects) {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
-        activity?.let { activity ->
-            activity.findViewById<FloatingActionButton>(R.id.fab_main)?.apply { hide() }
-            activity.findViewById<BottomAppBar>(R.id.bottomAppBar)?.apply { performHide() }
-            val activityNavHost = activity.findViewById<View>(R.id.nav_host_activity)
-            val action = R.id.action_mainParentFragment_to_addEditProjectParentFragment
-            Navigation.findNavController(activityNavHost).navigate(action)
-        }
+        val action = ProjectsFragmentDirections.actionProjectsFragmentToAddEditProjectParentFragment()
+        findNavController().navigate(action)
 
     }
 

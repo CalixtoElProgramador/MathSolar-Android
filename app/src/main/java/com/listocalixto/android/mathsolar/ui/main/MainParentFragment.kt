@@ -8,11 +8,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.math.MathUtils
@@ -52,9 +50,13 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
         setupDestinationChangeListener(navController)
 
         viewModel.currentFragment.observe(viewLifecycleOwner, {
-            currentNavigationFragment?.let {
-                it.exitTransition = MaterialFadeThrough().apply {
-                    duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            when(it) {
+                R.id.projectsFragment -> {
+                    currentNavigationFragment?.let { articlesFragment ->
+                        articlesFragment.exitTransition = MaterialFadeThrough().apply {
+                            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                        }
+                    }
                 }
             }
         })
@@ -120,8 +122,8 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
                 R.id.projectsFragment -> {
                     viewModel.setCurrentFragment(R.id.projectsFragment)
                 }
-                R.id.addEditProjectFragment00 -> {
-                    viewModel.setCurrentFragment(R.id.addEditProjectFragment00)
+                R.id.addEditProjectParentFragment -> {
+                    viewModel.setCurrentFragment(R.id.addEditProjectParentFragment)
                 }
                 R.id.searchProjectFragment -> {
                     viewModel.setCurrentFragment(R.id.searchProjectFragment)

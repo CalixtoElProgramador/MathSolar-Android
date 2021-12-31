@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="addEditProjectViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
+
+    </data>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
@@ -10,16 +20,29 @@
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:fillViewport="true"
-        app:layoutFullscreen="@{true}"
-        app:paddingTopSystemWindowInsets="@{true}"
         android:paddingHorizontal="@dimen/margin_extra_short"
         android:paddingTop="@dimen/margin_short"
-        tools:context=".ui.main.addedit_project.AddEditProjectParentFragment">
+        tools:context=".ui.main.projects.addedit_project.AddEditProjectParentFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView_addEditProject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/ic_cancelAddEditProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/cd_image_close_fragment_addedit"
+                android:onClick="@{() -> addEditProjectViewModel.onCancelPressed()}"
+                android:padding="@dimen/_12sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close"
+                app:tint="@color/color_on_surface_emphasis_disabled" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host_addedit_project"
@@ -28,6 +51,27 @@
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/addedit_graph" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/margin_medium"
+                android:onClick="@{() -> addEditProjectViewModel.onNext()}"
+                android:text="@string/next"
+                android:visibility="@{addEditProjectViewModel.wasSelectedAnOption ? View.VISIBLE : View.INVISIBLE}" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_back"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="@dimen/margin_medium"
+                android:onClick="@{() -> addEditProjectViewModel.onBack()}"
+                android:text="@string/back"
+                android:visibility="@{addEditProjectViewModel.showBackButton ? View.VISIBLE : View.INVISIBLE}" />
 
         </com.google.android.material.card.MaterialCardView>
 

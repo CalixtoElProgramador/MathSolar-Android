@@ -172,7 +172,7 @@
             android:id="@+id/guideline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_marginBottom="@dimen/margin_extra_large"
             android:backgroundTint="@android:color/transparent"
             android:paddingBottom="@dimen/margin_extra_short"
             app:layout_anchor="@id/list_articles"

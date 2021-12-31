@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.core.view.get
 import androidx.lifecycle.LifecycleOwner
@@ -67,10 +66,10 @@ fun PVProjectRemote.asLocalModel(): PVProject =
                 PVProjectType.ALL_PROJECTS
             }
             1 -> {
-                PVProjectType.CONNECTED_TO_THE_GRID
+                PVProjectType.WITHOUT_BATTERIES
             }
             2 -> {
-                PVProjectType.HYBRID
+                PVProjectType.WITH_BATTERIES
             }
             3 -> {
                 PVProjectType.ISOLATED

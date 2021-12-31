@@ -56,7 +56,7 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
                 }
             }
         }
-        R.id.addEditProjectFragment00 -> {
+        R.id.addEditProjectParentFragment -> {
             when (this) {
                 is BottomAppBar -> { hideWithAnimatorListenerAdapter() }
                 is FloatingActionButton -> { hideWithAnimatorListenerAdapter() }

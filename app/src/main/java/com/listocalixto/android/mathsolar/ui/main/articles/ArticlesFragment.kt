@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -37,7 +39,7 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
         binding = FragmentArticlesBinding.bind(view).apply {
             articlesViewModel = viewModel
             setupListAdapter(this)

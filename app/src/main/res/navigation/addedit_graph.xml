@@ -6,7 +6,16 @@
     app:startDestination="@id/addEditProjectFragment00">
     <fragment
         android:id="@+id/addEditProjectFragment00"
-        android:name="com.listocalixto.android.mathsolar.ui.main.addedit_project.fragments.AddEditProjectFragment00"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.AddEditProjectFragment00"
         android:label="AddEditProjectFragment00"
-        tools:layout="@layout/fragment_addedit_project_00"/>
+        tools:layout="@layout/fragment_addedit_project_00">
+        <action
+            android:id="@+id/action_addEditProjectFragment00_to_addEditProjectFragment01"
+            app:destination="@id/addEditProjectFragment01" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditProjectFragment01"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.AddEditProjectFragment01"
+        android:label="AddEditProjectFragment01"
+        tools:layout="@layout/fragment_add_edit_project_01"/>
 </navigation>

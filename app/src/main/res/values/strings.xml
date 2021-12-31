@@ -129,9 +129,34 @@
     <!--ArticleFragment-->
     <string name="article_card_transition_name">article_card_%1$s</string>
     <string name="article_card_detail_transition_name">article_card_detail</string>
-    <string name="choose_a_project_type">Choose a project type.</string>
-    <string name="fragment_add_edit_project_00_subtitle">Select an option below to continue sizing your project</string>
+    <string name="navigate_back_icon_content_desc">Navigate back</string>
+
+    <!--AddEditFragment-->
+    <string name="fragment_addedit_project_00_title">Choose a project type.</string>
+    <string name="fragment_addedit_project_00_subtitle">Select an option below to continue sizing your project</string>
     <string name="radio_button_option_01">Solar panels without batteries</string>
     <string name="radio_button_option_02">Solar panels with batteries</string>
+    <string name="cd_image_close_fragment_addedit">Close this section</string>
+    <string name="fragment_addedit_project_01_title">Select your rate type.</string>
+    <string name="fragment_addedit_project_01_subtitle">Choose at the bottom the electricity rate of the place where you would like to install solar panels.</string>
+    <string name="rate_type">Rate type</string>
+    <string name="rate">Rate</string>
+
+    <string-array name="rate_type_options">
+        <item>Domestic</item>
+        <item>High-consumption domestic (DAC)</item>
+        <item>Commercial</item>
+        <item>Medium Voltage</item>
+    </string-array>
+
+    <string-array name="domestic_options">
+        <item>Rate 1</item>
+        <item>Rate 1A</item>
+        <item>Rate 1B</item>
+        <item>Rate 1C</item>
+        <item>Rate 1D</item>
+        <item>Rate 1E</item>
+        <item>Rate 1F</item>
+    </string-array>
 
 </resources>

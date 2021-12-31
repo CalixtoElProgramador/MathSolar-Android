@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_projectsFragment_to_searchProjectFragment"
             app:destination="@id/searchProjectFragment" />
+        <action
+            android:id="@+id/action_projectsFragment_to_addEditProjectParentFragment"
+            app:destination="@id/addEditProjectParentFragment" />
     </fragment>
     <fragment
         android:id="@+id/articlesFragment"
@@ -37,4 +40,9 @@
         android:name="com.listocalixto.android.mathsolar.ui.main.projects.SearchProjectFragment"
         android:label="fragment_search_project"
         tools:layout="@layout/fragment_search_project" />
+    <fragment
+        android:id="@+id/addEditProjectParentFragment"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.AddEditProjectParentFragment"
+        android:label="AddEditProjectParentFragment"
+        tools:layout="@layout/parent_fragment_addedit_project"/>
 </navigation>

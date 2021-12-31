@@ -14,8 +14,8 @@ import com.listocalixto.android.mathsolar.data.source.pv_project.PVProjectDataSo
 import com.listocalixto.android.mathsolar.utils.Event
 import com.listocalixto.android.mathsolar.utils.PVProjectType
 import com.listocalixto.android.mathsolar.utils.PVProjectType.ALL_PROJECTS
-import com.listocalixto.android.mathsolar.utils.PVProjectType.CONNECTED_TO_THE_GRID
-import com.listocalixto.android.mathsolar.utils.PVProjectType.HYBRID
+import com.listocalixto.android.mathsolar.utils.PVProjectType.WITHOUT_BATTERIES
+import com.listocalixto.android.mathsolar.utils.PVProjectType.WITH_BATTERIES
 import com.listocalixto.android.mathsolar.utils.PVProjectType.ISOLATED
 import com.listocalixto.android.mathsolar.utils.PVProjectType.FAVORITE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -86,8 +86,8 @@ class ProjectsViewModel @Inject constructor(
      * Sets the current task filtering type.
      *
      * @param requestType Can be [ALL_PROJECTS],
-     * [CONNECTED_TO_THE_GRID],
-     * [HYBRID],
+     * [WITHOUT_BATTERIES],
+     * [WITH_BATTERIES],
      * [ISOLATED], or
      * [FAVORITE]
      */
@@ -102,7 +102,7 @@ class ProjectsViewModel @Inject constructor(
                     R.drawable.ic_projects_empty, true
                 )
             }
-            CONNECTED_TO_THE_GRID -> {
+            WITHOUT_BATTERIES -> {
                 setFilter(
                     R.string.label_connected, R.string.no_projects_connected,
                     R.drawable.ic_projects_empty, false
@@ -114,7 +114,7 @@ class ProjectsViewModel @Inject constructor(
                     R.drawable.ic_projects_empty, false
                 )
             }
-            HYBRID -> {
+            WITH_BATTERIES -> {
                 setFilter(
                     R.string.label_hybrid, R.string.no_projects_hybrid,
                     R.drawable.ic_projects_empty, false
@@ -179,10 +179,10 @@ class ProjectsViewModel @Inject constructor(
         projects.forEach { project ->
             when (filteringType) {
                 ALL_PROJECTS -> projectsToShow.add(project)
-                CONNECTED_TO_THE_GRID -> if (project.type == CONNECTED_TO_THE_GRID) {
+                WITHOUT_BATTERIES -> if (project.type == WITHOUT_BATTERIES) {
                     projectsToShow.add(project)
                 }
-                HYBRID -> if (project.type == HYBRID) {
+                WITH_BATTERIES -> if (project.type == WITH_BATTERIES) {
                     projectsToShow.add(project)
                 }
                 ISOLATED -> if (project.type == ISOLATED) {

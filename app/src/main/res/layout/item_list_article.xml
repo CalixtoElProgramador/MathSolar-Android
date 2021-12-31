@@ -102,7 +102,7 @@
                 android:lineSpacingExtra="4dp"
                 android:maxLines="@integer/max_lines_article_item"
                 android:text="@{article.title}"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintEnd_toStartOf="@id/img_articleItem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/articleSourceItem"

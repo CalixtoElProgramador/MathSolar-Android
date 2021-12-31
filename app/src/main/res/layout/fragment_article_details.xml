@@ -30,7 +30,6 @@
             android:id="@+id/cardView_article"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:transitionGroup="true"
             android:transitionName="@string/article_card_detail_transition_name">
 
             <LinearLayout
@@ -40,27 +39,32 @@
                 android:paddingHorizontal="@dimen/margin_medium"
                 android:paddingTop="@dimen/margin_extra_medium"
                 android:paddingBottom="@dimen/margin_extra_large"
-                android:transitionGroup="true"
                 app:paddingBottomSystemWindowInsets="@{true}">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent"
-                    android:elevation="@dimen/zero"
-                    app:cardCornerRadius="@dimen/_24sdp"
-                    app:strokeColor="@android:color/transparent"
-                    app:strokeWidth="@dimen/zero">
+                    app:cardCornerRadius="@dimen/_24sdp">
 
                     <ImageView
                         android:id="@+id/image_articleMedia"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/image_large_size"
                         android:outlineProvider="background"
-                        android:clipToOutline="true"
                         android:scaleType="centerCrop"
                         app:loadArticleImage="@{articleDetailsViewModel.article.media}"
                         tools:src="@drawable/ic_error_placeholder" />
+
+                    <ImageButton
+                        android:id="@+id/navigation_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="?attr/emphasisMediumAlpha"
+                        android:background="?attr/actionBarItemBackground"
+                        android:contentDescription="@string/navigate_back_icon_content_desc"
+                        android:padding="@dimen/margin_medium"
+                        android:layout_gravity="end"
+                        app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -69,9 +73,8 @@
                     android:id="@+id/articleSource"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/margin_medium"
-                    android:paddingTop="@dimen/margin_short"
-                    android:paddingEnd="@dimen/margin_medium"
+                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingTop="@dimen/margin_medium"
                     android:text="@{articleDetailsViewModel.article.cleanUrl}"
                     android:textAppearance="?attr/textAppearanceOverline"
                     android:textColor="?attr/colorPrimary"
@@ -81,9 +84,8 @@
                     android:id="@+id/articleTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/margin_medium"
-                    android:paddingEnd="@dimen/margin_medium"
-                    android:paddingBottom="@dimen/margin_short"
+                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingBottom="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.title}"
                     android:textAppearance="?attr/textAppearanceHeadline4"
                     tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
@@ -93,10 +95,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="@dimen/_3sdp"
-                    android:paddingStart="@dimen/margin_medium"
-                    android:paddingTop="@dimen/margin_short"
-                    android:paddingEnd="@dimen/margin_medium"
-                    android:paddingBottom="@dimen/margin_short"
+                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingVertical="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.summary}"
                     android:textAppearance="?attr/textAppearanceBody1"
                     tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
@@ -105,10 +105,8 @@
                     android:id="@+id/articlePublishDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/margin_medium"
-                    android:paddingTop="@dimen/margin_short"
-                    android:paddingEnd="@dimen/margin_medium"
-                    android:paddingBottom="@dimen/margin_short"
+                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingVertical="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.publishedDate}"
                     android:textAppearance="?attr/textAppearanceCaption"
                     tools:text="Hace 6 horas" />
