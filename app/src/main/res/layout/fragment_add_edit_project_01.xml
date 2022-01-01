@@ -42,7 +42,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout_rateType"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
@@ -50,7 +50,9 @@
             app:boxCornerRadiusTopEnd="@dimen/_8sdp"
             app:boxCornerRadiusTopStart="@dimen/_8sdp"
             app:endIconMode="dropdown_menu"
-            app:layout_constraintTop_toBottomOf="@id/subtitle">
+            app:layout_constraintTop_toBottomOf="@id/subtitle"
+            app:saveRateType="@{addEditProjectViewModel}"
+            app:setupSpinner="@{addEditProjectViewModel.rateTypeSelected}">
 
             <AutoCompleteTextView
                 android:id="@+id/input_rateType"
@@ -63,15 +65,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout_rate"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_extra_tiny"
             android:hint="@string/rate"
-            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
             app:endIconMode="dropdown_menu"
-            app:layout_constraintTop_toBottomOf="@id/inputLayout_rateType">
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_rateType"
+            app:saveRateType="@{addEditProjectViewModel}"
+            app:setupSpinner="@{addEditProjectViewModel.rateTypeSelected}">
 
             <AutoCompleteTextView
                 android:id="@+id/input_rate"

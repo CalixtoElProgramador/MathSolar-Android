@@ -46,13 +46,13 @@
             app:projectTypeSelected="@{addEditProjectViewModel}"
             app:layout_constraintTop_toBottomOf="@id/subtitle">
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radioBtn_withoutBatteries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_button_option_01" />
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radioBtn_withBatteries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

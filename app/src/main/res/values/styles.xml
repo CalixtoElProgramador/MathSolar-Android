@@ -51,4 +51,60 @@
         <item name="cornerSizeBottomRight">@dimen/zero</item>
     </style>
 
+    <style name="Widget.MathSolar.TextInputLayout.FilledBox.Top" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.Top</item>
+        <item name="boxStrokeWidth">@dimen/zero</item>
+        <item name="boxStrokeWidthFocused">@dimen/zero</item>
+    </style>
+
+        <style name="ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.Top" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+            <item name="cornerSizeTopLeft">@dimen/corner_radius_medium</item>
+            <item name="cornerSizeTopRight">@dimen/corner_radius_medium</item>
+            <item name="cornerSizeBottomLeft">@dimen/zero</item>
+            <item name="cornerSizeBottomRight">@dimen/zero</item>
+        </style>
+
+    <style name="Widget.MathSolar.TextInputLayout.FilledBox.Bottom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.Bottom</item>
+        <item name="boxStrokeWidth">@dimen/zero</item>
+        <item name="boxStrokeWidthFocused">@dimen/zero</item>
+    </style>
+
+        <style name="ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.Bottom" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+            <item name="cornerSizeTopLeft">@dimen/zero</item>
+            <item name="cornerSizeTopRight">@dimen/zero</item>
+            <item name="cornerSizeBottomLeft">@dimen/corner_radius_medium</item>
+            <item name="cornerSizeBottomRight">@dimen/corner_radius_medium</item>
+        </style>
+
+    <style name="Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Top" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Top</item>
+        <item name="boxStrokeWidth">@dimen/zero</item>
+        <item name="boxStrokeWidthFocused">@dimen/zero</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Top" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSizeTopLeft">@dimen/corner_radius_medium</item>
+        <item name="cornerSizeTopRight">@dimen/corner_radius_medium</item>
+        <item name="cornerSizeBottomLeft">@dimen/zero</item>
+        <item name="cornerSizeBottomRight">@dimen/zero</item>
+    </style>
+
+    <style name="Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Bottom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Bottom</item>
+        <item name="boxStrokeWidth">@dimen/zero</item>
+        <item name="boxStrokeWidthFocused">@dimen/zero</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Bottom" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSizeTopLeft">@dimen/zero</item>
+        <item name="cornerSizeTopRight">@dimen/zero</item>
+        <item name="cornerSizeBottomLeft">@dimen/corner_radius_medium</item>
+        <item name="cornerSizeBottomRight">@dimen/corner_radius_medium</item>
+    </style>
+
 </resources>

@@ -142,21 +142,4 @@
     <string name="rate_type">Rate type</string>
     <string name="rate">Rate</string>
 
-    <string-array name="rate_type_options">
-        <item>Domestic</item>
-        <item>High-consumption domestic (DAC)</item>
-        <item>Commercial</item>
-        <item>Medium Voltage</item>
-    </string-array>
-
-    <string-array name="domestic_options">
-        <item>Rate 1</item>
-        <item>Rate 1A</item>
-        <item>Rate 1B</item>
-        <item>Rate 1C</item>
-        <item>Rate 1D</item>
-        <item>Rate 1E</item>
-        <item>Rate 1F</item>
-    </string-array>
-
 </resources>
