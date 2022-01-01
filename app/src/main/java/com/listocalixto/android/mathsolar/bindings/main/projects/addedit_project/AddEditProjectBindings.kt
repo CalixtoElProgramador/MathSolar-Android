@@ -1,12 +1,21 @@
 package com.listocalixto.android.mathsolar.bindings.main.projects.addedit_project
 
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageButton
 import android.widget.RadioGroup
+import androidx.core.view.allViews
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.data.model.PVProject
+import com.listocalixto.android.mathsolar.data.model.Payment
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
+import com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.adapter.AddEditProjectAdapter02
 import com.listocalixto.android.mathsolar.utils.PVProjectType
 import com.listocalixto.android.mathsolar.utils.RateType
 
@@ -28,16 +37,19 @@ fun RadioGroup.onProjectTypeSelected(viewModel: AddEditProjectViewModel) {
         }
     }
     viewModel.projectTypeSelected.value?.let {
-        when(it) {
-            PVProjectType.ALL_PROJECTS -> {}
+        when (it) {
+            PVProjectType.ALL_PROJECTS -> {
+            }
             PVProjectType.WITHOUT_BATTERIES -> {
                 check(R.id.radioBtn_withoutBatteries)
             }
-            PVProjectType.ISOLATED -> {}
+            PVProjectType.ISOLATED -> {
+            }
             PVProjectType.WITH_BATTERIES -> {
                 check(R.id.radioBtn_withBatteries)
             }
-            PVProjectType.FAVORITE -> {}
+            PVProjectType.FAVORITE -> {
+            }
         }
     }
 }
@@ -75,6 +87,16 @@ fun TextInputLayout.setupSpinner(rateType: RateType?, viewModel: AddEditProjectV
             }
         }
     }
+}
 
+@BindingAdapter(
+    "paymentItems"
+)
+fun RecyclerView.setPaymentItems(items: List<Double>?) {
+    items?.let {
+        val adapter = (adapter as AddEditProjectAdapter02)
+        adapter.submitList(it)
+    }
 
 }
+

@@ -14,6 +14,10 @@ class AddEditProjectViewModel @Inject constructor(
     private val repo: PVProjectRepo
 ) : ViewModel() {
 
+    private val listPayment = ArrayList<Double>()
+    private val _payments = MutableLiveData<List<Double>>()
+    val payments: LiveData<List<Double>> = _payments
+
     private val _projectTypeSelected = MutableLiveData<PVProjectType>()
     val projectTypeSelected: LiveData<PVProjectType> = _projectTypeSelected
 
@@ -53,6 +57,10 @@ class AddEditProjectViewModel @Inject constructor(
         }
     }
 
+    init {
+        onAddPayment("0.0")
+    }
+
     fun onCancelPressed() {
         _onCancelEvent.value = Event(Unit)
     }
@@ -80,6 +88,15 @@ class AddEditProjectViewModel @Inject constructor(
     fun setRate(rateType: Int, position: Int) {
         RateType.values()[rateType].rateSelected = position
         _rateTypeSelected.value = RateType.values()[rateType]
+    }
+
+    fun onAddPayment(value: String) {
+        listPayment.add(value.toDouble())
+        _payments.value = listPayment
+    }
+
+    companion object {
+        private const val TAG = "AddEditProjectViewModel"
     }
 
 }

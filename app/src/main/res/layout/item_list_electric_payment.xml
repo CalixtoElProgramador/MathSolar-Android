@@ -9,6 +9,10 @@
             name="addEditProjectViewModel"
             type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
 
+        <variable
+            name="payment"
+            type="Double" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +35,7 @@
                 android:id="@+id/input_paymentItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@{payment.toString()}"
                 tools:text="31.32"
                 android:inputType="numberDecimal" />
 
