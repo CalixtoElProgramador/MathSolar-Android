@@ -97,10 +97,6 @@ class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_p
 
     }
 
-    private fun restoreProjectTypeOptionSelected() {
-        viewModel.setProjectTypeSelected(PVProjectType.ALL_PROJECTS)
-    }
-
     private fun setupDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -113,10 +109,4 @@ class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_p
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        restoreProjectTypeOptionSelected()
-    }
-
 }

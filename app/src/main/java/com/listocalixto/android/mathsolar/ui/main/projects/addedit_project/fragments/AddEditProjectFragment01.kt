@@ -36,20 +36,7 @@ class AddEditProjectFragment01 : Fragment(R.layout.fragment_add_edit_project_01)
         binding.run {
             lifecycleOwner = this@AddEditProjectFragment01.viewLifecycleOwner
             addEditProjectViewModel = viewModel
-            val adapter = ArrayAdapter(
-                requireContext(),
-                R.layout.support_simple_spinner_dropdown_item,
-                resources.getStringArray(R.array.rate_type_options)
-            )
-            val spinner = (inputLayoutRateType.editText as? AutoCompleteTextView)
-            spinner?.let {
-                it.setAdapter(adapter)
-                it.setText(resources.getStringArray(R.array.rate_type_options)[0], false)
-                it.setOnItemClickListener { adapterView, view, i, l ->
-                    Log.d(TAG, "The value of i: $i")
-                    Log.d(TAG, "The value of l: $l ")
-                }
-            }
+
         }
     }
 

@@ -1,6 +1,7 @@
 package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_pro
 import com.listocalixto.android.mathsolar.utils.EventObserver
 import com.listocalixto.android.mathsolar.utils.PVProjectType
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) {
@@ -32,6 +34,10 @@ class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) 
             lifecycleOwner = this@AddEditProjectFragment00.viewLifecycleOwner
             addEditProjectViewModel = viewModel
         }
+
+        viewModel.projectTypeSelected.observe(viewLifecycleOwner, {
+            Log.d(TAG, "PVProjectType: ${it.name}")
+        })
 
         setupNavigation()
 

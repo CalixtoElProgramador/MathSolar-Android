@@ -5,6 +5,7 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.utils.Event
 import com.listocalixto.android.mathsolar.utils.PVProjectType
+import com.listocalixto.android.mathsolar.utils.RateType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -27,12 +28,29 @@ class AddEditProjectViewModel @Inject constructor(
     private val _nextEvent = MutableLiveData<Event<Unit>>()
     val nextEvent: LiveData<Event<Unit>> = _nextEvent
 
+    private val _rateTypeSelected = MutableLiveData<RateType>()
+    val rateTypeSelected: LiveData<RateType> = _rateTypeSelected
+
     val wasSelectedAnOption: LiveData<Boolean> = Transformations.map(_projectTypeSelected) {
         it == PVProjectType.WITHOUT_BATTERIES || it == PVProjectType.WITH_BATTERIES
     }
 
     val showBackButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         it != R.id.addEditProjectFragment00
+    }
+
+    val disableNextBtn: LiveData<Boolean> = Transformations.map(currentFragment) {
+        when (it) {
+            R.id.addEditProjectFragment00 -> {
+                false
+            }
+            R.id.addEditProjectFragment01 -> {
+                _rateTypeSelected.value == null
+            }
+            else -> {
+                false
+            }
+        }
     }
 
     fun onCancelPressed() {
@@ -48,20 +66,20 @@ class AddEditProjectViewModel @Inject constructor(
     }
 
     fun onNext() {
-        when (currentFragment.value) {
-            R.id.addEditProjectFragment00 -> {
-                navigateToNextFragment()
-            }
-        }
+        _nextEvent.value = Event(Unit)
     }
 
     fun setCurrentFragment(fragmentId: Int) {
         currentFragment.value = fragmentId
     }
 
+    fun setRateType(position: Int) {
+        _rateTypeSelected.value = RateType.values()[position]
+    }
 
-    private fun navigateToNextFragment() {
-        _nextEvent.value = Event(Unit)
+    fun setRate(rateType: Int, position: Int) {
+        RateType.values()[rateType].rateSelected = position
+        _rateTypeSelected.value = RateType.values()[rateType]
     }
 
 }

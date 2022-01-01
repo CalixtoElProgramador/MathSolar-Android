@@ -61,23 +61,7 @@ fun PVProjectRemote.asLocalModel(): PVProject =
         this.createdAt,
         this.description,
         this.imageUrl,
-        type = when (this.type) {
-            0 -> {
-                PVProjectType.ALL_PROJECTS
-            }
-            1 -> {
-                PVProjectType.WITHOUT_BATTERIES
-            }
-            2 -> {
-                PVProjectType.WITH_BATTERIES
-            }
-            3 -> {
-                PVProjectType.ISOLATED
-            }
-            else -> {
-                PVProjectType.FAVORITE
-            }
-        },
+        type = PVProjectType.values()[this.type],
         this.deleted,
         this.favorite,
         this.ambTemperature,
