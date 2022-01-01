@@ -141,5 +141,11 @@
     <string name="fragment_addedit_project_01_subtitle">Choose at the bottom the electricity rate of the place where you would like to install solar panels.</string>
     <string name="rate_type">Rate type</string>
     <string name="rate">Rate</string>
+    <string name="fragment_addedit_project_02_title">Average consumption.</string>
+    <string name="fragment_addedit_project_02_subtitle">Specify wheter your rate is monthtly or bimonthly and then covers at least one year of the entity\'s electricity consumption.</string>
+    <string name="radio_button_addedit_project_02_option_01">Monthly</string>
+    <string name="radio_button_addedit_project_02_option_02">Bimonthly</string>
+    <string name="cd_image_add_payment_fragment_addedit">Add payment</string>
+    <string name="payment">Payment</string>
 
 </resources>
