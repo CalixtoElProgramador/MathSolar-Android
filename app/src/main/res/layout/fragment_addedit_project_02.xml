@@ -45,9 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_short"
             android:orientation="horizontal"
+            app:periodTypeConsumptionSelected="@{addEditProjectViewModel}"
             app:layout_constraintTop_toBottomOf="@id/subtitle">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radioBtn_monthly"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -55,6 +57,7 @@
                 android:text="@string/radio_button_addedit_project_02_option_01" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radioBtn_bimonthly"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -79,7 +82,7 @@
             app:paymentItems="@{addEditProjectViewModel.payments}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/divider"
-            tools:listitem="@layout/item_list_electric_payment" />
+            tools:listitem="@layout/item_list_consumption" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

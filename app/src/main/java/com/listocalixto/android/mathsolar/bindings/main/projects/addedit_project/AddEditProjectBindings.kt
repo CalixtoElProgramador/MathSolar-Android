@@ -10,6 +10,7 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
 import com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.adapter.AddEditProjectAdapter02
 import com.listocalixto.android.mathsolar.utils.PVProjectType
+import com.listocalixto.android.mathsolar.utils.PeriodConsumptionType
 import com.listocalixto.android.mathsolar.utils.RateType
 
 @BindingAdapter(
@@ -21,11 +22,8 @@ fun RadioGroup.onProjectTypeSelected(viewModel: AddEditProjectViewModel) {
             R.id.radioBtn_withoutBatteries -> {
                 viewModel.setProjectTypeSelected(PVProjectType.WITHOUT_BATTERIES)
             }
-            R.id.radioBtn_withBatteries -> {
-                viewModel.setProjectTypeSelected(PVProjectType.WITH_BATTERIES)
-            }
             else -> {
-                viewModel.setProjectTypeSelected(PVProjectType.ISOLATED)
+                viewModel.setProjectTypeSelected(PVProjectType.WITH_BATTERIES)
             }
         }
     }
@@ -89,6 +87,34 @@ fun RecyclerView.setPaymentItems(items: List<Double>?) {
     items?.let {
         val adapter = (adapter as AddEditProjectAdapter02)
         adapter.submitList(it)
+    }
+}
+
+@BindingAdapter(
+    "periodTypeConsumptionSelected"
+)
+fun RadioGroup.onPeriodTypeConsumptionSelected(viewModel: AddEditProjectViewModel) {
+    setOnCheckedChangeListener { _, checkedId ->
+        when (checkedId) {
+            R.id.radioBtn_monthly -> {
+                viewModel.setPeriodConsumption(PeriodConsumptionType.MONTHLY)
+                viewModel.setCurrentFragment(R.id.addEditProjectFragment02)
+            }
+            else -> {
+                viewModel.setPeriodConsumption(PeriodConsumptionType.BIMONTHLY)
+                viewModel.setCurrentFragment(R.id.addEditProjectFragment02)
+            }
+        }
+    }
+    viewModel.periodConsumptionType.value?.let {
+        when (it) {
+            PeriodConsumptionType.MONTHLY -> {
+                check(R.id.radioBtn_monthly)
+            }
+            PeriodConsumptionType.BIMONTHLY -> {
+                check(R.id.radioBtn_bimonthly)
+            }
+        }
     }
 }
 

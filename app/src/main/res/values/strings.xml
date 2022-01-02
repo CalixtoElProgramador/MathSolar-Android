@@ -148,5 +148,12 @@
     <string name="cd_image_add_payment_fragment_addedit">Add payment</string>
     <string name="payment">Payment</string>
     <string name="mexican_pesos">Mexican pesos</string>
+    <string name="err_field_empty">This field cannot be empty.</string>
+    <string name="err_payment_equals_or_minor_to_zero">Write an amount greater than zero.</string>
+    <string name="err_quantity_not_valid">Insert a valid quantity.</string>
+    <string name="consumption">Consumption</string>
+    <string name="quantity">Quantity</string>
+    <string name="helper_text_consumption">Register %1$s/%2$s</string>
+    <string name="hint_text_input_consumption">Consumption %1$s</string>
 
 </resources>

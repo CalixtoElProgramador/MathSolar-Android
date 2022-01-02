@@ -1,11 +1,10 @@
 package com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
-import com.listocalixto.android.mathsolar.utils.Event
-import com.listocalixto.android.mathsolar.utils.PVProjectType
-import com.listocalixto.android.mathsolar.utils.RateType
+import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,10 +13,10 @@ class AddEditProjectViewModel @Inject constructor(
     private val repo: PVProjectRepo
 ) : ViewModel() {
 
-    private val listPayment = ArrayList<Double>()
+    private val listPayment = mutableListOf<Double?>(null)
 
-    private val _payments = MutableLiveData<List<Double>>()
-    val payments: LiveData<List<Double>> = _payments
+    private val _payments = MutableLiveData(listPayment)
+    val payments: LiveData<MutableList<Double?>> = _payments
 
     private val _projectTypeSelected = MutableLiveData<PVProjectType>()
     val projectTypeSelected: LiveData<PVProjectType> = _projectTypeSelected
@@ -33,8 +32,14 @@ class AddEditProjectViewModel @Inject constructor(
     private val _nextEvent = MutableLiveData<Event<Unit>>()
     val nextEvent: LiveData<Event<Unit>> = _nextEvent
 
-    private val _rateTypeSelected = MutableLiveData<RateType>()
-    val rateTypeSelected: LiveData<RateType> = _rateTypeSelected
+    private val _snackbarText = MutableLiveData<Event<SnackbarMessage>>()
+    val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
+
+    private val _rateType = MutableLiveData<RateType>()
+    val rateType: LiveData<RateType> = _rateType
+
+    private val _periodConsumptionType = MutableLiveData<PeriodConsumptionType>()
+    val periodConsumptionType: LiveData<PeriodConsumptionType> = _periodConsumptionType
 
     val wasSelectedAnOption: LiveData<Boolean> = Transformations.map(_projectTypeSelected) {
         it == PVProjectType.WITHOUT_BATTERIES || it == PVProjectType.WITH_BATTERIES
@@ -50,16 +55,26 @@ class AddEditProjectViewModel @Inject constructor(
                 false
             }
             R.id.addEditProjectFragment01 -> {
-                _rateTypeSelected.value == null
+                _rateType.value == null
+            }
+            R.id.addEditProjectFragment02 -> {
+                val periodType = _periodConsumptionType.value
+                val consumptions = _payments.value!!
+                periodType?.let { period ->
+                    when (period) {
+                        PeriodConsumptionType.MONTHLY -> {
+                            (consumptions.size - 1) < period.minMonths
+                        }
+                        PeriodConsumptionType.BIMONTHLY -> {
+                            (consumptions.size - 1) < period.minMonths
+                        }
+                    }
+                } ?: true
             }
             else -> {
                 false
             }
         }
-    }
-
-    init {
-        onAddPayment("0.0")
     }
 
     fun onCancelPressed() {
@@ -83,12 +98,12 @@ class AddEditProjectViewModel @Inject constructor(
     }
 
     fun setRateType(position: Int) {
-        _rateTypeSelected.value = RateType.values()[position]
+        _rateType.value = RateType.values()[position]
     }
 
     fun setRate(rateType: Int, position: Int) {
         RateType.values()[rateType].rateSelected = position
-        _rateTypeSelected.value = RateType.values()[rateType]
+        _rateType.value = RateType.values()[rateType]
     }
 
     fun onAddPayment(value: String) {
@@ -101,8 +116,20 @@ class AddEditProjectViewModel @Inject constructor(
         _payments.value = listPayment
     }
 
-    fun showSnackbarErrorMessage() {
-        // NO-OP
+    fun onDeleteConsumption(position: Int) {
+        listPayment.removeAt(position)
+        _payments.value = listPayment
+    }
+
+    fun setPeriodConsumption(type: PeriodConsumptionType) {
+        _periodConsumptionType.value = type
+    }
+
+    private fun showSnackbarErrorMessage(
+        @StringRes message: Int,
+        type: SnackbarType = SnackbarType.DEFAULT
+    ) {
+        _snackbarText.value = Event(SnackbarMessage(message, type, true))
     }
 
     companion object {

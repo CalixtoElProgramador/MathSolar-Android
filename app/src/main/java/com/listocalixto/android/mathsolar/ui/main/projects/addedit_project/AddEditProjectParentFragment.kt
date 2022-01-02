@@ -99,14 +99,7 @@ class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_p
 
     private fun setupDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.addEditProjectFragment00 -> {
-                    viewModel.setCurrentFragment(R.id.addEditProjectFragment00)
-                }
-                R.id.addEditProjectFragment01 -> {
-                    viewModel.setCurrentFragment(R.id.addEditProjectFragment01)
-                }
-            }
+            viewModel.setCurrentFragment(destination.id)
         }
     }
 }

@@ -51,7 +51,7 @@
             app:endIconMode="dropdown_menu"
             app:layout_constraintTop_toBottomOf="@id/subtitle"
             app:saveRateType="@{addEditProjectViewModel}"
-            app:setupSpinner="@{addEditProjectViewModel.rateTypeSelected}">
+            app:setupSpinner="@{addEditProjectViewModel.rateType}">
 
             <AutoCompleteTextView
                 android:id="@+id/input_rateType"
@@ -72,7 +72,7 @@
             app:endIconMode="dropdown_menu"
             app:layout_constraintTop_toBottomOf="@id/inputLayout_rateType"
             app:saveRateType="@{addEditProjectViewModel}"
-            app:setupSpinner="@{addEditProjectViewModel.rateTypeSelected}">
+            app:setupSpinner="@{addEditProjectViewModel.rateType}">
 
             <AutoCompleteTextView
                 android:id="@+id/input_rate"

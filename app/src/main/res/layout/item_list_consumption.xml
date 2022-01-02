@@ -10,7 +10,7 @@
             type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
 
         <variable
-            name="payment"
+            name="consumption"
             type="Double" />
 
     </data>
@@ -25,20 +25,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/payment"
+            android:hint="@string/consumption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ic_actionButtonItem"
             app:layout_constraintStart_toStartOf="parent"
-            app:prefixText="$ "
-            app:suffixText="@string/mexican_pesos"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:suffixText="kWh">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_paymentItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="numberDecimal|number"
-                android:text="@{payment.toString()}"
+                android:inputType="numberDecimal"
+                android:text="@{consumption.toString()}"
                 tools:text="31.32" />
 
         </com.google.android.material.textfield.TextInputLayout>

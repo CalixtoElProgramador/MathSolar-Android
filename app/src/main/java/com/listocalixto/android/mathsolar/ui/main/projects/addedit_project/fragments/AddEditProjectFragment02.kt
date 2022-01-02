@@ -41,9 +41,11 @@ class AddEditProjectFragment02 : Fragment(R.layout.fragment_addedit_project_02) 
 
     private fun setupListAdapter(binding: FragmentAddeditProject02Binding) {
         val viewModel = binding.addEditProjectViewModel
-        viewModel?.let {
-            listAdapter = AddEditProjectAdapter02(it)
-            binding.listPayments.adapter = listAdapter
+        viewModel?.let { vm ->
+            context?.let { c ->
+                listAdapter = AddEditProjectAdapter02(vm, c, viewLifecycleOwner)
+                binding.listPayments.adapter = listAdapter
+            } ?: Log.d(TAG, "setupListAdapter: Context not founded")
         } ?: Log.d(
             TAG,
             "setupListAdapter: ViewModel not initialized when attempting to set up adapter."
