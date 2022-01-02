@@ -147,5 +147,6 @@
     <string name="radio_button_addedit_project_02_option_02">Bimonthly</string>
     <string name="cd_image_add_payment_fragment_addedit">Add payment</string>
     <string name="payment">Payment</string>
+    <string name="mexican_pesos">Mexican pesos</string>
 
 </resources>

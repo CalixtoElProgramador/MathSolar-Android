@@ -26,33 +26,35 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/payment"
-            app:layout_constraintEnd_toStartOf="@id/ic_addPaymentItem"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ic_actionButtonItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:prefixText="$ "
+            app:suffixText="@string/mexican_pesos"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_paymentItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:inputType="numberDecimal|number"
                 android:text="@{payment.toString()}"
-                tools:text="31.32"
-                android:inputType="numberDecimal" />
+                tools:text="31.32" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/ic_addPaymentItem"
+            android:id="@+id/ic_actionButtonItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="?attr/actionBarItemBackground"
             android:contentDescription="@string/cd_image_add_payment_fragment_addedit"
             android:padding="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:tint="@color/color_on_surface_emphasis_disabled" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

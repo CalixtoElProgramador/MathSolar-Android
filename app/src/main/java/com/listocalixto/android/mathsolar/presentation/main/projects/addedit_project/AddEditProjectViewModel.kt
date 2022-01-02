@@ -15,6 +15,7 @@ class AddEditProjectViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val listPayment = ArrayList<Double>()
+
     private val _payments = MutableLiveData<List<Double>>()
     val payments: LiveData<List<Double>> = _payments
 
@@ -93,6 +94,15 @@ class AddEditProjectViewModel @Inject constructor(
     fun onAddPayment(value: String) {
         listPayment.add(value.toDouble())
         _payments.value = listPayment
+    }
+
+    fun onUpdatePayment(position: Int, paymentUpdated: String) {
+        listPayment[position] = paymentUpdated.toDouble()
+        _payments.value = listPayment
+    }
+
+    fun showSnackbarErrorMessage() {
+        // NO-OP
     }
 
     companion object {

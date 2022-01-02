@@ -20,6 +20,7 @@
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:fillViewport="true"
+        android:isScrollContainer="false"
         android:paddingHorizontal="@dimen/margin_extra_short"
         android:paddingTop="@dimen/margin_short"
         tools:context=".ui.main.projects.addedit_project.AddEditProjectParentFragment">

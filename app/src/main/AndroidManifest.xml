@@ -19,6 +19,7 @@
         tools:ignore="AllowBackup">
         <activity
             android:name=".ui.SingleActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

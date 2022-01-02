@@ -1,19 +1,12 @@
 package com.listocalixto.android.mathsolar.bindings.main.projects.addedit_project
 
-import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.ImageButton
 import android.widget.RadioGroup
-import androidx.core.view.allViews
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.data.model.PVProject
-import com.listocalixto.android.mathsolar.data.model.Payment
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
 import com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.adapter.AddEditProjectAdapter02
 import com.listocalixto.android.mathsolar.utils.PVProjectType
@@ -97,6 +90,5 @@ fun RecyclerView.setPaymentItems(items: List<Double>?) {
         val adapter = (adapter as AddEditProjectAdapter02)
         adapter.submitList(it)
     }
-
 }
 
