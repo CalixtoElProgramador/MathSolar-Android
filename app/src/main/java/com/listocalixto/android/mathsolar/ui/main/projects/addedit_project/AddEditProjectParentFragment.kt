@@ -11,9 +11,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.transition.Slide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.ParentFragmentAddeditProjectBinding
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
@@ -86,6 +88,26 @@ class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_p
             onCancelEvent.observe(viewLifecycleOwner, EventObserver{
                 navigateToProjectsFragment()
             })
+
+            openMapEvent.observe(viewLifecycleOwner, EventObserver {
+                navigateToMap()
+            })
+
+        }
+    }
+
+    private fun navigateToMap() {
+        applyExitMotionTransition()
+        val direction = AddEditProjectParentFragmentDirections.actionAddEditProjectParentFragmentToAddEditProjectMapsFragment04()
+        findNavController().navigate(direction)
+    }
+
+    private fun applyExitMotionTransition() {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
     }
 

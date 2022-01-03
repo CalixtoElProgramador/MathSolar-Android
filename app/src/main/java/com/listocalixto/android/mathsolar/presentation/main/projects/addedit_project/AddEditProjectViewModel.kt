@@ -34,6 +34,9 @@ class AddEditProjectViewModel @Inject constructor(
     private val _nextEvent = MutableLiveData<Event<Unit>>()
     val nextEvent: LiveData<Event<Unit>> = _nextEvent
 
+    private val _openMapEvent = MutableLiveData<Event<Unit>>()
+    val openMapEvent: LiveData<Event<Unit>> = _openMapEvent
+
     private val _average = MutableLiveData<Double>()
     val average: LiveData<Double> = _average
 
@@ -51,6 +54,8 @@ class AddEditProjectViewModel @Inject constructor(
 
     private val _periodConsumptionType = MutableLiveData<PeriodConsumptionType>()
     val periodConsumptionType: LiveData<PeriodConsumptionType> = _periodConsumptionType
+
+    val locationName = MutableLiveData<String>()
 
     val wasSelectedAnOption: LiveData<Boolean> = Transformations.map(_projectTypeSelected) {
         it == PVProjectType.WITHOUT_BATTERIES || it == PVProjectType.WITH_BATTERIES
@@ -82,8 +87,11 @@ class AddEditProjectViewModel @Inject constructor(
                     }
                 } ?: true
             }
-            else -> {
+            R.id.addEditProjectFragment03 -> {
                 false
+            }
+            else -> {
+                true
             }
         }
     }
@@ -160,6 +168,10 @@ class AddEditProjectViewModel @Inject constructor(
                 _saving.value = (a * p)
             }
         }
+    }
+
+    fun onOpenMapClick() {
+        _openMapEvent.value = Event(Unit)
     }
 
     private fun showSnackbarErrorMessage(
