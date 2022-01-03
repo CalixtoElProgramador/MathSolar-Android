@@ -13,49 +13,87 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:isScrollContainer="false"
+        android:paddingHorizontal="@dimen/margin_extra_short"
+        android:paddingTop="@dimen/margin_short"
+        android:transitionGroup="true"
         app:layoutFullscreen="@{true}"
         app:paddingTopSystemWindowInsets="@{true}"
         tools:context=".ui.auth.RegisterParentFragment">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_register"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView_register"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/register_graph" />
+            android:layout_height="match_parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/margin_medium"
-            android:enabled="@{!registerViewModel.loadingState}"
-            android:onClick="@{() -> registerViewModel.onNext()}"
-            android:text="@string/next"
-            android:visibility="@{registerViewModel.loadingState ? View.INVISIBLE : View.VISIBLE}" />
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_back"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="@dimen/margin_medium"
-            android:enabled="@{!registerViewModel.loadingState}"
-            android:onClick="@{() -> registerViewModel.onBack()}"
-            android:text="@string/back" />
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_register"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/register_graph" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{registerViewModel.loadingState ? View.VISIBLE : View.GONE}"
-            app:layout_anchor="@id/button_next"
-            app:layout_anchorGravity="center" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="@dimen/_12ssp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:enabled="@{!registerViewModel.loadingState}"
+                    android:onClick="@{() -> registerViewModel.onNext()}"
+                    android:text="@string/next"
+                    android:visibility="@{registerViewModel.loadingState ? View.INVISIBLE : View.VISIBLE}" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_back"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginStart="@dimen/_12ssp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:enabled="@{!registerViewModel.loadingState}"
+                    android:onClick="@{() -> registerViewModel.onBack()}"
+                    android:text="@string/back" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{registerViewModel.loadingState ? View.VISIBLE : View.GONE}"
+                    app:layout_anchor="@id/button_next"
+                    app:layout_anchorGravity="center" />
+
+                <ImageButton
+                    android:id="@+id/ic_cancelAddEditProject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/cd_image_close_fragment_addedit"
+                    android:onClick="@{() -> registerViewModel.onCancelPressed()}"
+                    android:padding="@dimen/_12sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close"
+                    app:tint="@color/color_on_surface_emphasis_disabled" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

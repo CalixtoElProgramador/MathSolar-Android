@@ -73,6 +73,9 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
     private val _snackbarText = MutableLiveData<Event<SnackbarMessage>>()
     val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
 
+    private val _cancelEvent =  MutableLiveData<Event<Unit>>()
+    val cancelEvent: LiveData<Event<Unit>> = _cancelEvent
+
     private val currentFragment = MutableLiveData(R.id.register01Fragment)
 
     fun onBack() {
@@ -270,6 +273,10 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
         disableError()
     }
 
+    fun onCancelPressed() {
+        _cancelEvent.value = Event(Unit)
+    }
+
     private fun showSnackbarErrorMessage(
         @StringRes message: Int,
         type: SnackbarType = DEFAULT
@@ -277,8 +284,10 @@ class RegisterViewModel @Inject constructor(private val repo: AuthRepo) : ViewMo
         _snackbarText.value = Event(SnackbarMessage(message, type, true))
     }
 
+
+
     companion object {
-        const val TAG = "RegisterViewModel"
+        private val TAG = this::class.java.simpleName
     }
 
 }

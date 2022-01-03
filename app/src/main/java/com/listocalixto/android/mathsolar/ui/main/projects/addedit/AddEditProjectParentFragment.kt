@@ -26,11 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_project) {
 
     private val viewModel by activityViewModels<AddEditProjectViewModel>()
-    private val currentNavigationFragment: Fragment?
-        get() = childFragmentManager.findFragmentById(R.id.nav_host_addedit_project)
-            ?.childFragmentManager
-            ?.fragments
-            ?.first()
 
     private lateinit var binding: ParentFragmentAddeditProjectBinding
 

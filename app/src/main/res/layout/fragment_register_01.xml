@@ -15,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/margin_medium"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingBottom="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_extra_high"
+        android:transitionGroup="true"
         tools:context=".ui.auth.register.Register01Fragment">
 
         <TextView
@@ -34,15 +37,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout_name"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:enabled="@{!registerViewModel.loadingState}"
-            app:boxStrokeErrorColor="?attr/colorError"
             app:endIconMode="clear_text"
-            app:errorIconDrawable="@drawable/ic_error"
-            app:errorIconTint="?attr/colorError"
-            app:errorTextColor="?attr/colorError"
             app:setErrorMessage="@{registerViewModel.errorMessage.stringRes}"
             app:startIconDrawable="@drawable/ic_person">
 
@@ -59,15 +59,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout_lastName"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_extra_tiny"
             android:enabled="@{!registerViewModel.loadingState}"
-            app:boxStrokeErrorColor="?attr/colorError"
             app:endIconMode="clear_text"
-            app:errorIconDrawable="@drawable/ic_error"
-            app:errorIconTint="?attr/colorError"
-            app:errorTextColor="?attr/colorError"
             app:setErrorMessage="@{registerViewModel.errorMessage.stringRes}"
             app:startIconDrawable="@drawable/ic_person_outline">
 
@@ -84,15 +81,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout_email"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_extra_tiny"
             android:enabled="@{!registerViewModel.loadingState}"
-            app:boxStrokeErrorColor="?attr/colorError"
             app:endIconMode="clear_text"
-            app:errorIconDrawable="@drawable/ic_error"
-            app:errorIconTint="?attr/colorError"
-            app:errorTextColor="?attr/colorError"
             app:setErrorMessage="@{registerViewModel.errorMessage.stringRes}"
             app:startIconDrawable="@drawable/ic_email">
 

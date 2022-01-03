@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentRegister00Binding
@@ -20,10 +21,15 @@ class Register00Fragment : Fragment(R.layout.fragment_register_00) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentRegister00Binding.bind(view).also {
-            it.lifecycleOwner = this.viewLifecycleOwner
-            it.registerViewModel = viewModel
+        postponeEnterTransition()
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
+
+        binding = FragmentRegister00Binding.bind(view)
+        binding.run {
+            lifecycleOwner = this@Register00Fragment.viewLifecycleOwner
+            registerViewModel = viewModel
         }
+
     }
 
 }

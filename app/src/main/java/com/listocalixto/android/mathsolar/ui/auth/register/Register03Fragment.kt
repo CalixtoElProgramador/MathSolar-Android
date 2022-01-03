@@ -6,13 +6,16 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentRegister03Binding
 import com.listocalixto.android.mathsolar.presentation.auth.register.RegisterViewModel
@@ -30,8 +33,16 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
     private lateinit var binding: FragmentRegister03Binding
     private lateinit var drawable: Drawable
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        applyEnterMotionTransition()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
+
         binding = FragmentRegister03Binding.bind(view).also {
             it.lifecycleOwner = this.viewLifecycleOwner
             it.registerViewModel = viewModel
@@ -39,7 +50,6 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
 
         activity?.let {
             activityNavHost = it.findViewById(R.id.nav_host_activity)
-            setupNavigation(it)
             setupSnackbar(it)
         }
 
@@ -51,6 +61,8 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
             }
             setCurrentFragment(R.id.register03Fragment)
         }
+
+        setupNavigation()
 
     }
 
@@ -71,34 +83,24 @@ class Register03Fragment : Fragment(R.layout.fragment_register_03) {
         }
     }
 
-    private fun setupNavigation(activity: Activity) {
+    private fun setupNavigation() {
         viewModel.apply {
-            backEvent.observe(viewLifecycleOwner, EventObserver {
-                activity.onBackPressed()
-            })
             selectProfilePictureEvent.observe(viewLifecycleOwner, EventObserver {
                 showBottomSheet()
             })
-            successfullyUserCreatedEvent.observe(viewLifecycleOwner, EventObserver {
-                //navigateToSuccessfulFragment()
-                navigateToMainParentFragment()
-            })
         }
-    }
-
-    private fun navigateToMainParentFragment() {
-        activityNavHost?.let {
-            Navigation.findNavController(it)
-                .navigate(R.id.registerParentFragment_to_mainParentFragment)
-        }
-    }
-
-    private fun navigateToSuccessfulFragment() {
-        findNavController().navigate(R.id.register03Fragment_to_successfulFragment)
     }
 
     private fun showBottomSheet() {
         findNavController().navigate(R.id.register03Fragment_to_register03BottomSheet)
     }
 
+    private fun applyEnterMotionTransition() {
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
 }

@@ -23,17 +23,11 @@
         <action
             android:id="@+id/loginParentFragment_to_mainParentFragment"
             app:destination="@id/mainParentFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
             app:popUpTo="@id/main_graph.xml"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/loginParentFragment_to_registerParentFragment"
-            app:destination="@id/registerParentFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
+            app:destination="@id/registerParentFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerParentFragment"
@@ -43,8 +37,6 @@
         <action
             android:id="@+id/registerParentFragment_to_mainParentFragment"
             app:destination="@id/mainParentFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
             app:popUpTo="@id/main_graph.xml"
             app:popUpToInclusive="true" />
     </fragment>

@@ -1,8 +1,11 @@
 package com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_04.maps
 
+import android.content.res.Configuration
+import android.content.res.Resources
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
@@ -45,6 +49,8 @@ class AddEditProjectMapsFragment04 : Fragment() {
             toolbarMap.setOnMenuItemClickListener { onOptionItemSelected(it, googleMap) }
 
         }
+        setMapStyle(googleMap)
+
     }
 
     private lateinit var binding: FragmentAddeditProjectMaps04Binding
@@ -106,6 +112,44 @@ class AddEditProjectMapsFragment04 : Fragment() {
             true
         }
         else -> super.onOptionsItemSelected(it)
+    }
+
+    private fun setMapStyle(map: GoogleMap) {
+        try {
+            // Customize the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            when (activity?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    val success = map.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            requireContext(),
+                            R.raw.map_light_style
+                        )
+                    )
+                    if (!success) {
+                        Log.e(TAG, "Style parsing failed.")
+                    }
+                }
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    val success = map.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            requireContext(),
+                            R.raw.map_dark_style
+                        )
+                    )
+                    if (!success) {
+                        Log.e(TAG, "Style parsing failed.")
+                    }
+                }
+            }
+
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
+        }
+    }
+
+    companion object {
+        private val TAG = this::class.java.simpleName
     }
 
 }

@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.math.MathUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.BottomNavDrawerMainLayoutHeaderBinding
 import com.listocalixto.android.mathsolar.databinding.ParentFragmentMainBinding
@@ -32,11 +33,17 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NavigationView>
 
-    val currentNavigationFragment: Fragment?
+    private val currentNavigationFragment: Fragment?
         get() = childFragmentManager.findFragmentById(R.id.nav_host_main)
             ?.childFragmentManager
             ?.fragments
             ?.first()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        applyEnterMotionTransition()
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -112,23 +119,17 @@ class MainParentFragment : Fragment(R.layout.parent_fragment_main) {
 
     private fun setupDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.articlesFragment -> {
-                    viewModel.setCurrentFragment(R.id.articlesFragment)
-                }
-                R.id.articleDetailsFragment -> {
-                    viewModel.setCurrentFragment(R.id.articleDetailsFragment)
-                }
-                R.id.projectsFragment -> {
-                    viewModel.setCurrentFragment(R.id.projectsFragment)
-                }
-                R.id.addEditProjectParentFragment -> {
-                    viewModel.setCurrentFragment(R.id.addEditProjectParentFragment)
-                }
-                R.id.searchProjectFragment -> {
-                    viewModel.setCurrentFragment(R.id.searchProjectFragment)
-                }
-            }
+            viewModel.setCurrentFragment(destination.id)
+
+        }
+    }
+
+    private fun applyEnterMotionTransition() {
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
     }
 

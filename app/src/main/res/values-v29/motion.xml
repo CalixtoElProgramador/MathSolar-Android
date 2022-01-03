@@ -17,7 +17,7 @@
     <!--Motion-->
 
     <integer name="reply_motion_duration_large">600</integer>
-    <integer name="reply_motion_duration_medium">225</integer>
-    <integer name="reply_motion_duration_small">175</integer>
+    <integer name="reply_motion_duration_medium">450</integer>
+    <integer name="reply_motion_duration_small">350</integer>
 
 </resources>

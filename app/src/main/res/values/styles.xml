@@ -51,6 +51,11 @@
         <item name="cornerSizeBottomRight">@dimen/zero</item>
     </style>
 
+    <style name="Widget.MathSolar.TextInputLayout.FilledBox.Medium" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeWidth">@dimen/zero</item>
+        <item name="boxStrokeWidthFocused">@dimen/zero</item>
+    </style>
+
     <style name="Widget.MathSolar.TextInputLayout.FilledBox.Top" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MathSolar.TextInputLayout.FilledBox.Top</item>

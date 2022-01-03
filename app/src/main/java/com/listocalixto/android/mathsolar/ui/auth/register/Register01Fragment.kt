@@ -3,8 +3,11 @@ package com.listocalixto.android.mathsolar.ui.auth.register
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentRegister01Binding
 import com.listocalixto.android.mathsolar.presentation.auth.register.RegisterViewModel
@@ -19,9 +22,13 @@ class Register01Fragment : Fragment(R.layout.fragment_register_01) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentRegister01Binding.bind(view).also {
-            it.lifecycleOwner = this.viewLifecycleOwner
-            it.registerViewModel = viewModel
+        postponeEnterTransition()
+        (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
+
+        binding = FragmentRegister01Binding.bind(view)
+        binding.run {
+            lifecycleOwner = this@Register01Fragment.viewLifecycleOwner
+            registerViewModel = viewModel
         }
 
         viewModel.setCurrentFragment(R.id.register01Fragment)
@@ -32,10 +39,6 @@ class Register01Fragment : Fragment(R.layout.fragment_register_01) {
 
     private fun setupNavigation() {
         viewModel.apply {
-            backEvent.observe(viewLifecycleOwner, EventObserver {
-                activity?.onBackPressed()
-            })
-
             nextEvent.observe(viewLifecycleOwner, EventObserver {
                 navigateToRegister02Fragment()
             })
@@ -43,7 +46,18 @@ class Register01Fragment : Fragment(R.layout.fragment_register_01) {
     }
 
     private fun navigateToRegister02Fragment() {
-        findNavController().navigate(R.id.register01Fragment_to_register02Fragment)
+        applyExitMotionTransition()
+        val direction = Register01FragmentDirections.register01FragmentToRegister02Fragment()
+        findNavController().navigate(direction)
+    }
+
+    private fun applyExitMotionTransition() {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
     }
 
     companion object {
