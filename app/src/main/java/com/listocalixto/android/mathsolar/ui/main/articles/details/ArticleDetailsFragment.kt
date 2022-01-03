@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.articles.article_details
+package com.listocalixto.android.mathsolar.ui.main.articles.details
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialContainerTransform

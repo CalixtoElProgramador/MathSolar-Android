@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.adapter
+package com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_02.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

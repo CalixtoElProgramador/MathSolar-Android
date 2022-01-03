@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project
+package com.listocalixto.android.mathsolar.ui.main.projects.addedit
 
 import android.graphics.Color
 import android.os.Bundle
@@ -20,7 +20,6 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.ParentFragmentAddeditProjectBinding
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
 import com.listocalixto.android.mathsolar.utils.EventObserver
-import com.listocalixto.android.mathsolar.utils.PVProjectType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -89,17 +88,7 @@ class AddEditProjectParentFragment : Fragment(R.layout.parent_fragment_addedit_p
                 navigateToProjectsFragment()
             })
 
-            openMapEvent.observe(viewLifecycleOwner, EventObserver {
-                navigateToMap()
-            })
-
         }
-    }
-
-    private fun navigateToMap() {
-        applyExitMotionTransition()
-        val direction = AddEditProjectParentFragmentDirections.actionAddEditProjectParentFragmentToAddEditProjectMapsFragment04()
-        findNavController().navigate(direction)
     }
 
     private fun applyExitMotionTransition() {

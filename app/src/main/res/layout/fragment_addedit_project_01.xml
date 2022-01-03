@@ -22,17 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/_12ssp"
+            android:paddingHorizontal="@dimen/_12sdp"
             android:paddingTop="@dimen/margin_extra_high"
             android:paddingBottom="@dimen/margin_extra_large"
             android:transitionGroup="true"
-            tools:context=".ui.main.projects.addedit.section_02.AddEditProjectFragment02">
+            tools:context=".ui.main.projects.addedit.section_01.AddEditProjectFragment01">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_addedit_project_02_title"
+                android:text="@string/fragment_addedit_project_01_title"
                 android:textAppearance="?attr/textAppearanceHeadline2"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,54 +43,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_short"
-                android:text="@string/fragment_addedit_project_02_subtitle"
+                android:text="@string/fragment_addedit_project_01_subtitle"
                 android:textAppearance="?attr/textAppearanceBody1"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup_paymentPeriod"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout_rateType"
+                style="@style/Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_short"
-                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/rate_type"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:endIconMode="dropdown_menu"
                 app:layout_constraintTop_toBottomOf="@id/subtitle"
-                app:periodTypeConsumptionSelected="@{addEditProjectViewModel}">
+                app:saveRateType="@{addEditProjectViewModel}"
+                app:setupSpinner="@{addEditProjectViewModel.rateType}">
 
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioBtn_monthly"
-                    android:layout_width="0dp"
+                <AutoCompleteTextView
+                    android:id="@+id/input_rateType"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/radio_button_addedit_project_02_option_01" />
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
 
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/radioBtn_bimonthly"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/radio_button_addedit_project_02_option_02" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </RadioGroup>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout_rate"
+                style="@style/Widget.MathSolar.TextInputLayout.FilledBox.ExposedDropdownMenu.Bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_short"
-                app:layout_constraintTop_toBottomOf="@id/radioGroup_paymentPeriod" />
+                android:layout_marginTop="@dimen/margin_extra_tiny"
+                android:hint="@string/rate"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintTop_toBottomOf="@id/inputLayout_rateType"
+                app:saveRateType="@{addEditProjectViewModel}"
+                app:setupSpinner="@{addEditProjectViewModel.rateType}">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listPayments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingTop="@dimen/margin_medium"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/divider"
-                app:paymentItems="@{addEditProjectViewModel.payments}"
-                tools:listitem="@layout/item_list_consumption" />
+                <AutoCompleteTextView
+                    android:id="@+id/input_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

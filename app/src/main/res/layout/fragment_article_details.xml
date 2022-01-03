@@ -24,7 +24,7 @@
         android:fillViewport="true"
         android:paddingHorizontal="@dimen/margin_extra_short"
         android:paddingTop="@dimen/margin_short"
-        tools:context=".ui.main.articles.article_details.ArticleDetailsFragment">
+        tools:context=".ui.main.articles.details.ArticleDetailsFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView_article"

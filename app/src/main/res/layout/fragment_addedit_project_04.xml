@@ -11,80 +11,89 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/transparent"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/_12ssp"
-        android:paddingTop="@dimen/margin_extra_high"
-        android:paddingBottom="@dimen/margin_extra_large"
-        android:transitionGroup="true"
-        tools:context=".ui.main.projects.addedit_project.fragments.AddEditProjectFragment03">
+        android:fillViewport="true"
+        android:isScrollContainer="false">
 
-        <TextView
-            android:id="@+id/title"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment_addedit_project_04_title"
-            android:textAppearance="?attr/textAppearanceHeadline2"
-            android:textColor="?attr/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="@dimen/_12ssp"
+            android:paddingTop="@dimen/margin_extra_high"
+            android:paddingBottom="@dimen/margin_extra_large"
+            android:transitionGroup="true"
+            tools:context=".ui.main.projects.addedit.section_03.AddEditProjectFragment03">
 
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_short"
-            android:text="@string/fragment_addedit_project_04_subtitle"
-            android:textAppearance="?attr/textAppearanceBody1"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout_locationName"
-            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:hint="@string/location_name"
-            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
-            app:boxCornerRadiusTopStart="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@id/subtitle"
-            app:startIconDrawable="@drawable/ic_short_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_locationName"
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="postalAddress"
-                android:text="@={addEditProjectViewModel.locationName}"
-                android:inputType="textPostalAddress" />
+                android:text="@string/fragment_addedit_project_04_title"
+                android:textAppearance="?attr/textAppearanceHeadline2"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayout_mapLocation"
-            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_extra_tiny"
-            android:hint="@string/location_map"
-            app:layout_constraintTop_toBottomOf="@id/inputLayout_locationName"
-            app:startIconDrawable="@drawable/ic_map">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_mapLocation"
+            <TextView
+                android:id="@+id/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:cursorVisible="false"
-                android:onClick="@{() -> addEditProjectViewModel.onOpenMapClick()}"
-                android:focusable="false"
-                android:inputType="none" />
+                android:layout_marginTop="@dimen/margin_short"
+                android:text="@string/fragment_addedit_project_04_subtitle"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout_locationName"
+                style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:hint="@string/location_name"
+                app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/subtitle"
+                app:startIconDrawable="@drawable/ic_short_text">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_locationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="postalAddress"
+                    android:inputType="textPostalAddress"
+                    android:text="@={addEditProjectViewModel.locationName}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayout_mapLocation"
+                style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_tiny"
+                android:hint="@string/location_map"
+                app:layout_constraintTop_toBottomOf="@id/inputLayout_locationName"
+                app:startIconDrawable="@drawable/ic_map">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_mapLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:onClick="@{() -> addEditProjectViewModel.onOpenMapClick()}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

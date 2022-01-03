@@ -1,7 +1,5 @@
-package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.map
+package com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_04.maps
 
-import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle

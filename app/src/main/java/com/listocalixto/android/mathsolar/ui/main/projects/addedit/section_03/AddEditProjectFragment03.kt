@@ -1,7 +1,6 @@
-package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments
+package com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_03
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
@@ -10,34 +9,36 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
-import com.listocalixto.android.mathsolar.databinding.FragmentAddeditProject00Binding
+import com.listocalixto.android.mathsolar.databinding.FragmentAddeditProject03Binding
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
 import com.listocalixto.android.mathsolar.utils.EventObserver
-import com.listocalixto.android.mathsolar.utils.PVProjectType
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 @AndroidEntryPoint
-class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) {
+class AddEditProjectFragment03 : Fragment(R.layout.fragment_addedit_project_03) {
 
     private val viewModel by activityViewModels<AddEditProjectViewModel>()
 
-    private lateinit var binding: FragmentAddeditProject00Binding
+    private lateinit var binding: FragmentAddeditProject03Binding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        applyEnterMotionTransition()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
-        
-        binding = FragmentAddeditProject00Binding.bind(view)
+        binding = FragmentAddeditProject03Binding.bind(view)
         binding.run {
-            lifecycleOwner = this@AddEditProjectFragment00.viewLifecycleOwner
+            lifecycleOwner = this@AddEditProjectFragment03.viewLifecycleOwner
             addEditProjectViewModel = viewModel
-        }
 
-        viewModel.projectTypeSelected.observe(viewLifecycleOwner, {
-            Log.d(TAG, "PVProjectType: ${it.name}")
-        })
+            viewModel.calculateAverageConsumption()
+            viewModel.calculateSaving()
+
+        }
 
         setupNavigation()
 
@@ -46,16 +47,15 @@ class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) 
     private fun setupNavigation() {
         viewModel.run {
             nextEvent.observe(viewLifecycleOwner, EventObserver {
-                navigateToAddEditFragment01()
+                navigateToAddEditFragment04()
             })
         }
     }
 
-    private fun navigateToAddEditFragment01() {
+    private fun navigateToAddEditFragment04() {
         applyExitMotionTransition()
-        val direction = AddEditProjectFragment00Directions.actionAddEditProjectFragment00ToAddEditProjectFragment01()
+        val direction = AddEditProjectFragment03Directions.actionAddEditProjectFragment03ToAddEditProjectFragment04()
         findNavController().navigate(direction)
-
     }
 
     private fun applyExitMotionTransition() {
@@ -67,8 +67,17 @@ class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) 
         }
     }
 
+    private fun applyEnterMotionTransition() {
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
+
     companion object {
-        private const val TAG = "AddEditProjectFragment00"
+        private const val TAG = "AddEditProjectFragment03"
     }
 
 }

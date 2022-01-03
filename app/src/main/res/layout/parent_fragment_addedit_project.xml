@@ -13,22 +13,25 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        android:isScrollContainer="false"
         android:paddingHorizontal="@dimen/margin_extra_short"
         android:paddingTop="@dimen/margin_short"
-        tools:context=".ui.main.projects.addedit_project.AddEditProjectParentFragment">
+        tools:context=".ui.main.projects.addedit.AddEditProjectParentFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView_addEditProject"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/nav_host_addedit_project"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/addedit_graph" />
 
             <ImageButton
                 android:id="@+id/ic_cancelAddEditProject"
@@ -45,21 +48,13 @@
                 app:srcCompat="@drawable/ic_close"
                 app:tint="@color/color_on_surface_emphasis_disabled" />
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/nav_host_addedit_project"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/addedit_graph" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                android:enabled="@{!addEditProjectViewModel.disableNextBtn}"
                 android:layout_margin="@dimen/margin_medium"
+                android:enabled="@{!addEditProjectViewModel.disableNextBtn}"
                 android:onClick="@{() -> addEditProjectViewModel.onNext()}"
                 android:text="@string/next"
                 android:visibility="@{addEditProjectViewModel.wasSelectedAnOption ? View.VISIBLE : View.INVISIBLE}" />
@@ -77,5 +72,6 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-    </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+
 </layout>

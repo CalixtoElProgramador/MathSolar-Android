@@ -1,4 +1,4 @@
-package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments
+package com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_02
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentAddeditProject02Binding
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
-import com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.adapter.AddEditProjectAdapter02
+import com.listocalixto.android.mathsolar.ui.main.projects.addedit.section_02.adapter.AddEditProjectAdapter02
 import com.listocalixto.android.mathsolar.utils.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 
