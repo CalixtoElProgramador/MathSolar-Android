@@ -155,5 +155,10 @@
     <string name="quantity">Quantity</string>
     <string name="helper_text_consumption">Register %1$s/%2$s</string>
     <string name="hint_text_input_consumption">Consumption %1$s</string>
+    <string name="fragment_addedit_project_03_title">Savings percentage.</string>
+    <string name="fragment_addedit_project_03_subtitle">Indicate the percentage of savings you would like to cover with solar panels.</string>
+    <string name="average_consumption">Average consumption:</string>
+    <string name="saving">Saving:</string>
+    <string name="change_units">Change units</string>
 
 </resources>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="addEditProjectViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/_12ssp"
+        android:paddingTop="@dimen/margin_extra_high"
+        android:paddingBottom="@dimen/margin_extra_large"
+        android:transitionGroup="true"
+        tools:context=".ui.main.projects.addedit_project.fragments.AddEditProjectFragment03">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_addedit_project_03_title"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_short"
+            android:text="@string/fragment_addedit_project_03_subtitle"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/label_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/average_consumption"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintStart_toStartOf="@id/subtitle"
+            app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_extra_short"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+            android:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="@id/label_average"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/label_average"
+            app:layout_constraintTop_toTopOf="@id/label_average"
+            tools:text="431.23 kWh" />
+
+        <TextView
+            android:id="@+id/label_saving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_extra_short"
+            android:text="@string/saving"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintStart_toStartOf="@id/label_average"
+            app:layout_constraintTop_toBottomOf="@id/label_average" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_extra_short"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:singleLine="true"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/label_saving"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/label_saving"
+            app:layout_constraintTop_toTopOf="@id/label_saving"
+            tools:text="124.21 kWh" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_percentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:stepSize="1.0"
+            android:value="20.0"
+            android:valueFrom="0.0"
+            android:valueTo="100.0"
+            app:layout_constraintTop_toBottomOf="@id/label_saving" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:checked="true"
+            android:text="@string/change_units"
+            app:layout_constraintTop_toBottomOf="@id/slider_percentage"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
