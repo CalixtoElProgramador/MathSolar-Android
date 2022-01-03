@@ -50,17 +50,19 @@
             app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
         <TextView
+            android:id="@+id/text_average"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_extra_short"
+            android:singleLine="true"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
-            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@id/label_average"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_average"
             app:layout_constraintTop_toTopOf="@id/label_average"
+            app:updateUnits="@{addEditProjectViewModel.average}"
             tools:text="431.23 kWh" />
 
         <TextView
@@ -74,17 +76,19 @@
             app:layout_constraintTop_toBottomOf="@id/label_average" />
 
         <TextView
+            android:id="@+id/text_saving"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_extra_short"
-            android:textAppearance="?attr/textAppearanceBody2"
             android:singleLine="true"
+            android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?attr/colorSecondaryVariant"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/label_saving"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_saving"
             app:layout_constraintTop_toTopOf="@id/label_saving"
+            app:updateUnits="@{addEditProjectViewModel.saving}"
             tools:text="124.21 kWh" />
 
         <com.google.android.material.slider.Slider
@@ -93,19 +97,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:stepSize="1.0"
-            android:value="20.0"
-            android:valueFrom="0.0"
-            android:valueTo="100.0"
-            app:layout_constraintTop_toBottomOf="@id/label_saving" />
+            android:value="@{addEditProjectViewModel.percentage}"
+            android:valueFrom="@string/minimum_value_slider"
+            android:valueTo="@string/maximum_value_slider"
+            app:captureValue="@{addEditProjectViewModel}"
+            app:layout_constraintTop_toBottomOf="@id/label_saving"
+            tools:value="24.0" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:checked="true"
             android:text="@string/change_units"
-            app:layout_constraintTop_toBottomOf="@id/slider_percentage"/>
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintTop_toBottomOf="@id/slider_percentage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

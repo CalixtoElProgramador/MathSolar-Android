@@ -160,5 +160,8 @@
     <string name="average_consumption">Average consumption:</string>
     <string name="saving">Saving:</string>
     <string name="change_units">Change units</string>
+    <string name="value_with_kwh_unit">%1$s kWh</string>
+    <string name="maximum_value_slider">125.0</string>
+    <string name="minimum_value_slider">1.0</string>
 
 </resources>

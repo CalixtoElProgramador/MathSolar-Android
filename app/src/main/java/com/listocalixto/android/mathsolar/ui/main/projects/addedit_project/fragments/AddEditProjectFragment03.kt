@@ -1,11 +1,13 @@
 package com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.slider.Slider
 import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentAddeditProject03Binding
@@ -31,9 +33,10 @@ class AddEditProjectFragment03 : Fragment(R.layout.fragment_addedit_project_03) 
         binding.run {
             lifecycleOwner = this@AddEditProjectFragment03.viewLifecycleOwner
             addEditProjectViewModel = viewModel
-            sliderPercentage.setLabelFormatter {
-                return@setLabelFormatter "${it.toInt()} %"
-            }
+
+            viewModel.calculateAverageConsumption()
+            viewModel.calculateSaving()
+
         }
 
     }
@@ -45,6 +48,10 @@ class AddEditProjectFragment03 : Fragment(R.layout.fragment_addedit_project_03) 
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
+    }
+
+    companion object {
+        private const val TAG = "AddEditProjectFragment03"
     }
 
 }

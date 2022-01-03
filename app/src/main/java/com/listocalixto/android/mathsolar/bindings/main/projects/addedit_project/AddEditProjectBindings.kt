@@ -3,8 +3,10 @@ package com.listocalixto.android.mathsolar.bindings.main.projects.addedit_projec
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputLayout
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
@@ -12,6 +14,7 @@ import com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragm
 import com.listocalixto.android.mathsolar.utils.PVProjectType
 import com.listocalixto.android.mathsolar.utils.PeriodConsumptionType
 import com.listocalixto.android.mathsolar.utils.RateType
+import kotlin.math.round
 
 @BindingAdapter(
     "projectTypeSelected"
@@ -116,5 +119,24 @@ fun RadioGroup.onPeriodTypeConsumptionSelected(viewModel: AddEditProjectViewMode
             }
         }
     }
+}
+
+@BindingAdapter(
+    "captureValue"
+)
+fun Slider.captureValue(viewModel: AddEditProjectViewModel) {
+    setLabelFormatter { return@setLabelFormatter "${it.toInt()} %" }
+    addOnChangeListener { _, value, _ -> viewModel.setPercentage(value); viewModel.calculateSaving() }
+}
+
+@BindingAdapter(
+    "updateUnits"
+)
+fun TextView.updateUnits(value: Double?) {
+    value?.let {
+        val its = String.format("%.2f", value)
+        text = context.getString(R.string.value_with_kwh_unit, its)
+    }
+
 }
 

@@ -6,6 +6,8 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +33,15 @@ class AddEditProjectViewModel @Inject constructor(
 
     private val _nextEvent = MutableLiveData<Event<Unit>>()
     val nextEvent: LiveData<Event<Unit>> = _nextEvent
+
+    private val _average = MutableLiveData<Double>()
+    val average: LiveData<Double> = _average
+
+    private val _saving = MutableLiveData<Double>()
+    val saving: LiveData<Double> = _saving
+
+    private val _percentage = MutableLiveData(30.0f)
+    val percentage: LiveData<Float> = _percentage
 
     private val _snackbarText = MutableLiveData<Event<SnackbarMessage>>()
     val snackbarText: LiveData<Event<SnackbarMessage>> = _snackbarText
@@ -123,6 +134,32 @@ class AddEditProjectViewModel @Inject constructor(
 
     fun setPeriodConsumption(type: PeriodConsumptionType) {
         _periodConsumptionType.value = type
+    }
+
+    fun calculateAverageConsumption() {
+        val consumptions = listPayment.subList(1, listPayment.size)
+        var summary = 0.0
+        consumptions.forEach { value ->
+            value?.let {
+                summary += it
+            }
+        }
+        val result = summary/consumptions.size
+        _average.value = result
+    }
+
+    fun setPercentage(value: Float) {
+        _percentage.value = value
+    }
+
+    fun calculateSaving() {
+        val mPercentage = _percentage.value?.div(100)
+        val mAverage = _average.value
+        mPercentage?.let { p ->
+            mAverage?.let { a ->
+                _saving.value = (a * p)
+            }
+        }
     }
 
     private fun showSnackbarErrorMessage(
