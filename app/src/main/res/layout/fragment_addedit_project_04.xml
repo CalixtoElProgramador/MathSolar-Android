@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="addEditProjectViewModel"
+            type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/_12ssp"
+        android:paddingTop="@dimen/margin_extra_high"
+        android:paddingBottom="@dimen/margin_extra_large"
+        android:transitionGroup="true"
+        tools:context=".ui.main.projects.addedit_project.fragments.AddEditProjectFragment03">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_addedit_project_04_title"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_short"
+            android:text="@string/fragment_addedit_project_04_subtitle"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout_locationName"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:hint="@string/location_name"
+            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/subtitle"
+            app:startIconDrawable="@drawable/ic_short_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_locationName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="postalAddress"
+                android:text="@={addEditProjectViewModel.locationName}"
+                android:inputType="textPostalAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout_mapLocation"
+            style="@style/Widget.MathSolar.TextInputLayout.FilledBox.Bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_extra_tiny"
+            android:hint="@string/location_map"
+            app:layout_constraintTop_toBottomOf="@id/inputLayout_locationName"
+            app:startIconDrawable="@drawable/ic_map">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_mapLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:onClick="@{() -> addEditProjectViewModel.onOpenMapClick()}"
+                android:focusable="false"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

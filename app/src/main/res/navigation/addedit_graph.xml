@@ -35,5 +35,14 @@
         android:id="@+id/addEditProjectFragment03"
         android:name="com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.AddEditProjectFragment03"
         android:label="AddEditProjectFragment03"
-        tools:layout="@layout/fragment_addedit_project_03"/>
+        tools:layout="@layout/fragment_addedit_project_03">
+        <action
+            android:id="@+id/action_addEditProjectFragment03_to_addEditProjectFragment04"
+            app:destination="@id/addEditProjectFragment04" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditProjectFragment04"
+        android:name="com.listocalixto.android.mathsolar.ui.main.projects.addedit_project.fragments.AddEditProjectFragment04"
+        android:label="AddEditProjectFragment04"
+        tools:layout="@layout/fragment_addedit_project_04"/>
 </navigation>
