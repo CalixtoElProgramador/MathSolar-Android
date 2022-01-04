@@ -68,6 +68,7 @@
         <!--System/Platform attributes-->
         <item name="android:windowBackground">?android:colorBackground</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowActivityTransitions">true</item>
 
     </style>
 </resources>

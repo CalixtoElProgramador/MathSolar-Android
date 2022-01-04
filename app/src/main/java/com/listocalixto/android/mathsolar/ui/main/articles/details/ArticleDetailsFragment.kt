@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.color.MaterialColors
@@ -30,11 +31,14 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true).apply {
             drawingViewId = R.id.nav_host_main
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
             scrimColor = Color.TRANSPARENT
-            setAllContainerColors(MaterialColors.getColor(requireContext(), R.attr.colorSurface, Color.MAGENTA))
+            fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
+            fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0f, 1f)
+            interpolator = FastOutSlowInInterpolator()
+            setAllContainerColors(MaterialColors.getColor(requireContext(), R.attr.colorSurface, Color.TRANSPARENT))
         }
     }
 
@@ -53,8 +57,12 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
         val bottomAppbar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
         binding.nestedScrollArticleDetails.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             val dy = scrollY - oldScrollY
-            if (dy > 0) { bottomAppbar?.performHide() }
-            if (dy < 0) { bottomAppbar?.performShow() }
+            if (dy > 0) {
+                bottomAppbar?.performHide()
+            }
+            if (dy < 0) {
+                bottomAppbar?.performShow()
+            }
         }
 
     }

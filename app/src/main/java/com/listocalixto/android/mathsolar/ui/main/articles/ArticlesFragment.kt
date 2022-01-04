@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -91,9 +92,10 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
     private fun navigateToArticleDetailsFragment(cardView: View, articleId: String) {
         exitTransition = MaterialElevationScale(false).apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+
         }
         reenterTransition = MaterialElevationScale(true).apply {
-            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            duration = resources.getInteger(R.integer.reply_motion_duration_medium_02).toLong()
         }
         val articleCardDetailTransitionName = getString(R.string.article_card_detail_transition_name)
         val extras = FragmentNavigatorExtras(cardView to articleCardDetailTransitionName)
