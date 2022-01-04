@@ -56,7 +56,17 @@ class AddEditProjectViewModel @Inject constructor(
     private val _isPermissionsGranted = MutableLiveData<Boolean>()
     val isPermissionsGranted: LiveData<Boolean> = _isPermissionsGranted
 
+    private val _helpEvent = MutableLiveData<Event<Unit>>()
+    val helpEvent: LiveData<Event<Unit>> = _helpEvent
+
+    private val _myLocationEvent = MutableLiveData<Event<Unit>>()
+    val myLocationEvent: LiveData<Event<Unit>> = _myLocationEvent
+
     val locationName = MutableLiveData<String>()
+
+    val showCancelButton: LiveData<Boolean> = Transformations.map(currentFragment) {
+        it != R.id.addEditProjectMapsFragment04
+    }
 
     val showNextButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         when (it) {
@@ -162,7 +172,7 @@ class AddEditProjectViewModel @Inject constructor(
                 summary += it
             }
         }
-        val result = summary/consumptions.size
+        val result = summary / consumptions.size
         _average.value = result
     }
 
@@ -191,8 +201,20 @@ class AddEditProjectViewModel @Inject constructor(
         _snackbarText.value = Event(SnackbarMessage(message, type, true))
     }
 
+    fun showSnackbarMessage(@StringRes message: Int) {
+        _snackbarText.value = Event(SnackbarMessage(message))
+    }
+
     fun isLocationPermissionsGranted(response: Boolean) {
         _isPermissionsGranted.value = response
+    }
+
+    fun onHelp() {
+        _helpEvent.value = Event(Unit)
+    }
+
+    fun onGetMyLocation() {
+        _myLocationEvent.value = Event(Unit)
     }
 
     companion object {

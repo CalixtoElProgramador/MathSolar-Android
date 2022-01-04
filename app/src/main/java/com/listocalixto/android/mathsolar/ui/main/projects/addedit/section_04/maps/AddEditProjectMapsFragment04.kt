@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.location.Location
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,10 +27,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentAddeditProjectMaps04Binding
 import com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel
+import com.listocalixto.android.mathsolar.utils.EventObserver
+import com.listocalixto.android.mathsolar.utils.setupSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -39,7 +44,7 @@ class AddEditProjectMapsFragment04 : Fragment() {
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
         setMapStyle(googleMap)
-        setOnMapTypeListener(googleMap)
+        //setOnMapTypeListener(googleMap)
         setMapLongClick(googleMap)
         setPoiClick(googleMap)
         enableLocation()
@@ -77,16 +82,31 @@ class AddEditProjectMapsFragment04 : Fragment() {
 
         }
 
+        setupSnackbar()
         setupObservers()
 
     }
 
     private fun setupObservers() {
-        viewModel.isPermissionsGranted.observe(viewLifecycleOwner, {
-            if (it) {
-                enableLocation()
-            }
-        })
+        viewModel.run {
+
+            helpEvent.observe(viewLifecycleOwner, EventObserver {
+                openInstructionsDialog()
+            })
+
+            myLocationEvent.observe(viewLifecycleOwner, EventObserver {
+                openEnableMyLocationDialog()
+            })
+
+        }
+    }
+
+    private fun openInstructionsDialog() {
+        //NO-OP
+    }
+
+    private fun openEnableMyLocationDialog() {
+        //NO-OP
     }
 
     private fun applyEnterMotionTransition() {
@@ -162,7 +182,7 @@ class AddEditProjectMapsFragment04 : Fragment() {
         }
     }
 
-    private fun setOnMapTypeListener(googleMap: GoogleMap) {
+    /*private fun setOnMapTypeListener(googleMap: GoogleMap) {
         binding.toolbarMap.setOnMenuItemClickListener {
             when (it.itemId) {
                 // Change the map type based on the user's selection.
@@ -185,67 +205,74 @@ class AddEditProjectMapsFragment04 : Fragment() {
                 else -> super.onOptionsItemSelected(it)
             }
         }
-    }
+    }*/
 
     @SuppressLint("MissingPermission")
     private fun enableLocation() {
-        if (isPermissionGranted()) {
+        if (isFineLocationGranted()) {
             googleMap.run {
                 isMyLocationEnabled = true
                 uiSettings.isMyLocationButtonEnabled = true
-                fusedLocationClient.lastLocation.addOnSuccessListener { myLocation ->
-                    val lat = myLocation.latitude
-                    val lng = myLocation.longitude
-                    val position = LatLng(lat, lng)
-                    val zoom = 15.0f
-                    addMarker(MarkerOptions().position(position).title(getString(R.string.you_are_here)))
-                    moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
+                fusedLocationClient.lastLocation.addOnSuccessListener { myLocation: Location? ->
+                    myLocation?.let {
+                        val lat = it.latitude
+                        val lng = it.longitude
+                        val position = LatLng(lat, lng)
+                        val zoom = 15.0f
+                        addMarker(
+                            MarkerOptions().position(position)
+                                .title(getString(R.string.you_are_here))
+                        )
+                        moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
+                    } ?: run {
+                        viewModel.showSnackbarMessage(R.string.location_disable)
+                    }
                 }
             }
         } else {
-            requestLocationPermissions()
+            requestMultiplePermissionsLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
         }
     }
 
-    private fun isPermissionGranted(): Boolean {
-        return ActivityCompat.checkSelfPermission(
+    private fun isFineLocationGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestLocationPermissions() {
-        val permissionsArray = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-
-        
-
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            permissionsArray,
-            PERMISSIONS_CODE
-        )
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSIONS_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            viewModel.isLocationPermissionsGranted(true)
+    private val requestMultiplePermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
+            if (map.filterValues { it.not() }.isEmpty()) {
+                enableLocation()
+            } else {
+                viewModel.showSnackbarMessage(R.string.permission_denied)
+            }
         }
+
+
+    private fun setupSnackbar() {
+        binding.root.setupSnackbar(
+            this.viewLifecycleOwner,
+            viewModel.snackbarText,
+            Snackbar.LENGTH_LONG,
+            binding.btnSaveLocation
+        )
     }
 
     companion object {
         private val TAG = this::class.java.simpleName
         private const val PERMISSIONS_CODE = 193
+        private const val FINE_LOCATION_CODE = 231
     }
 
 }
