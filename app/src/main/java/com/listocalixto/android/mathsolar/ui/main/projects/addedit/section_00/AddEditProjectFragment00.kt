@@ -33,10 +33,6 @@ class AddEditProjectFragment00 : Fragment(R.layout.fragment_addedit_project_00) 
             addEditProjectViewModel = viewModel
         }
 
-        viewModel.projectTypeSelected.observe(viewLifecycleOwner, {
-            Log.d(TAG, "PVProjectType: ${it.name}")
-        })
-
         setupNavigation()
 
     }

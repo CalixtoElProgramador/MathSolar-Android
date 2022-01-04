@@ -23,9 +23,11 @@ fun RadioGroup.onProjectTypeSelected(viewModel: AddEditProjectViewModel) {
         when (checkedId) {
             R.id.radioBtn_withoutBatteries -> {
                 viewModel.setProjectTypeSelected(PVProjectType.WITHOUT_BATTERIES)
+                viewModel.setCurrentFragment(R.id.addEditProjectFragment00)
             }
             else -> {
                 viewModel.setProjectTypeSelected(PVProjectType.WITH_BATTERIES)
+                viewModel.setCurrentFragment(R.id.addEditProjectFragment00)
             }
         }
     }

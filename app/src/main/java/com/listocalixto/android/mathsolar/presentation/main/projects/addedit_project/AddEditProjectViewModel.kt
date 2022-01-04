@@ -6,8 +6,6 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,14 +53,26 @@ class AddEditProjectViewModel @Inject constructor(
     private val _periodConsumptionType = MutableLiveData<PeriodConsumptionType>()
     val periodConsumptionType: LiveData<PeriodConsumptionType> = _periodConsumptionType
 
+    private val _isPermissionsGranted = MutableLiveData<Boolean>()
+    val isPermissionsGranted: LiveData<Boolean> = _isPermissionsGranted
+
     val locationName = MutableLiveData<String>()
 
-    val wasSelectedAnOption: LiveData<Boolean> = Transformations.map(_projectTypeSelected) {
-        it == PVProjectType.WITHOUT_BATTERIES || it == PVProjectType.WITH_BATTERIES
+    val showNextButton: LiveData<Boolean> = Transformations.map(currentFragment) {
+        when (it) {
+            R.id.addEditProjectFragment00 -> {
+                val projectType = _projectTypeSelected.value
+                projectType == PVProjectType.WITH_BATTERIES || projectType == PVProjectType.WITHOUT_BATTERIES
+            }
+            R.id.addEditProjectMapsFragment04 -> {
+                false
+            }
+            else -> true
+        }
     }
 
     val showBackButton: LiveData<Boolean> = Transformations.map(currentFragment) {
-        it != R.id.addEditProjectFragment00
+        it != R.id.addEditProjectFragment00 && it != R.id.addEditProjectMapsFragment04
     }
 
     val disableNextBtn: LiveData<Boolean> = Transformations.map(currentFragment) {
@@ -179,6 +189,10 @@ class AddEditProjectViewModel @Inject constructor(
         type: SnackbarType = SnackbarType.DEFAULT
     ) {
         _snackbarText.value = Event(SnackbarMessage(message, type, true))
+    }
+
+    fun isLocationPermissionsGranted(response: Boolean) {
+        _isPermissionsGranted.value = response
     }
 
     companion object {

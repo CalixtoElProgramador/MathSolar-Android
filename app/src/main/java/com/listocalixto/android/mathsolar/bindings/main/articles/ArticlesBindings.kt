@@ -17,6 +17,8 @@ import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesVie
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.listocalixto.android.mathsolar.utils.ArticleFilterType
 import com.listocalixto.android.mathsolar.utils.ArticleTopic
+import com.listocalixto.android.mathsolar.utils.fadeIn
+import com.listocalixto.android.mathsolar.utils.fadeOut
 import com.todkars.shimmer.ShimmerRecyclerView
 import java.util.*
 
@@ -117,10 +119,10 @@ fun LinearLayout.showOrHideNewLabel(date: String, isViewed: Boolean) {
     val publishDate = sdf.parse(date)
     val publishDateString = sdf.format(publishDate)
 
-    visibility = if (todayString == publishDateString && !isViewed) {
-        View.VISIBLE
+    if (todayString == publishDateString && !isViewed) {
+        fadeIn()
     } else {
-        View.GONE
+        visibility = View.GONE
     }
 }
 
