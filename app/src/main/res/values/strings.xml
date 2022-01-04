@@ -178,5 +178,11 @@
     <string name="fragment_addedit_project_maps_indication">Press and hold to indicate the location.</string>
     <string name="save">Save</string>
     <string name="you_are_here">You are here</string>
+    <string name="cd_image_button_help_map">Help</string>
+    <string name="cd_image_button_my_location">Get my location.</string>
+    <string name="cd_image_button_back">Back.</string>
+    <string name="cd_image_button_more_options">More options.</string>
+    <string name="location_disable">Your location is disable.</string>
+    <string name="permission_denied">The permission was denied</string>
 
 </resources>

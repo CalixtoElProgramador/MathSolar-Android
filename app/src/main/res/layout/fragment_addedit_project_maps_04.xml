@@ -10,48 +10,98 @@
             type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:transitionGroup="true"
         tools:context=".ui.main.projects.addedit.section_04.maps.AddEditProjectMapsFragment04">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/topAppbar_map"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/ImgBtn_back"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/customAppBarBackgroundColor"
-            app:liftOnScroll="true">
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/cd_image_button_back"
+            android:onClick="@{() -> addEditProjectViewModel.onBack()}"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back"
+            app:tint="@color/color_on_surface_emphasis_disabled" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar_map"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/customAppBarBackgroundColor"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:menu="@menu/map_options"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="@string/select_a_location">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:text="@string/select_a_location"
+            android:textAppearance="?textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="@id/ImgBtn_back"
+            app:layout_constraintStart_toEndOf="@id/ImgBtn_back"
+            app:layout_constraintTop_toTopOf="@id/ImgBtn_back" />
 
-            </com.google.android.material.appbar.MaterialToolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        <ImageButton
+            android:id="@+id/ImgBtn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/cd_image_button_more_options"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vert"
+            app:tint="@color/color_on_surface_emphasis_disabled" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/margin_extra_short"
+            android:layout_marginBottom="@dimen/_12sdp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintBottom_toTopOf="@+id/btn_saveLocation"
+            app:layout_constraintTop_toBottomOf="@+id/ImgBtn_back" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_saveLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/save"
-            android:layout_gravity="bottom|center" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <ImageButton
+            android:id="@+id/ImgBtn_myLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/cd_image_button_my_location"
+            android:onClick="@{() -> addEditProjectViewModel.onGetMyLocation()}"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_saveLocation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_saveLocation"
+            app:srcCompat="@drawable/ic_my_location"
+            app:tint="@color/color_on_surface_emphasis_disabled" />
+
+        <ImageButton
+            android:id="@+id/ImgBtn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/actionBarItemBackground"
+            android:contentDescription="@string/cd_image_button_help_map"
+            android:onClick="@{() -> addEditProjectViewModel.onHelp()}"
+            android:padding="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_saveLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_saveLocation"
+            app:srcCompat="@drawable/ic_help"
+            app:tint="@color/color_on_surface_emphasis_disabled" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

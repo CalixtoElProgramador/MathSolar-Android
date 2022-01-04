@@ -42,6 +42,7 @@
                 android:background="?attr/actionBarItemBackground"
                 android:contentDescription="@string/cd_image_close_fragment_addedit"
                 android:onClick="@{() -> addEditProjectViewModel.onCancelPressed()}"
+                app:animateVisibility="@{addEditProjectViewModel.showCancelButton}"
                 android:padding="@dimen/_12sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
