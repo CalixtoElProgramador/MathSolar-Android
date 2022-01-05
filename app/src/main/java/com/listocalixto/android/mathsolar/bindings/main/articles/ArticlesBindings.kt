@@ -10,11 +10,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.app.Constants.MAXIMUM_TOP_APP_BAR_VERTICAL_OFF_SET
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
@@ -180,4 +182,24 @@ fun Chip.onSelected(viewModel: ArticlesViewModel) {
             }
         }
     }
+}
+
+@BindingAdapter(
+    "offSetChangedListener"
+)
+fun AppBarLayout.offSetChangedListener(viewModel: ArticlesViewModel) {
+    var toggle = true
+    addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+        if (verticalOffset < MAXIMUM_TOP_APP_BAR_VERTICAL_OFF_SET) {
+            if (!toggle) {
+                viewModel.setExpandedAppBarState(toggle)
+                toggle = true
+            }
+        } else {
+            if (toggle) {
+                viewModel.setExpandedAppBarState(toggle)
+                toggle = false
+            }
+        }
+    })
 }

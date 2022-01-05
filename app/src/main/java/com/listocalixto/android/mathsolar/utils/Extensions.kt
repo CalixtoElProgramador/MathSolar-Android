@@ -233,37 +233,14 @@ fun BottomAppBar.onMenuItemSelected(viewModel: ViewModel?) {
 }
 
 
-fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAppBar?, viewModel: ArticlesViewModel? = null) {
+fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAppBar?) {
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             if (dy > 0) {
                 bottomAppBar?.performHide()
-                observeWhenRecyclerViewIsInTheFirstItem()
             }
             if (dy < 0) {
                 bottomAppBar?.performShow()
-                observeWhenRecyclerViewIsInTheFirstItem()
-            }
-        }
-
-        private fun observeWhenRecyclerViewIsInTheFirstItem() {
-            val recyclerView = this@hideOrShowBottomAppBarOnRecyclerScrolled
-            val firstItem = recyclerView[0]
-            val position = recyclerView.getChildAdapterPosition(firstItem)
-            notifyViewModel(position)
-        }
-
-        private fun notifyViewModel(position: Int) {
-            viewModel?.let { vm ->
-                vm.expandedAppBarState.value?.let {
-                    if (position == 0) {
-                        if (!it) {
-                            vm.setExpandedAppBarState(true)
-                        }
-                    } else {
-                        vm.setExpandedAppBarState(false)
-                    }
-                }
             }
         }
     })

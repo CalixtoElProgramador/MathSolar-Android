@@ -59,8 +59,8 @@
             android:layout_gravity="bottom"
             android:visibility="@{mainViewModel.bottomNavExpandedState ? View.GONE : View.VISIBLE}"
             app:currentFragment="@{mainViewModel.currentFragment}"
-            app:fabCradleMargin="@dimen/margin_short"
-            app:fabCradleRoundedCornerRadius="@dimen/corner_radius_large"
+            app:fabCradleMargin="@dimen/_8sdp"
+            app:fabCradleRoundedCornerRadius="@dimen/_32sdp"
             app:isBottomNavExpanded="@{mainViewModel.bottomNavExpandedState}"
             app:navigationIcon="@drawable/ic_menu"
             tools:menu="@menu/bottom_app_bar_projects" />
@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_description_fab_projects"
             app:currentFragment="@{mainViewModel.currentFragment}"
+            app:fabSize="auto"
             app:isBottomNavExpanded="@{mainViewModel.bottomNavExpandedState}"
             app:layout_anchor="@id/bottomAppBar"
             app:srcCompat="@drawable/ic_add" />

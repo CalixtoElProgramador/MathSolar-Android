@@ -21,9 +21,9 @@ import kotlin.collections.ArrayList
 
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
     private val repo: ArticleRepo,
-    networkConnection: NetworkConnection,
-    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
+    val networkConnection: NetworkConnection
 ) : ViewModel() {
 
     private val _forceUpdate = MutableLiveData(false)
@@ -86,10 +86,6 @@ class ArticlesViewModel @Inject constructor(
 
     val isBookmarkOrHistory: LiveData<Boolean> = Transformations.map(_currentFilteringLabel) {
         it == R.string.label_bookmark || it == R.string.label_history
-    }
-
-    val userHasInternet: LiveData<Boolean> = Transformations.map(networkConnection) {
-        it
     }
 
     init {
@@ -199,7 +195,7 @@ class ArticlesViewModel @Inject constructor(
 
     fun changeTopic(topic: ArticleTopic) {
         _topic.value = topic
-        if (userHasInternet.value == true && _anArticleWasOpen.value == false) {
+        if (networkConnection.value == true && _anArticleWasOpen.value == false) {
             Log.d(TAG, "changeTopic: ForceUpdate equals true")
             loadArticles(true)
             return
@@ -221,16 +217,6 @@ class ArticlesViewModel @Inject constructor(
 
     fun setExpandedAppBarState(boolean: Boolean) {
         _expandedAppBarState.value = boolean
-    }
-
-    fun updateBookmark(article: Article) {
-        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
-            if (article.bookmark) {
-                repo.deleteBookmarkArticle(article)
-            } else {
-                repo.bookmarkArticle(article)
-            }
-        }
     }
 
     fun updateReferenceInternet(boolean: Boolean) {

@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
@@ -38,22 +39,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class AddEditProjectMapsFragment04 : Fragment() {
+class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_maps_04) {
 
     private val viewModel by activityViewModels<AddEditProjectViewModel>()
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
         setMapStyle(googleMap)
-        //setOnMapTypeListener(googleMap)
         setMapLongClick(googleMap)
         setPoiClick(googleMap)
         setupObservers()
-        //enableLocation()
+
     }
 
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var binding: FragmentAddeditProjectMaps04Binding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,13 +66,15 @@ class AddEditProjectMapsFragment04 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_addedit_project_maps_04, container, false)
+        viewModel.saveIsLocationPermissionEnabled(isLocationGranted())
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
+        Log.d(TAG, "onViewCreated")
         binding = FragmentAddeditProjectMaps04Binding.bind(view)
         binding.run {
             lifecycleOwner = this@AddEditProjectMapsFragment04.viewLifecycleOwner
@@ -84,24 +87,32 @@ class AddEditProjectMapsFragment04 : Fragment() {
 
     }
 
-    private fun inflateFirstDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.first_dialog_map_title))
-            .setMessage(resources.getString(R.string.first_dialog_map_message))
-            .setIcon(R.drawable.ic_flag)
-            .setNegativeButton(resources.getString(R.string.first_dialog_map_negative_option)) { _, _ ->
-                viewModel.saveFirstDialogMapWasSeen(true)
-            }
-            .setPositiveButton(resources.getString(R.string.first_dialog_map_positive_option)) { _, _ ->
-                enableLocation()
-                viewModel.saveFirstDialogMapWasSeen(true)
-            }
-            .setOnCancelListener {
-                it.run {
-                    viewModel.saveFirstDialogMapWasSeen(false)
+    private fun showMapTypesPopUpMenu() {
+        PopupMenu(requireContext(), binding.ImgBtnMore).run {
+            menuInflater.inflate(R.menu.map_options, menu)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.normal_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                        true
+                    }
+                    R.id.hybrid_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+                        true
+                    }
+                    R.id.satellite_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                        true
+                    }
+                    R.id.terrain_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(it)
                 }
             }
-            .show()
+            show()
+        }
     }
 
     private fun inflateMyLocationDialog() {
@@ -132,6 +143,10 @@ class AddEditProjectMapsFragment04 : Fragment() {
     private fun setupObservers() {
         viewModel.run {
 
+            moreEvent.observe(viewLifecycleOwner, EventObserver {
+                showMapTypesPopUpMenu()
+            })
+
             helpEvent.observe(viewLifecycleOwner, EventObserver {
                 openInstructionsDialog()
             })
@@ -140,20 +155,8 @@ class AddEditProjectMapsFragment04 : Fragment() {
                 openEnableMyLocationDialog()
             })
 
-            wasSeenFirstDialogMap.observe(viewLifecycleOwner, {
-                Log.d(TAG, "wasSeen: $it")
-                if (!it) {
-                    inflateFirstDialog()
-                }
-            })
-
             isLocationEnable.observe(viewLifecycleOwner, {
-                if (it) {
-                    Log.d(TAG, "Location is Enable")
-                    enableLocation()
-                }  else {
-                    Log.d(TAG, "Location is not Enable")
-                }
+                if (it) { enableLocation() }
             })
 
         }
@@ -213,6 +216,7 @@ class AddEditProjectMapsFragment04 : Fragment() {
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
             // A Snippet is Additional text that's displayed below the title.
+            map.clear()
             val snippet = String.format(
                 Locale.getDefault(),
                 "Lat: %1$.5f, Long: %2$.5f",
@@ -267,7 +271,7 @@ class AddEditProjectMapsFragment04 : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun enableLocation() {
-        if (isFineLocationGranted()) {
+        if (isLocationGranted()) {
             googleMap.run {
                 isMyLocationEnabled = true
                 uiSettings.isMyLocationButtonEnabled = true
@@ -297,7 +301,7 @@ class AddEditProjectMapsFragment04 : Fragment() {
         }
     }
 
-    private fun isFineLocationGranted(): Boolean {
+    private fun isLocationGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -330,8 +334,6 @@ class AddEditProjectMapsFragment04 : Fragment() {
 
     companion object {
         private val TAG = this::class.java.simpleName
-        private const val PERMISSIONS_CODE = 193
-        private const val FINE_LOCATION_CODE = 231
     }
 
 }

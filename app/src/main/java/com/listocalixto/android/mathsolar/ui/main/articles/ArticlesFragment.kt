@@ -1,5 +1,8 @@
 package com.listocalixto.android.mathsolar.ui.main.articles
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,7 +12,9 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
@@ -20,6 +25,7 @@ import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesVie
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class ArticlesFragment : Fragment(R.layout.fragment_articles) {
@@ -40,31 +46,33 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
-        binding = FragmentArticlesBinding.bind(view).apply {
+        binding = FragmentArticlesBinding.bind(view)
+        binding.run {
+            lifecycleOwner = this@ArticlesFragment.viewLifecycleOwner
             articlesViewModel = viewModel
             setupListAdapter(this)
-        }
 
-        binding.lifecycleOwner = this.viewLifecycleOwner
-
-        activity?.findViewById<BottomAppBar>(R.id.bottomAppBar).also {
-            binding.listArticles.hideOrShowBottomAppBarOnRecyclerScrolled(it, viewModel)
-            it?.onMenuItemSelected(viewModel)
-        }
-
-        viewModel.userHasInternet.observe(viewLifecycleOwner, {
-            if (it) {
-                if (viewModel.getReferenceInternet()) {
-                    viewModel.showSnackbarMessage(R.string.internet_connection_restored)
-                    viewModel.updateReferenceInternet(false)
-                }
-            } else {
-                if (!viewModel.getReferenceInternet()) {
-                    viewModel.showSnackbarMessage(R.string.no_internet_connection)
-                    viewModel.updateReferenceInternet(true)
-                }
+            activity?.findViewById<BottomAppBar>(R.id.bottomAppBar).also {
+                listArticles.hideOrShowBottomAppBarOnRecyclerScrolled(it)
+                it?.onMenuItemSelected(viewModel)
             }
-        })
+        }
+
+        viewModel.run {
+            networkConnection.observe(viewLifecycleOwner, {
+                if (it) {
+                    if (getReferenceInternet()) {
+                        showSnackbarMessage(R.string.internet_connection_restored)
+                        updateReferenceInternet(false)
+                    }
+                } else {
+                    if (!getReferenceInternet()) {
+                        showSnackbarMessage(R.string.no_internet_connection)
+                        updateReferenceInternet(true)
+                    }
+                }
+            })
+        }
 
         setupSnackbar()
         setupNavigation()
@@ -96,9 +104,11 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles) {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_medium_02).toLong()
         }
-        val articleCardDetailTransitionName = getString(R.string.article_card_detail_transition_name)
+        val articleCardDetailTransitionName =
+            getString(R.string.article_card_detail_transition_name)
         val extras = FragmentNavigatorExtras(cardView to articleCardDetailTransitionName)
-        val action = ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
+        val action =
+            ArticlesFragmentDirections.actionHomeFragmentToArticleDetailsFragment(articleId)
         findNavController().navigate(action, extras)
     }
 

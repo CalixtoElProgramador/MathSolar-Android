@@ -33,15 +33,16 @@ object Constants {
     const val FREE_NEWS_QUERY_LANG = "lang"
     const val FREE_NEWS_HEADER_HOST = "x-rapidapi-host"
     const val FREE_NEWS_HEADER_API_KEY = "x-rapidapi-key"
-    const val FREE_NEWS_TOPIC = "solar power"
     const val FREE_NEWS_LANG = "en"
     const val FREE_NEWS_HOST = "free-news.p.rapidapi.com"
     const val FREE_NEWS_API_KEY = "b4f91427f4msh819aba0301f1d2bp1a9767jsn64f6d80f6895"
 
     // PREFERENCES KEYS
     const val PREFERENCES_NAME = "mathsolar_preferences"
-    const val PREFERENCES_FIRST_DIALOG_MAP_SEEN = "first_dialog_map_seen"
     const val PREFERENCES_LOCATION_ENABLED = "preferences_location_enabled"
+
+    // OTHERS
+    const val MAXIMUM_TOP_APP_BAR_VERTICAL_OFF_SET = -204
 
 
 }

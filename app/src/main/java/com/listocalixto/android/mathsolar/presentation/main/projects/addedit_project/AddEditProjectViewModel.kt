@@ -59,11 +59,11 @@ class AddEditProjectViewModel @Inject constructor(
     private val _periodConsumptionType = MutableLiveData<PeriodConsumptionType>()
     val periodConsumptionType: LiveData<PeriodConsumptionType> = _periodConsumptionType
 
-    private val _isPermissionsGranted = MutableLiveData<Boolean>()
-    val isPermissionsGranted: LiveData<Boolean> = _isPermissionsGranted
-
     private val _helpEvent = MutableLiveData<Event<Unit>>()
     val helpEvent: LiveData<Event<Unit>> = _helpEvent
+
+    private val _moreEvent = MutableLiveData<Event<Unit>>()
+    val moreEvent: LiveData<Event<Unit>> = _moreEvent
 
     private val _myLocationEvent = MutableLiveData<Event<Unit>>()
     val myLocationEvent: LiveData<Event<Unit>> = _myLocationEvent
@@ -73,9 +73,6 @@ class AddEditProjectViewModel @Inject constructor(
     val showCancelButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         it != R.id.addEditProjectMapsFragment04
     }
-
-    val wasSeenFirstDialogMap: LiveData<Boolean> =
-        dataStoreRepository.readFirstDialogMapWasSeen.asLiveData()
 
     val isLocationEnable: LiveData<Boolean> =
         dataStoreRepository.readIsLocationPermissionEnabled.asLiveData()
@@ -217,10 +214,6 @@ class AddEditProjectViewModel @Inject constructor(
         _snackbarText.value = Event(SnackbarMessage(message))
     }
 
-    fun isLocationPermissionsGranted(response: Boolean) {
-        _isPermissionsGranted.value = response
-    }
-
     fun onHelp() {
         _helpEvent.value = Event(Unit)
     }
@@ -229,21 +222,19 @@ class AddEditProjectViewModel @Inject constructor(
         _myLocationEvent.value = Event(Unit)
     }
 
-    fun saveFirstDialogMapWasSeen(wasSeen: Boolean) =
-        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
-            if (!wasSeen) {
-                dataStoreRepository.saveFirstDialogMapWasSeen(true)
-                dataStoreRepository.saveFirstDialogMapWasSeen(false)
-            } else {
-                dataStoreRepository.saveFirstDialogMapWasSeen(wasSeen)
-            }
-
-        }
-
     fun saveIsLocationPermissionEnabled(response: Boolean) =
         viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
-            dataStoreRepository.saveIsLocationPermissionEnabled(response)
+            if (response) {
+                dataStoreRepository.saveIsLocationPermissionEnabled(false)
+                dataStoreRepository.saveIsLocationPermissionEnabled(true)
+            } else {
+                dataStoreRepository.saveIsLocationPermissionEnabled(false)
+            }
         }
+
+    fun onMore() {
+        _moreEvent.value = Event(Unit)
+    }
 
     companion object {
         private const val TAG = "AddEditProjectViewModel"
