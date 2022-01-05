@@ -1,7 +1,10 @@
 package com.listocalixto.android.mathsolar.bindings.main.articles
 
 import android.icu.text.SimpleDateFormat
+import android.util.Log
+import java.util.Calendar
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,7 +21,6 @@ import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter
 import com.listocalixto.android.mathsolar.utils.ArticleFilterType
 import com.listocalixto.android.mathsolar.utils.ArticleTopic
 import com.listocalixto.android.mathsolar.utils.fadeIn
-import com.listocalixto.android.mathsolar.utils.fadeOut
 import com.todkars.shimmer.ShimmerRecyclerView
 import java.util.*
 
@@ -29,22 +31,28 @@ fun ShimmerRecyclerView.setArticleItems(items: List<Article>?) {
     }
 }
 
-@BindingAdapter("app:loadArticleImage")
-fun ImageView.setArticleImage(url: String?) {
-    url?.let {
-        Glide.with(context).load(it).into(this)
-
-
-        /*load(it) {
-            crossfade(600)
-            error(R.drawable.ic_error_placeholder)
-            isSaveEnabled = true
-        }*/
+@BindingAdapter(
+    "loadArticleImage"
+)
+fun ImageView.setArticleImageDetail(articleUrl: String?) {
+    articleUrl?.let {
+        Glide.with(context)
+            .load(it)
+            .placeholder(R.drawable.ic_error_placeholder)
+            .error(R.drawable.ic_error_placeholder)
+            .into(this)
+    } ?: run {
+        Glide.with(context).clear(this)
+        this.setImageResource(R.drawable.ic_error_placeholder)
     }
+
+
 }
 
-@BindingAdapter("app:applyBookmark")
-fun ImageView.isBookmark(item: Article?) {
+@BindingAdapter(
+    "applyBookmark"
+)
+fun ImageButton.isBookmark(item: Article?) {
     item?.let {
         if (it.bookmark) {
             setImageResource(R.drawable.ic_bookmark)
@@ -115,11 +123,31 @@ fun ChipGroup.clearCheckInBookmarkOrHistory(isBookmarkOrHistory: Boolean) {
 fun LinearLayout.showOrHideNewLabel(date: String, isViewed: Boolean) {
     val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
     val today = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-    val todayString = sdf.format(today.time)
+    val dateCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
     val publishDate = sdf.parse(date)
-    val publishDateString = sdf.format(publishDate)
+    dateCalendar.time = publishDate
+    dateCalendar.set(
+        dateCalendar.get(Calendar.YEAR),
+        dateCalendar.get(Calendar.MONTH),
+        dateCalendar.get(Calendar.DAY_OF_MONTH) + 1
+    )
 
-    if (todayString == publishDateString && !isViewed) {
+    today.set(
+        today.get(Calendar.YEAR),
+        today.get(Calendar.MONTH),
+        today.get(Calendar.DAY_OF_MONTH),
+        0,
+        0,
+        0
+    )
+
+    val TAG = "ArticlesBinding"
+    Log.d(
+        TAG,
+        "today.timeInMilis = ${today.timeInMillis}, dateCalendar.timeInMillis = ${dateCalendar.timeInMillis}"
+    )
+
+    if (today.timeInMillis <= dateCalendar.timeInMillis && !isViewed) {
         fadeIn()
     } else {
         visibility = View.GONE

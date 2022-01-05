@@ -3,8 +3,6 @@ package com.listocalixto.android.mathsolar.presentation.main.articles
 import android.util.Log
 import android.view.View
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
-import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
@@ -17,11 +15,9 @@ import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.ref.Reference
 import javax.inject.Inject
-import kotlin.jvm.internal.Ref
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class ArticlesViewModel @Inject constructor(
@@ -41,7 +37,7 @@ class ArticlesViewModel @Inject constructor(
     private val _items: LiveData<List<Article>> = _forceUpdate.switchMap { forceUpdate ->
         if (forceUpdate) {
             _dataLoading.value = true
-            viewModelScope.launch (viewModelScope.coroutineContext + mainDispatcher) {
+            viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
                 _topic.value?.let { repo.refreshArticles(it) }
                 _dataLoading.value = false
             }

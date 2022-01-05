@@ -4,7 +4,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.data.model.PVProject
@@ -29,10 +29,18 @@ fun ImageButton.isFavorite(item: PVProject?) {
     }
 }
 
-@BindingAdapter("app:loadImage")
-fun ImageView.setProjectImage(url: String) {
-    load(url) {
-        crossfade(600)
-        error(R.drawable.ic_error_placeholder)
+@BindingAdapter(
+    "loadProjectImageItem"
+)
+fun ImageView.setProjectImage(imageUrl: String?) {
+    imageUrl?.let {
+        Glide.with(context)
+            .load(it)
+            .placeholder(R.drawable.ic_error_placeholder)
+            .error(R.drawable.ic_error_placeholder)
+            .into(this)
+    } ?: run {
+        Glide.with(context).clear(this)
+        this.setImageResource(R.drawable.ic_error_placeholder)
     }
 }

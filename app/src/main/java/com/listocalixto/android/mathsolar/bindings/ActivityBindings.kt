@@ -18,7 +18,9 @@ fun View.setAnimateVisibility(show: Boolean) {
             fadeIn()
         }
     } else {
-        fadeOut()
+        if (this.visibility == View.VISIBLE) {
+            fadeOut()
+        }
     }
 
 }

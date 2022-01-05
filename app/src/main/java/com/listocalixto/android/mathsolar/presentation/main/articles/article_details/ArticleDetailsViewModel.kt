@@ -6,6 +6,7 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.core.Resource
 import com.listocalixto.android.mathsolar.data.model.Article
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
+import com.listocalixto.android.mathsolar.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +28,9 @@ class ArticleDetailsViewModel @Inject constructor(
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
+
+    private val _backEvent = MutableLiveData<Event<Unit>>()
+    val backEvent: LiveData<Event<Unit>> = _backEvent
 
     val bookmark: LiveData<Boolean> = _article.map { input: Article? ->
         input?.bookmark ?: false
@@ -57,6 +61,10 @@ class ArticleDetailsViewModel @Inject constructor(
             showSnackbarMessage(R.string.err_loading_articles)
             null
         }
+    }
+
+    fun onBack() {
+        _backEvent.value = Event(Unit)
     }
 
     private fun showSnackbarMessage(@StringRes message: Int) {

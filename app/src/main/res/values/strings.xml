@@ -184,5 +184,8 @@
     <string name="cd_image_button_more_options">More options.</string>
     <string name="location_disable">Your location is disable.</string>
     <string name="permission_denied">The permission was denied</string>
+    <string name="cd_image_button_bookmark_item">Bookmark this article.</string>
+    <string name="cd_article_item_image_button_more">More options.</string>
+    <string name="cd_article_image">Article image.</string>
 
 </resources>

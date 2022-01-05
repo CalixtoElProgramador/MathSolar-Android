@@ -113,40 +113,43 @@
                 android:id="@+id/articlePublishDateItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_extra_short"
                 android:text="@{article.publishedDate}"
                 android:textAppearance="?attr/textAppearanceCaption"
+                app:layout_constraintTop_toTopOf="@id/ic_articleBookmarkItem"
                 app:layout_constraintBottom_toBottomOf="@id/ic_articleBookmarkItem"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/articleTitleItem"
                 app:viewed="@{article.viewed}"
                 tools:text="Hace 23 horas" />
 
-            <ImageView
+
+            <ImageButton
                 android:id="@+id/ic_articleBookmarkItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/cd_image_button_bookmark_item"
                 android:onClick="@{() -> articlesViewModel.bookmarkArticle(article, article.bookmark)}"
-                android:paddingStart="@dimen/margin_start_ic_article_item"
-                android:paddingTop="@dimen/margin_short"
-                android:paddingEnd="@dimen/margin_end_ic_article_item"
-                android:paddingBottom="@dimen/margin_short"
-                android:src="@drawable/ic_bookmark_border"
+                android:padding="@dimen/_12sdp"
                 app:applyBookmark="@{article}"
                 app:layout_constraintBottom_toBottomOf="@id/ic_articleMoreItem"
                 app:layout_constraintEnd_toStartOf="@id/ic_articleMoreItem"
-                app:layout_constraintTop_toTopOf="@id/ic_articleMoreItem" />
+                app:layout_constraintTop_toTopOf="@id/ic_articleMoreItem"
+                app:srcCompat="@drawable/ic_bookmark_border"
+                app:tint="@color/color_on_surface_emphasis_disabled" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/ic_articleMoreItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_extra_short"
-                android:layout_marginBottom="@dimen/margin_short"
-                android:padding="@dimen/margin_short"
-                android:src="@drawable/ic_more_vert"
+                android:background="?attr/actionBarItemBackground"
+                android:contentDescription="@string/cd_article_item_image_button_more"
+                android:padding="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_articleItem" />
+                app:layout_constraintTop_toBottomOf="@id/img_articleItem"
+                android:src="@drawable/ic_more_vert"
+                app:tint="@color/color_on_surface_emphasis_disabled" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

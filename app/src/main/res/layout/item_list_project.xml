@@ -79,7 +79,7 @@
                 android:contentDescription="@string/content_description_item_img"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toBottomOf="@id/item_location"
-                app:loadImage="@{project.imageUrl}"
+                app:loadProjectImageItem="@{project.imageUrl}"
                 tools:src="@drawable/ic_error_placeholder" />
 
             <LinearLayout

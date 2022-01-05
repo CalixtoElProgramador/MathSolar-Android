@@ -17,6 +17,7 @@ import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.databinding.FragmentArticleDetailsBinding
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel
+import com.listocalixto.android.mathsolar.utils.EventObserver
 import com.listocalixto.android.mathsolar.utils.setFunctionOnClick
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +39,13 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
             fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
             fadeProgressThresholds = MaterialContainerTransform.ProgressThresholds(0f, 1f)
             interpolator = FastOutSlowInInterpolator()
-            setAllContainerColors(MaterialColors.getColor(requireContext(), R.attr.colorSurface, Color.TRANSPARENT))
+            setAllContainerColors(
+                MaterialColors.getColor(
+                    requireContext(),
+                    R.attr.colorSurface,
+                    Color.TRANSPARENT
+                )
+            )
         }
     }
 
@@ -47,11 +54,13 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
         postponeEnterTransition()
         (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
         setupFab()
-        binding = FragmentArticleDetailsBinding.bind(view).apply {
+        binding = FragmentArticleDetailsBinding.bind(view)
+
+        binding.run {
+            lifecycleOwner = this@ArticleDetailsFragment.viewLifecycleOwner
             articleDetailsViewModel = viewModel
             articlesViewModel = this@ArticleDetailsFragment.articlesViewModel
         }
-        binding.lifecycleOwner = this.viewLifecycleOwner
         viewModel.start(args.articleId)
 
         val bottomAppbar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
@@ -64,6 +73,10 @@ class ArticleDetailsFragment : Fragment(R.layout.fragment_article_details) {
                 bottomAppbar?.performShow()
             }
         }
+
+        viewModel.backEvent.observe(viewLifecycleOwner, EventObserver {
+            activity?.onBackPressed()
+        })
 
     }
 

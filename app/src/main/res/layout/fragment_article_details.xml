@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="androidx.core.content.ContextCompat" />
+
         <variable
             name="articleDetailsViewModel"
             type="com.listocalixto.android.mathsolar.presentation.main.articles.article_details.ArticleDetailsViewModel" />
@@ -22,6 +24,8 @@
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:fillViewport="true"
+        android:isScrollContainer="false"
+        android:transitionGroup="true"
         android:paddingHorizontal="@dimen/margin_extra_short"
         android:paddingTop="@dimen/margin_short"
         tools:context=".ui.main.articles.details.ArticleDetailsFragment">
@@ -32,39 +36,68 @@
             android:layout_height="match_parent"
             android:transitionName="@string/article_card_detail_transition_name">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/margin_medium"
-                android:paddingTop="@dimen/margin_extra_medium"
-                android:paddingBottom="@dimen/margin_extra_large"
-                app:paddingBottomSystemWindowInsets="@{true}">
+                android:background="@android:color/transparent"
+                android:paddingBottom="@dimen/margin_huge">
+
+                <TextView
+                    android:id="@+id/label_articleFiltering"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:text="@{context.getString(articlesViewModel.currentFilteringLabel)}"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintBottom_toTopOf="@id/label_articleTopic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/navigation_icon"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Articles" />
+
+                <TextView
+                    android:id="@+id/label_articleTopic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_tiny"
+                    android:text="@{articleDetailsViewModel.article.topic.currentName}"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorSecondaryVariant"
+                    app:layout_constraintBottom_toBottomOf="@id/navigation_icon"
+                    app:layout_constraintStart_toStartOf="@id/label_articleFiltering"
+                    app:layout_constraintTop_toBottomOf="@id/label_articleFiltering"
+                    tools:text="#SolarPanels" />
+
+                <ImageButton
+                    android:id="@+id/navigation_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="?attr/emphasisMediumAlpha"
+                    android:background="?attr/actionBarItemBackground"
+                    android:contentDescription="@string/navigate_back_icon_content_desc"
+                    android:onClick="@{() -> articleDetailsViewModel.onBack()}"
+                    android:padding="@dimen/margin_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView_imageContainerArticleDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/_24sdp">
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    app:cardCornerRadius="@dimen/_24sdp"
+                    app:layout_constraintTop_toBottomOf="@id/label_articleTopic">
 
                     <ImageView
                         android:id="@+id/image_articleMedia"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/image_large_size"
-                        android:outlineProvider="background"
                         android:scaleType="centerCrop"
+                        android:contentDescription="@string/cd_article_image"
                         app:loadArticleImage="@{articleDetailsViewModel.article.media}"
                         tools:src="@drawable/ic_error_placeholder" />
-
-                    <ImageButton
-                        android:id="@+id/navigation_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="?attr/emphasisMediumAlpha"
-                        android:background="?attr/actionBarItemBackground"
-                        android:contentDescription="@string/navigate_back_icon_content_desc"
-                        android:padding="@dimen/margin_medium"
-                        android:layout_gravity="end"
-                        app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -73,21 +106,23 @@
                     android:id="@+id/articleSource"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingTop="@dimen/margin_medium"
                     android:text="@{articleDetailsViewModel.article.cleanUrl}"
                     android:textAppearance="?attr/textAppearanceOverline"
                     android:textColor="?attr/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@id/cardView_imageContainerArticleDetails"
                     tools:text="YAHOO.COM" />
 
                 <TextView
                     android:id="@+id/articleTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingBottom="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.title}"
                     android:textAppearance="?attr/textAppearanceHeadline4"
+                    app:layout_constraintTop_toBottomOf="@id/articleSource"
                     tools:text="The hidden costos of solar panels: price of solar panel maintenance and repairs" />
 
                 <TextView
@@ -95,23 +130,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="@dimen/_3sdp"
-                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingVertical="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.summary}"
                     android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintTop_toBottomOf="@id/articleTitle"
                     tools:text="awjdlwadj awidlj alwidj alwidj laisdn lasdn lsnvalif jldsifj aliejfla sienf alinf lad isnflaisdn fliasdnlf aienfl ianselfi naselifnlseifnlian lifnaelifilaesjflinselfasmefcmsealf isael fiaslefj ilsjafliajeslfija lesifjalsiejf asleifj" />
 
                 <TextView
                     android:id="@+id/articlePublishDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/margin_medium"
+                    android:paddingHorizontal="@dimen/_28sdp"
                     android:paddingVertical="@dimen/margin_extra_short"
                     android:text="@{articleDetailsViewModel.article.publishedDate}"
                     android:textAppearance="?attr/textAppearanceCaption"
+                    app:layout_constraintTop_toBottomOf="@id/articleSummary"
                     tools:text="Hace 6 horas" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 

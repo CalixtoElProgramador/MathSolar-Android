@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import coil.load
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.listocalixto.android.mathsolar.R
@@ -73,6 +73,7 @@ fun View.isBottomNavExpanded(isOpenBottomNav: Boolean, currentFragment: Int) {
 }
 
 private fun FloatingActionButton.hideWithAnimatorListenerAdapter() {
+    hide()
     animate().setListener(object : AnimatorListenerAdapter() {
         var isCanceled = false
         override fun onAnimationEnd(animation: Animator?) {
@@ -84,7 +85,6 @@ private fun FloatingActionButton.hideWithAnimatorListenerAdapter() {
             isCanceled = true
         }
     })
-    hide()
 }
 
 private fun BottomAppBar.hideWithAnimatorListenerAdapter() {
@@ -109,7 +109,9 @@ fun FrameLayout.backgroundColor(color: Int?) {
     }
 }
 
-@BindingAdapter("app:userData")
+@BindingAdapter(
+        "userData"
+)
 fun View.setUserData(user: User?) {
     user?.let {
         val userName = "${it.name} ${it.lastname}"
@@ -121,11 +123,11 @@ fun View.setUserData(user: User?) {
                 text = it.email
             }
             this is ImageView -> {
-                load(it.profilePictureUrl) {
-                    crossfade(600)
-                    error(R.drawable.ic_error)
-                    placeholder(R.drawable.ic_error_placeholder)
-                }
+                Glide.with(context)
+                    .load(it.profilePictureUrl)
+                    .placeholder(R.drawable.ic_error_placeholder)
+                    .error(R.drawable.ic_error_placeholder)
+                    .into(this)
             }
             else -> {
             }
