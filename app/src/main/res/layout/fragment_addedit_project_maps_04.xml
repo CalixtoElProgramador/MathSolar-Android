@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:background="?attr/actionBarItemBackground"
             android:contentDescription="@string/cd_image_button_back"
-            android:onClick="@{() -> addEditProjectViewModel.onBack()}"
+            android:onClick="@{() -> addEditProjectViewModel.onBackMap()}"
             android:padding="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,6 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/save"
+            android:onClick="@{() -> addEditProjectViewModel.onBack()}"
+            android:enabled="@{addEditProjectViewModel.isPoiSelected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

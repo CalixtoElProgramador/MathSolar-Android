@@ -23,10 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
@@ -82,6 +79,7 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         }
         setupSnackbar()
 
@@ -156,7 +154,9 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
             })
 
             isLocationEnable.observe(viewLifecycleOwner, {
-                if (it) { enableLocation() }
+                if (it) {
+                    enableLocation()
+                }
             })
 
         }
@@ -223,6 +223,8 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
                 latLng.latitude,
                 latLng.longitude
             )
+            val poi = PointOfInterest(latLng, snippet, snippet)
+            viewModel.savePOI(poi)
             map.addMarker(
                 MarkerOptions()
                     .position(latLng)
@@ -235,6 +237,8 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
 
     private fun setPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
+            map.clear()
+            viewModel.savePOI(poi)
             val poiMarker = map.addMarker(
                 MarkerOptions()
                     .position(poi.latLng)
@@ -244,50 +248,31 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
         }
     }
 
-    /*private fun setOnMapTypeListener(googleMap: GoogleMap) {
-        binding.toolbarMap.setOnMenuItemClickListener {
-            when (it.itemId) {
-                // Change the map type based on the user's selection.
-                R.id.normal_map -> {
-                    googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                    true
-                }
-                R.id.hybrid_map -> {
-                    googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
-                    true
-                }
-                R.id.satellite_map -> {
-                    googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                    true
-                }
-                R.id.terrain_map -> {
-                    googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
-                    true
-                }
-                else -> super.onOptionsItemSelected(it)
-            }
-        }
-    }*/
-
     @SuppressLint("MissingPermission")
     private fun enableLocation() {
         if (isLocationGranted()) {
             googleMap.run {
                 isMyLocationEnabled = true
                 uiSettings.isMyLocationButtonEnabled = true
-                fusedLocationClient.lastLocation.addOnSuccessListener { myLocation: Location? ->
-                    myLocation?.let {
-                        val lat = it.latitude
-                        val lng = it.longitude
-                        val position = LatLng(lat, lng)
-                        val zoom = 15.0f
-                        addMarker(
-                            MarkerOptions().position(position)
-                                .title(getString(R.string.you_are_here))
-                        )
-                        moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
-                    } ?: run {
-                        viewModel.showSnackbarMessage(R.string.location_disable)
+                viewModel.poiSelected.value?.let {
+                    val zoom = 15.0f
+                    addMarker(MarkerOptions().position(it.latLng).title(it.name))
+                    moveCamera(CameraUpdateFactory.newLatLngZoom(it.latLng, zoom))
+                } ?: run {
+                    fusedLocationClient.lastLocation.addOnSuccessListener { myLocation: Location? ->
+                        myLocation?.let {
+                            val lat = it.latitude
+                            val lng = it.longitude
+                            val position = LatLng(lat, lng)
+                            val zoom = 15.0f
+                            val name = resources.getString(R.string.you_are_here)
+                            addMarker(MarkerOptions().position(position).title(name))
+                            val poi = PointOfInterest(position, name, name)
+                            viewModel.savePOI(poi)
+                            moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
+                        } ?: run {
+                            viewModel.showSnackbarMessage(R.string.location_disable)
+                        }
                     }
                 }
             }

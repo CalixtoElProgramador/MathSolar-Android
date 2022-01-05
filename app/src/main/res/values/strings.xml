@@ -197,7 +197,7 @@
     <string name="my_location_dialog_map_positive_option">Yes, please</string>
     <string name="help_dialog_map_message">To store the location of your project, locate the place where you would like to install your solar panels and hold down to add the marker. Once added, press the \"Save\" button.</string>
     <string name="help_dialog_map_title">Help.</string>
-    <string name="help_dialog_map_positive_option">Ok, thank you</string>
+    <string name="help_dialog_map_positive_option">OK, thank you</string>
     <string name="you_welcome">You welcome c:</string>
 
 </resources>

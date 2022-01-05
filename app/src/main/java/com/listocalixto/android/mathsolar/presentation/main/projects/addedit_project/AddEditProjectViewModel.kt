@@ -2,6 +2,7 @@ package com.listocalixto.android.mathsolar.presentation.main.projects.addedit_pr
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
+import com.google.android.gms.maps.model.PointOfInterest
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
 import com.listocalixto.android.mathsolar.domain.DataStoreRepository
@@ -68,6 +69,9 @@ class AddEditProjectViewModel @Inject constructor(
     private val _myLocationEvent = MutableLiveData<Event<Unit>>()
     val myLocationEvent: LiveData<Event<Unit>> = _myLocationEvent
 
+    private val _poiSelected = MutableLiveData<PointOfInterest?>(null)
+    val poiSelected: LiveData<PointOfInterest?> = _poiSelected
+
     val locationName = MutableLiveData<String>()
 
     val showCancelButton: LiveData<Boolean> = Transformations.map(currentFragment) {
@@ -88,6 +92,10 @@ class AddEditProjectViewModel @Inject constructor(
             }
             else -> true
         }
+    }
+
+    val isPoiSelected: LiveData<Boolean> = Transformations.map(_poiSelected) {
+        it != null
     }
 
     val showBackButton: LiveData<Boolean> = Transformations.map(currentFragment) {
@@ -118,6 +126,9 @@ class AddEditProjectViewModel @Inject constructor(
             }
             R.id.addEditProjectFragment03 -> {
                 false
+            }
+            R.id.addEditProjectFragment04 -> {
+                isPoiSelected.value == false
             }
             else -> {
                 true
@@ -220,6 +231,15 @@ class AddEditProjectViewModel @Inject constructor(
 
     fun onGetMyLocation() {
         _myLocationEvent.value = Event(Unit)
+    }
+
+    fun savePOI(poi: PointOfInterest) {
+        _poiSelected.value = poi
+    }
+
+    fun onBackMap() {
+        _backEvent.value = Event(Unit)
+        _poiSelected.value = null
     }
 
     fun saveIsLocationPermissionEnabled(response: Boolean) =
