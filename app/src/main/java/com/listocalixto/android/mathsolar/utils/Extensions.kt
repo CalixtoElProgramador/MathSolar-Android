@@ -254,11 +254,15 @@ fun RecyclerView.hideOrShowBottomAppBarOnRecyclerScrolled(bottomAppBar: BottomAp
         }
 
         private fun notifyViewModel(position: Int) {
-            viewModel?.let {
-                if (position == 0) {
-                    it.setExpandedAppBarState(true)
-                } else {
-                    it.setExpandedAppBarState(false)
+            viewModel?.let { vm ->
+                vm.expandedAppBarState.value?.let {
+                    if (position == 0) {
+                        if (!it) {
+                            vm.setExpandedAppBarState(true)
+                        }
+                    } else {
+                        vm.setExpandedAppBarState(false)
+                    }
                 }
             }
         }

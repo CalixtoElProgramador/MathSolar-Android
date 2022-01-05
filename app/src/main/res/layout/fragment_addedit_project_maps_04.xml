@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="addEditProjectViewModel"
             type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
@@ -81,6 +82,7 @@
             android:contentDescription="@string/cd_image_button_my_location"
             android:onClick="@{() -> addEditProjectViewModel.onGetMyLocation()}"
             android:padding="@dimen/_12sdp"
+            app:animateVisibility="@{!addEditProjectViewModel.isLocationEnable}"
             app:layout_constraintBottom_toBottomOf="@id/btn_saveLocation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_saveLocation"

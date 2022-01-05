@@ -13,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
@@ -27,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.listocalixto.android.mathsolar.R
@@ -47,7 +47,8 @@ class AddEditProjectMapsFragment04 : Fragment() {
         //setOnMapTypeListener(googleMap)
         setMapLongClick(googleMap)
         setPoiClick(googleMap)
-        enableLocation()
+        setupObservers()
+        //enableLocation()
     }
 
     private lateinit var googleMap: GoogleMap
@@ -77,14 +78,55 @@ class AddEditProjectMapsFragment04 : Fragment() {
             addEditProjectViewModel = viewModel
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
-
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         }
-
         setupSnackbar()
-        setupObservers()
 
+    }
+
+    private fun inflateFirstDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.first_dialog_map_title))
+            .setMessage(resources.getString(R.string.first_dialog_map_message))
+            .setIcon(R.drawable.ic_flag)
+            .setNegativeButton(resources.getString(R.string.first_dialog_map_negative_option)) { _, _ ->
+                viewModel.saveFirstDialogMapWasSeen(true)
+            }
+            .setPositiveButton(resources.getString(R.string.first_dialog_map_positive_option)) { _, _ ->
+                enableLocation()
+                viewModel.saveFirstDialogMapWasSeen(true)
+            }
+            .setOnCancelListener {
+                it.run {
+                    viewModel.saveFirstDialogMapWasSeen(false)
+                }
+            }
+            .show()
+    }
+
+    private fun inflateMyLocationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.my_location_dialog_map_title))
+            .setMessage(resources.getString(R.string.my_location_dialog_map_message))
+            .setIcon(R.drawable.ic_my_location)
+            .setNegativeButton(resources.getString(R.string.my_location_dialog_map_negative_option)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(resources.getString(R.string.my_location_dialog_map_positive_option)) { _, _ ->
+                enableLocation()
+            }
+            .show()
+    }
+
+    private fun inflateHelpDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.help_dialog_map_title))
+            .setMessage(resources.getString(R.string.help_dialog_map_message))
+            .setIcon(R.drawable.ic_help)
+            .setPositiveButton(resources.getString(R.string.help_dialog_map_positive_option)) { _, _ ->
+                viewModel.showSnackbarMessage(R.string.you_welcome)
+            }
+            .show()
     }
 
     private fun setupObservers() {
@@ -98,15 +140,31 @@ class AddEditProjectMapsFragment04 : Fragment() {
                 openEnableMyLocationDialog()
             })
 
+            wasSeenFirstDialogMap.observe(viewLifecycleOwner, {
+                Log.d(TAG, "wasSeen: $it")
+                if (!it) {
+                    inflateFirstDialog()
+                }
+            })
+
+            isLocationEnable.observe(viewLifecycleOwner, {
+                if (it) {
+                    Log.d(TAG, "Location is Enable")
+                    enableLocation()
+                }  else {
+                    Log.d(TAG, "Location is not Enable")
+                }
+            })
+
         }
     }
 
     private fun openInstructionsDialog() {
-        //NO-OP
+        inflateHelpDialog()
     }
 
     private fun openEnableMyLocationDialog() {
-        //NO-OP
+        inflateMyLocationDialog()
     }
 
     private fun applyEnterMotionTransition() {
@@ -253,8 +311,9 @@ class AddEditProjectMapsFragment04 : Fragment() {
     private val requestMultiplePermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
             if (map.filterValues { it.not() }.isEmpty()) {
-                enableLocation()
+                viewModel.saveIsLocationPermissionEnabled(true)
             } else {
+                viewModel.saveIsLocationPermissionEnabled(false)
                 viewModel.showSnackbarMessage(R.string.permission_denied)
             }
         }

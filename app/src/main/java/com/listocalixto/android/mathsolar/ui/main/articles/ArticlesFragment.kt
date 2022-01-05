@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.bindings.main.isBottomNavExpanded
 import com.listocalixto.android.mathsolar.databinding.FragmentArticlesBinding
 import com.listocalixto.android.mathsolar.presentation.main.articles.ArticlesViewModel
 import com.listocalixto.android.mathsolar.ui.main.articles.adapter.HomeAdapter

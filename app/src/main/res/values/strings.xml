@@ -187,5 +187,17 @@
     <string name="cd_image_button_bookmark_item">Bookmark this article.</string>
     <string name="cd_article_item_image_button_more">More options.</string>
     <string name="cd_article_image">Article image.</string>
+    <string name="first_dialog_map_title">Instructions.</string>
+    <string name="first_dialog_map_message">Locate the point where you would like to install your solar panels and hold down to add the marker. Then, press the \"Save\" button to store the location. If you wish, you can enable your location now or later, however, it is not necessary.</string>
+    <string name="first_dialog_map_negative_option">Do not enable localization, thank  you.</string>
+    <string name="first_dialog_map_positive_option">Please enable my location.</string>
+    <string name="my_location_dialog_map_title">Get my location.</string>
+    <string name="my_location_dialog_map_message">To locate yourself on the map, it is necessary to enable permission. Do you want to enable it?</string>
+    <string name="my_location_dialog_map_negative_option">No, thank you</string>
+    <string name="my_location_dialog_map_positive_option">Yes, please</string>
+    <string name="help_dialog_map_message">To store the location of your project, locate the place where you would like to install your solar panels and hold down to add the marker. Once added, press the \"Save\" button.</string>
+    <string name="help_dialog_map_title">Help.</string>
+    <string name="help_dialog_map_positive_option">Ok, thank you</string>
+    <string name="you_welcome">You welcome c:</string>
 
 </resources>

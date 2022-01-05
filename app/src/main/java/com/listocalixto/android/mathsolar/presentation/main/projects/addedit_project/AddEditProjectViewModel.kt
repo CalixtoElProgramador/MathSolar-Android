@@ -3,14 +3,20 @@ package com.listocalixto.android.mathsolar.presentation.main.projects.addedit_pr
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import com.listocalixto.android.mathsolar.R
+import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
+import com.listocalixto.android.mathsolar.domain.DataStoreRepository
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddEditProjectViewModel @Inject constructor(
-    private val repo: PVProjectRepo
+    private val repo: PVProjectRepo,
+    private val dataStoreRepository: DataStoreRepository,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val listPayment = mutableListOf<Double?>(null)
@@ -67,6 +73,12 @@ class AddEditProjectViewModel @Inject constructor(
     val showCancelButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         it != R.id.addEditProjectMapsFragment04
     }
+
+    val wasSeenFirstDialogMap: LiveData<Boolean> =
+        dataStoreRepository.readFirstDialogMapWasSeen.asLiveData()
+
+    val isLocationEnable: LiveData<Boolean> =
+        dataStoreRepository.readIsLocationPermissionEnabled.asLiveData()
 
     val showNextButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         when (it) {
@@ -216,6 +228,22 @@ class AddEditProjectViewModel @Inject constructor(
     fun onGetMyLocation() {
         _myLocationEvent.value = Event(Unit)
     }
+
+    fun saveFirstDialogMapWasSeen(wasSeen: Boolean) =
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
+            if (!wasSeen) {
+                dataStoreRepository.saveFirstDialogMapWasSeen(true)
+                dataStoreRepository.saveFirstDialogMapWasSeen(false)
+            } else {
+                dataStoreRepository.saveFirstDialogMapWasSeen(wasSeen)
+            }
+
+        }
+
+    fun saveIsLocationPermissionEnabled(response: Boolean) =
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
+            dataStoreRepository.saveIsLocationPermissionEnabled(response)
+        }
 
     companion object {
         private const val TAG = "AddEditProjectViewModel"
