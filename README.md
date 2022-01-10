@@ -161,6 +161,12 @@ Subsequently, in the item details, there is a green drawn envelope. The reason i
 
 Finally, there is the fragment of the average consumption. Like the details in the article, this whole section is inside a NestedScroll containing a CardView. Fortunately, the TextInputLayouts are pink.  
 
+Here are some real examples captured in known applications
+
+| Gmail | Samsung Email | Galaxy Store |
+|:-:|:-:|:-:|
+| ![Fist](resources/images/11.overdraw.04.jpg?raw=true) | ![2](resources/images/12.overdraw.05.jpg?raw=true) | ![3](resources/images/13.overdraw.06.jpg?raw=true) |
+
 ## Setup
 ![](https://img.shields.io/static/v1?style=plastic&label=Kotlin&labelColor=212121&message=1.5&color=9719ff) ![](https://img.shields.io/static/v1?style=plastic&label=MinSDKVersion&labelColor=212121&message=8.0&color=#a4c639) ![](https://img.shields.io/static/v1?style=plastic&label=AndroidStudio&labelColor=212121&message=4.2&color=green)
 
