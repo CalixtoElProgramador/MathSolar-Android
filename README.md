@@ -87,13 +87,20 @@ https://user-images.githubusercontent.com/65273835/148716870-e00af611-e769-472f-
 
 
 ## Material Theming
-DailyCosmos uses Material Theming to customize the app’s color, typography and shape.
+MathSolar uses Material Theming to customize the app’s color, typography, shape and motion.
 
 ### Color
+Color is a very important issue. I based it on the colors of the brand, that is to say; the color palette of the logo. For the light theme, I was looking for something bright, that would be able to portray the brightness of the sun. Yellow was the perfect color, especially one that was close to amber. The blue refers to two things: the beautiful sky during the day and the characteristic color of polycrystalline solar panels. In the end I had it pretty clear, so, based on that, I started experimenting with what colors would fit the application well. 
 
-![](resources/images/08.color.theme.light.articles.png?raw=true)
+![](resources/images/08.color.theme.light.articles.jpg?raw=true)
+
+On the other hand, for the dark theme, I was looking for something more subdued and peaceful, more appropriate for the night. It was here that I experimented with shades of blue for different purposes. As for yellow, I used it to emphasize some details. 
+
+![](resources/images/08.color.theme.dark.articles.jpg?raw=true)
 
 ### Tipography
+
+![](resources/images/09.typography.theme.jpg?raw=true)
 
 ### Shape
 
