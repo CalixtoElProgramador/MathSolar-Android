@@ -11,6 +11,7 @@
 * [Architecture](#architecture)
 * [Screenshots](#screenshots)
 * [Material Theming](#material-theming)
+* [Performance](#performance)
 * [Setup](#setup)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
@@ -98,11 +99,19 @@ On the other hand, for the dark theme, I was looking for something more subdued 
 
 ![](resources/images/08.color.theme.dark.articles.jpg?raw=true)
 
+MathSolar’s color palette is defined in [color.xml][color.xml] and applied globally via the app’s [default][theme.default] and [dark][theme.dark] themes.
+
 ### Tipography
 
 ![](resources/images/09.typography.theme.jpg?raw=true)
 
+MathSolar uses [Ubuntu][ubuntu.link] and [Barlow][barlow.link] as its typeface. All items in the type scale provide the typographic variety necessary for MathSolar's content. See [type.xml][type.xml] which defines `TextAppearances` which are then [set in the theme][theme.default] and referred to using `?attr/textAppearance[...]` throughout.
+
 ### Shape
+
+![](resources/images/10.shape.theme.jpg?raw=true)
+
+MathSolar defines small, medium, and large shape categories for different sized components.
 
 ### Motion
 #### Container transform
@@ -127,11 +136,55 @@ The fade through pattern is used for transitions between UI elements that do not
 
 https://user-images.githubusercontent.com/65273835/148717881-6f9d67b5-b667-46d7-98f7-efd78a343d2a.mp4
 
+## Performance
+Performance is a very important issue to improve the user experience for everyone, that is; those who have in their hands a high-end and low-end mobile. Therefore, lately I have been very interested in improving the performance of my application and be aware of the different indicators that can affect the performance. For now, overdrawing is something I'm keeping an eye on to avoid and, also, from time to time I analyze the CPU memory and how it affects the battery.
+
+### CPU Memory
 
 
 
+### Overdrawing
+Android colors UI elements to identify the level of overlap as follows:
+-  True color: No overlap
+- 🔵 Blue: Overlapped 1 time
+- 🟢 Green: Overlapped 2 times
+- 🎀 Pink: Overlapped 3 times
+- 🔴 Red: Overlapped 4 or more times
+
+| Articles | Article Detail | Average consumption |
+|:-:|:-:|:-:|
+| ![Fist](resources/images/04.overdraw_00.jpg?raw=true) | ![2](resources/images/06.overdraw_02.jpg?raw=true) | ![3](resources/images/07.overdraw_03.jpg?raw=true) |
+
+As we can appreciate in the list of items, the envelope drawn is minimal, being in most of the items a blue color. This is a good practice because the cards as the activity lacks unnecessary backgrounds that may affect the performance. 
+
+Subsequently, in the item details, there is a green drawn envelope. The reason is because the content is inside a NestedScroll containing a CardView. The NestedScroll is necessary for the user to be able to visualize all the content of the news item. The CardView is for mere taste, since it gives the appearance as if it were a layer above the background and makes it look better. However, the image is red. The reason is because the image is inside a CardView to round the edges. I tried to use the ShapeableImageView view but every time I went back to the article fragment, I saw its resulting edges in black color. It did not keep the round shape. And, in fact, the CardView doesn't either, but at least they don't look black. I also tried defining a round-edged drawable for the image, but that didn't work either. Anyway, I will continue to investigate how to solve this problem. Maybe with Clipping. 
+
+Finally, there is the fragment of the average consumption. Like the details in the article, this whole section is inside a NestedScroll containing a CardView. Fortunately, the TextInputLayouts are pink.  
+
+## Setup
+![](https://img.shields.io/static/v1?style=plastic&label=Kotlin&labelColor=212121&message=1.5&color=9719ff) ![](https://img.shields.io/static/v1?style=plastic&label=MinSDKVersion&labelColor=212121&message=8.0&color=#a4c639) ![](https://img.shields.io/static/v1?style=plastic&label=AndroidStudio&labelColor=212121&message=4.2&color=green)
+
+* For security reasons you must add your own Firebase configuration file `google-services.json` with Auth, Storage, FireStore, Crashlytics and Analytics active and the Google Maps API access key.
+* It is sufficient to open and run the project from Android Studio.
 
 
+## Project Status
+Project is: _in progress_
+
+The project is still in progress. I have an estimate to finish it before May because it must be this way for sure. As soon as I finish it, I will upload it to the Play Store.
+
+## Room for Improvement
+
+## Acknowledgements
+
+## Contact
+
+[color.xml]: https://github.com/CalixtoElProgramador/MathSolar-Android/blob/master/app/src/main/res/values/color.xml
+[ubuntu.link]: https://fonts.google.com/specimen/Ubuntu?query=Ubuntu
+[barlow.link]: https://fonts.google.com/specimen/Barlow?query=Barlow
+[theme.default]: https://github.com/CalixtoElProgramador/MathSolar-Android/blob/master/app/src/main/res/values/themes.xml
+[theme.dark]: https://github.com/CalixtoElProgramador/MathSolar-Android/blob/master/app/src/main/res/values-night/themes.xml
+[type.xml]: https://github.com/CalixtoElProgramador/MathSolar-Android/blob/master/app/src/main/res/values/type.xml
 
 
 
