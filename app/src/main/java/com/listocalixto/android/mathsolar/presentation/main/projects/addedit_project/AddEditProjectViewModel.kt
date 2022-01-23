@@ -1,5 +1,6 @@
 package com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project
 
+import android.util.Log
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
@@ -7,17 +8,22 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.PointOfInterest
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
+import com.listocalixto.android.mathsolar.core.Resource
+import com.listocalixto.android.mathsolar.data.model.nrel.solar_resource.InputsSolarResource
 import com.listocalixto.android.mathsolar.domain.DataStoreRepository
+import com.listocalixto.android.mathsolar.domain.nrel.solar_resource.SolarResourceRepo
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class AddEditProjectViewModel @Inject constructor(
     private val repo: PVProjectRepo,
+    private val repoSolarResource: SolarResourceRepo,
     private val dataStoreRepository: DataStoreRepository,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -144,6 +150,22 @@ class AddEditProjectViewModel @Inject constructor(
             else -> {
                 true
             }
+        }
+    }
+
+    init {
+        viewModelScope.launch(viewModelScope.coroutineContext + mainDispatcher) {
+            val inputs = InputsSolarResource(latitude = 21.0, longitude = -89.0)
+            val resource = repoSolarResource.getOutputs(inputs)
+            if (resource is Resource.Success) {
+                Log.d(TAG, "Outputs: ${resource.data.avgGhi}")
+            }
+            if (resource is Resource.Error) {
+                Log.d(TAG, "Error message: ${resource.errorMessage.message}")
+                Log.d(TAG, "Error exception: ${resource.errorMessage.exception}")
+                Log.d(TAG, "Error stringRes: ${resource.errorMessage.stringRes.toString()}")
+            }
+
         }
     }
 

@@ -28,5 +28,13 @@ object CoroutinesQualifiers {
     @Qualifier
     annotation class LocalDataSourceArticle
 
+    @Retention(AnnotationRetention.RUNTIME)
+    @Qualifier
+    annotation class RetrofitNREL
+
+    @Retention(AnnotationRetention.RUNTIME)
+    @Qualifier
+    annotation class RetrofiFreeNews
+
 }
 

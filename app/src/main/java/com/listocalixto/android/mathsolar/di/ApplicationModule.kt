@@ -6,11 +6,15 @@ import androidx.room.Room
 import com.listocalixto.android.mathsolar.BaseApplication
 import com.listocalixto.android.mathsolar.app.Constants.APP_DATABASE_NAME
 import com.listocalixto.android.mathsolar.app.Constants.FREE_NEWS_BASE_URL
+import com.listocalixto.android.mathsolar.app.Constants.SOLAR_RESOURCE_BASE_URL
+import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.RetrofiFreeNews
+import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.RetrofitNREL
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.IoDispatcher
 import com.listocalixto.android.mathsolar.core.NetworkConnection
 import com.listocalixto.android.mathsolar.data.source.ApplicationDatabase
 import com.listocalixto.android.mathsolar.data.source.article.remote.ArticleWebService
+import com.listocalixto.android.mathsolar.data.source.nrel.solar_resource.remote.SolarResourceWebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,6 +80,7 @@ object ApplicationModule {
 
     @Singleton
     @Provides
+    @RetrofiFreeNews
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
@@ -89,8 +94,28 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun provideApiServices(retrofit: Retrofit): ArticleWebService {
+    @RetrofitNREL
+    fun provideRetrofitNRELInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(SOLAR_RESOURCE_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiServices(@RetrofiFreeNews retrofit: Retrofit): ArticleWebService {
         return retrofit.create(ArticleWebService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSolarResourceWebService(@RetrofitNREL retrofit: Retrofit): SolarResourceWebService {
+        return retrofit.create(SolarResourceWebService::class.java)
     }
 
 }

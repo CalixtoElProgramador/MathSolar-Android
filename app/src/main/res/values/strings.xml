@@ -114,6 +114,7 @@
     <string name="article_marked_bookmark">Article was saved in your personal list.</string>
     <string name="article_deleted_bookmark">Article was deleted from your personal list.</string>
     <string name="err_article_api_unknow_host">There was an error requesting the information from the news server. Sorry for the inconvenience</string>
+    <string name="err_nrel_api_unknow_host">There was an error requesting the information from the NREL server. Sorry for the inconvenience</string>
     <string name="label_all_articles">Articles</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="share">Share</string>
@@ -199,5 +200,6 @@
     <string name="help_dialog_map_title">Help.</string>
     <string name="help_dialog_map_positive_option">OK, thank you</string>
     <string name="you_welcome">You welcome c:</string>
+    <string name="err_solar_resources_not_found">Solar resources not founded</string>
 
 </resources>

@@ -12,10 +12,14 @@ import com.listocalixto.android.mathsolar.data.source.article.local.ArticleLocal
 import com.listocalixto.android.mathsolar.data.source.article.remote.ArticleRemoteDataSource
 import com.listocalixto.android.mathsolar.data.source.auth.AuthDataSource
 import com.listocalixto.android.mathsolar.data.source.auth.remote.AuthRemoteDataSource
+import com.listocalixto.android.mathsolar.data.source.nrel.solar_resource.SolarResourceDataSource
+import com.listocalixto.android.mathsolar.data.source.nrel.solar_resource.remote.SolarResourceRemoteDataSource
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepo
 import com.listocalixto.android.mathsolar.domain.article.ArticleRepoImpl
 import com.listocalixto.android.mathsolar.domain.auth.AuthRepo
 import com.listocalixto.android.mathsolar.domain.auth.AuthRepoImpl
+import com.listocalixto.android.mathsolar.domain.nrel.solar_resource.SolarResourceRepo
+import com.listocalixto.android.mathsolar.domain.nrel.solar_resource.SolarResourceRepoImpl
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepo
 import com.listocalixto.android.mathsolar.domain.pv_project.PVProjectRepoImpl
 import dagger.Binds
@@ -54,5 +58,11 @@ abstract class ActivityModule {
 
     @Binds
     abstract fun bindArticleRepo(repoImpl: ArticleRepoImpl): ArticleRepo
+
+    @Binds
+    abstract fun bindSolarResourceRemoteDataSource(dataSourceImpl: SolarResourceRemoteDataSource): SolarResourceDataSource
+
+    @Binds
+    abstract fun bindSolarResourceRepo(repoImpl: SolarResourceRepoImpl): SolarResourceRepo
 
 }

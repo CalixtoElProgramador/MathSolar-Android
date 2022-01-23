@@ -37,6 +37,12 @@ object Constants {
     const val FREE_NEWS_HOST = "free-news.p.rapidapi.com"
     const val FREE_NEWS_API_KEY = "b4f91427f4msh819aba0301f1d2bp1a9767jsn64f6d80f6895"
 
+    // Constants Solar Resource Web Service
+    const val SOLAR_RESOURCE_BASE_URL = "https://developer.nrel.gov/api/solar/solar_resource/"
+    const val SOLAR_RESOURCE_QUERY_API_KEY = "api_key"
+    const val SOLAR_RESOURCE_QUERY_LAT = "lat"
+    const val SOLAR_RESOURCE_QUERY_LON = "lon"
+
     // PREFERENCES KEYS
     const val PREFERENCES_NAME = "mathsolar_preferences"
     const val PREFERENCES_LOCATION_ENABLED = "preferences_location_enabled"
