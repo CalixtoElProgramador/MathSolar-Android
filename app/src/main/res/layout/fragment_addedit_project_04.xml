@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.content.Context"/>
+
         <variable
             name="addEditProjectViewModel"
             type="com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project.AddEditProjectViewModel" />
@@ -84,6 +86,7 @@
                     android:id="@+id/input_mapLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@={addEditProjectViewModel.namePoiSaved}"
                     android:clickable="true"
                     android:cursorVisible="false"
                     android:focusable="false"

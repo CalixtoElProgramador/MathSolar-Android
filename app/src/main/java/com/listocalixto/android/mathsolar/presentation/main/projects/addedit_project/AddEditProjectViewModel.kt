@@ -1,7 +1,9 @@
 package com.listocalixto.android.mathsolar.presentation.main.projects.addedit_project
 
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.*
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.PointOfInterest
 import com.listocalixto.android.mathsolar.R
 import com.listocalixto.android.mathsolar.app.CoroutinesQualifiers.MainDispatcher
@@ -72,7 +74,16 @@ class AddEditProjectViewModel @Inject constructor(
     private val _poiSelected = MutableLiveData<PointOfInterest?>(null)
     val poiSelected: LiveData<PointOfInterest?> = _poiSelected
 
+    private val _mapType = MutableLiveData<@IntegerRes Int>(R.id.normal_map)
+    val mapType: LiveData<Int> = _mapType
+
+    var poiSaved: PointOfInterest? = null
+
+    var mapCameraPosition: CameraPosition? = null
+
     val locationName = MutableLiveData<String>()
+
+    val namePoiSaved = MutableLiveData<String>()
 
     val showCancelButton: LiveData<Boolean> = Transformations.map(currentFragment) {
         it != R.id.addEditProjectMapsFragment04
@@ -94,7 +105,7 @@ class AddEditProjectViewModel @Inject constructor(
         }
     }
 
-    val isPoiSelected: LiveData<Boolean> = Transformations.map(_poiSelected) {
+    val enableSavePoiBtn: LiveData<Boolean> = Transformations.map(_poiSelected) {
         it != null
     }
 
@@ -128,7 +139,7 @@ class AddEditProjectViewModel @Inject constructor(
                 false
             }
             R.id.addEditProjectFragment04 -> {
-                isPoiSelected.value == false
+                poiSaved == null || locationName.value.isNullOrEmpty()
             }
             else -> {
                 true
@@ -233,13 +244,22 @@ class AddEditProjectViewModel @Inject constructor(
         _myLocationEvent.value = Event(Unit)
     }
 
-    fun savePOI(poi: PointOfInterest) {
+    fun savePoiSelected(poi: PointOfInterest) {
         _poiSelected.value = poi
+    }
+
+    fun setNullPoiSelected() {
+        _poiSelected.value = null
     }
 
     fun onBackMap() {
         _backEvent.value = Event(Unit)
-        _poiSelected.value = null
+    }
+
+    fun onSavePoi() {
+        poiSaved = _poiSelected.value
+        namePoiSaved.value = poiSaved?.name
+        _backEvent.value = Event(Unit)
     }
 
     fun saveIsLocationPermissionEnabled(response: Boolean) =
@@ -254,6 +274,14 @@ class AddEditProjectViewModel @Inject constructor(
 
     fun onMore() {
         _moreEvent.value = Event(Unit)
+    }
+
+    fun setCameraPosition(cameraPosition: CameraPosition) {
+        mapCameraPosition = cameraPosition
+    }
+
+    fun setMapType(@IntegerRes type: Int) {
+        _mapType.value = type
     }
 
     companion object {

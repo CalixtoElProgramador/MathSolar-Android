@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/save"
-            android:onClick="@{() -> addEditProjectViewModel.onBack()}"
-            android:enabled="@{addEditProjectViewModel.isPoiSelected}"
+            android:onClick="@{() -> addEditProjectViewModel.onSavePoi()}"
+            android:enabled="@{addEditProjectViewModel.enableSavePoiBtn}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
@@ -31,9 +32,11 @@ class AddEditProjectFragment04 : Fragment(R.layout.fragment_addedit_project_04) 
         (view.parent as? ViewGroup)?.doOnPreDraw { startPostponedEnterTransition() }
         binding = FragmentAddeditProject04Binding.bind(view)
         binding.run {
+            viewModel.setNullPoiSelected()
             lifecycleOwner = this@AddEditProjectFragment04.viewLifecycleOwner
             addEditProjectViewModel = viewModel
             activity?.let { parentNavHost = it.findViewById(R.id.nav_host_main) }
+            inputLocationName.addTextChangedListener { viewModel.setCurrentFragment(R.id.addEditProjectFragment04) }
         }
 
         setupNavigation()

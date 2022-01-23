@@ -19,10 +19,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -41,17 +38,18 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
     private val viewModel by activityViewModels<AddEditProjectViewModel>()
     private val callback = OnMapReadyCallback { map ->
         googleMap = map
-        setMapStyle(googleMap)
-        setMapLongClick(googleMap)
-        setPoiClick(googleMap)
-        setupObservers()
-
+        googleMap.run {
+            setMapStyle(this)
+            setMapLongClick(this)
+            setPoiClick(this)
+            setupObservers()
+            setDataFromViewModel(this)
+        }
     }
 
     private lateinit var googleMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var binding: FragmentAddeditProjectMaps04Binding
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +77,6 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         }
         setupSnackbar()
 
@@ -89,25 +86,8 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
         PopupMenu(requireContext(), binding.ImgBtnMore).run {
             menuInflater.inflate(R.menu.map_options, menu)
             setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.normal_map -> {
-                        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                        true
-                    }
-                    R.id.hybrid_map -> {
-                        googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
-                        true
-                    }
-                    R.id.satellite_map -> {
-                        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                        true
-                    }
-                    R.id.terrain_map -> {
-                        googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
-                        true
-                    }
-                    else -> super.onOptionsItemSelected(it)
-                }
+                viewModel.setMapType(it.itemId)
+                super.onOptionsItemSelected(it)
             }
             show()
         }
@@ -140,7 +120,6 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
 
     private fun setupObservers() {
         viewModel.run {
-
             moreEvent.observe(viewLifecycleOwner, EventObserver {
                 showMapTypesPopUpMenu()
             })
@@ -159,6 +138,36 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
                 }
             })
 
+            mapType.observe(viewLifecycleOwner, {
+                when (it) {
+                    R.id.normal_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                    }
+                    R.id.hybrid_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+                    }
+                    R.id.satellite_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                    }
+                    R.id.terrain_map -> {
+                        googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                    }
+                }
+            })
+
+        }
+    }
+
+    private fun setDataFromViewModel(map: GoogleMap) {
+        map.run {
+            viewModel.run {
+                mapCameraPosition?.let { moveCamera(CameraUpdateFactory.newCameraPosition(it)) }
+                poiSelected.value?.let {
+                    addMarker(MarkerOptions().position(it.latLng).title(it.name))
+                } ?: run {
+                    poiSaved?.let { addMarker(MarkerOptions().position(it.latLng).title(it.name)) }
+                }
+            }
         }
     }
 
@@ -224,13 +233,13 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
                 latLng.longitude
             )
             val poi = PointOfInterest(latLng, snippet, snippet)
-            viewModel.savePOI(poi)
+            viewModel.savePoiSelected(poi)
             map.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title(getString(R.string.dropped_pin))
                     .snippet(snippet)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             )
         }
     }
@@ -238,7 +247,7 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
     private fun setPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
             map.clear()
-            viewModel.savePOI(poi)
+            viewModel.savePoiSelected(poi)
             val poiMarker = map.addMarker(
                 MarkerOptions()
                     .position(poi.latLng)
@@ -254,25 +263,19 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
             googleMap.run {
                 isMyLocationEnabled = true
                 uiSettings.isMyLocationButtonEnabled = true
-                viewModel.poiSelected.value?.let {
-                    val zoom = 15.0f
-                    addMarker(MarkerOptions().position(it.latLng).title(it.name))
-                    moveCamera(CameraUpdateFactory.newLatLngZoom(it.latLng, zoom))
-                } ?: run {
-                    fusedLocationClient.lastLocation.addOnSuccessListener { myLocation: Location? ->
-                        myLocation?.let {
-                            val lat = it.latitude
-                            val lng = it.longitude
-                            val position = LatLng(lat, lng)
-                            val zoom = 15.0f
-                            val name = resources.getString(R.string.you_are_here)
-                            addMarker(MarkerOptions().position(position).title(name))
-                            val poi = PointOfInterest(position, name, name)
-                            viewModel.savePOI(poi)
-                            moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
+                fusedLocationClient.lastLocation.addOnSuccessListener { myLocation: Location? ->
+                    myLocation?.let {
+                        val lat = it.latitude
+                        val lng = it.longitude
+                        val position = LatLng(lat, lng)
+                        val zoom = 15.0f
+                        viewModel.mapCameraPosition?.let {
+                            /* Don't move camera to my position */
                         } ?: run {
-                            viewModel.showSnackbarMessage(R.string.location_disable)
+                            moveCamera(CameraUpdateFactory.newLatLngZoom(position, zoom))
                         }
+                    } ?: run {
+                        viewModel.showSnackbarMessage(R.string.location_disable)
                     }
                 }
             }
@@ -315,6 +318,19 @@ class AddEditProjectMapsFragment04 : Fragment(R.layout.fragment_addedit_project_
             Snackbar.LENGTH_LONG,
             binding.btnSaveLocation
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        googleMap.run {
+            val cameraPosition = CameraPosition(
+                cameraPosition.target,
+                cameraPosition.zoom,
+                cameraPosition.tilt,
+                cameraPosition.bearing
+            )
+            viewModel.setCameraPosition(cameraPosition)
+        }
     }
 
     companion object {
